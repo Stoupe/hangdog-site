@@ -6,9 +6,7 @@ const BookingForm: React.FC = () => {
   const auth = firebase.auth();
   const firestore = firebase.firestore();
 
-  const [currentUser, setCurrentUser] = useState<string>(
-    auth.currentUser?.displayName
-  );
+  const [currentUser, setCurrentUser] = useState<firebase.User>();
 
   const [numSerious, setNumSerious] = useState<number>();
   const [numBelayers, setNumBelayers] = useState<number>();
@@ -29,10 +27,24 @@ const BookingForm: React.FC = () => {
     setNumRopes(r);
   }, [numBelayers, numSerious]);
 
+  const logIn = () => {
+    auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => {
+      setCurrentUser(auth.currentUser);
+    });
+  };
+
+  const logOut = () => {
+    auth.signOut().then(() => {
+      setCurrentUser(null);
+    });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <p>Current User: {currentUser || "not logged in"}</p>
+        <button onClick={logIn}>Log In</button>
+        <button onClick={logOut}>Log Out</button>
+        <p>Current User: {currentUser?.displayName || "not logged in"}</p>
         <h1>MAKE BOOKING</h1>
         <form
           action="makeBooking"
