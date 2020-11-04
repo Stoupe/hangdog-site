@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   if (firebase.apps.length === 0) {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+    // firebase.analytics();
   }
 
   return <Component {...pageProps} />;
