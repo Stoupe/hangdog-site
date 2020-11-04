@@ -1,10 +1,12 @@
 import firebase from "firebase";
+import "firebase/auth";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/BookingForm.module.scss";
+import { Button } from "@material-ui/core";
 
 const BookingForm: React.FC = () => {
   const auth = firebase.auth();
-  const firestore = firebase.firestore();
+  // const firestore = firebase.firestore();
 
   const [currentUser, setCurrentUser] = useState<firebase.User>();
 
@@ -42,8 +44,12 @@ const BookingForm: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <button onClick={logIn}>Log In</button>
-        <button onClick={logOut}>Log Out</button>
+        <Button variant="contained" color="primary" onClick={logIn}>
+          Log In
+        </Button>
+        <Button variant="contained" color="secondary" onClick={logOut}>
+          Log Out
+        </Button>
         <p>Current User: {currentUser?.displayName || "not logged in"}</p>
         <h1>MAKE BOOKING</h1>
         <form
