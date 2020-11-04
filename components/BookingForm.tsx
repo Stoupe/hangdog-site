@@ -1,15 +1,23 @@
 import { Button, TextField } from "@material-ui/core";
-import firebase from "firebase";
-import "firebase/auth";
-import React, { useEffect, useState } from "react";
+import firebase from "firebase/app";
+// import "firebase/auth";
+import React, { useEffect, useState, useContext } from "react";
+import { logIn, logOut } from "../functions/authFunctions";
 import styles from "../styles/BookingForm.module.scss";
 import BookingDatePicker from "./BookingDatePicker";
+import { UserContext } from "./UserContext";
 
 const BookingForm: React.FC = () => {
-  const auth = firebase.auth();
+  // const auth = firebase.auth();
   // const firestore = firebase.firestore();
 
-  const [currentUser, setCurrentUser] = useState<firebase.User>();
+  const {
+    user,
+    setUser,
+  }: {
+    user: firebase.User;
+    setUser: React.Dispatch<React.SetStateAction<firebase.User>>;
+  } = useContext(UserContext);
 
   const [numSerious, setNumSerious] = useState<number>();
   const [numBelayers, setNumBelayers] = useState<number>();
@@ -31,28 +39,38 @@ const BookingForm: React.FC = () => {
     setNumRopes(r);
   }, [numBelayers, numSerious]);
 
-  const logIn = () => {
-    auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(() => {
-      setCurrentUser(auth.currentUser);
-    });
-  };
-
-  const logOut = () => {
-    auth.signOut().then(() => {
-      setCurrentUser(null);
-    });
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <Button variant="contained" color="primary" onClick={logIn}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={async () => {
+            const user = await logIn();
+            setUser(user);
+          }}
+        >
           Log In
         </Button>
-        <Button variant="contained" color="secondary" onClick={logOut}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={async () => {
+            const user = await logOut();
+            setUser(user);
+          }}
+        >
           Log Out
         </Button>
-        <p>Current User: {currentUser?.displayName || "not logged in"}</p>
+        {user ? (
+          <>
+            <h2>{user?.displayName}</h2>
+            <p>{user?.email}</p>
+          </>
+        ) : (
+          <p>not logged in</p>
+        )}
+
         <h1>Make Booking</h1>
         <form
           action="makeBooking"

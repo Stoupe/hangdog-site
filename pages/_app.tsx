@@ -1,10 +1,19 @@
 import { AppProps } from "next/app";
+import React, { useState } from "react";
+import { UserContext } from "../components/UserContext";
 import "../styles/globals.css";
 import loadFirebase from "./../components/firebase";
+import firebase from "firebase/app";
 
 const App = ({ Component, pageProps }: AppProps) => {
   loadFirebase();
-  return <Component {...pageProps} />;
+  const [user, setUser] = useState<firebase.User>(null);
+
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      <Component {...pageProps} />
+    </UserContext.Provider>
+  );
 };
 
 export default App;
