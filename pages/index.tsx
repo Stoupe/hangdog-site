@@ -1,8 +1,14 @@
 import React from "react";
-import BookingForm from "../components/BookingForm";
+import Link from "next/link";
 
 const HomePage = () => {
-  return <BookingForm />;
+  return (
+    <>
+      <Link href="dashboard">
+        <a>Dashboard</a>
+      </Link>
+    </>
+  );
 };
 
 export default HomePage;

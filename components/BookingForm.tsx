@@ -1,15 +1,14 @@
 import { Button, TextField } from "@material-ui/core";
 import firebase from "firebase/app";
-// import "firebase/auth";
-import React, { useEffect, useState, useContext } from "react";
+import "firebase/firestore";
+import React, { useContext, useEffect, useState } from "react";
 import { logIn, logOut } from "../functions/authFunctions";
 import styles from "../styles/BookingForm.module.scss";
 import BookingDatePicker from "./BookingDatePicker";
 import { UserContext } from "./UserContext";
 
 const BookingForm: React.FC = () => {
-  // const auth = firebase.auth();
-  // const firestore = firebase.firestore();
+  const firestore = firebase.firestore();
 
   const {
     user,
@@ -19,6 +18,8 @@ const BookingForm: React.FC = () => {
     setUser: React.Dispatch<React.SetStateAction<firebase.User>>;
   } = useContext(UserContext);
 
+  const [bookingName, setBookingName] = useState<string>("");
+  const [bookingNotes, setBookingNotes] = useState<string>("");
   const [numSerious, setNumSerious] = useState<number>();
   const [numBelayers, setNumBelayers] = useState<number>();
   const [numClimbers, setNumClimbers] = useState<number>();
@@ -28,8 +29,41 @@ const BookingForm: React.FC = () => {
 
   const makeBooking = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted form");
-    alert("submitted");
+
+    // TODO: handle bad inputs
+
+    if (!user) {
+      alert("please sign in");
+      return;
+    }
+
+    const booking = {
+      createdAt: Date.now(),
+      createdBy: user?.displayName,
+      bookingName: bookingName,
+      numSerious: numSerious,
+      numBelayers: numBelayers,
+      numClimbers: numClimbers,
+      numRopes: numRopes,
+      totalNumInGym: numSerious + numBelayers + numClimbers,
+      bookingDateTime: Date.now(), //TODO fix
+      bookingNotes: bookingNotes,
+    };
+
+    addBookingToDB(booking);
+    //! addBookingToCal(booking);
+  };
+
+  const addBookingToDB = (booking) => {
+    firestore
+      .collection("smallBookings")
+      .add(booking)
+      .then(() => {
+        alert("added to db");
+      })
+      .catch((e) => {
+        console.error(`Error adding booking to db: ${e}`);
+      });
   };
 
   useEffect(() => {
@@ -41,6 +75,7 @@ const BookingForm: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <h1>Booking</h1>
       <div className={styles.formContainer}>
         <Button
           variant="contained"
@@ -71,12 +106,22 @@ const BookingForm: React.FC = () => {
           <p>not logged in</p>
         )}
 
-        <h1>Make Booking</h1>
         <form
           action="makeBooking"
           onSubmit={(e) => makeBooking(e)}
           className={styles.form}
         >
+          <h4>Name</h4>
+          <TextField
+            variant="filled"
+            type="text"
+            name="bookingName"
+            id="bookingName"
+            value={bookingName}
+            onChange={(e) => {
+              setBookingName(e.target.value);
+            }}
+          />
           <h4>Serious</h4>
           <TextField
             variant="filled"
@@ -109,6 +154,18 @@ const BookingForm: React.FC = () => {
             value={numClimbers}
             onChange={(e) => {
               setNumClimbers(+e.target.value);
+            }}
+          />
+
+          <h4>Notes</h4>
+          <TextField
+            variant="filled"
+            type="text"
+            name="bookingNotes"
+            id="bookingNotes"
+            value={bookingNotes}
+            onChange={(e) => {
+              setBookingNotes(e.target.value);
             }}
           />
 
