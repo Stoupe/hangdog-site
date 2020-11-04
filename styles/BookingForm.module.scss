@@ -1,9 +1,9 @@
 .container {
-  background: #272727;
+  // background: #272727;
   padding: 10px;
   width: 100vw;
   height: 100vh;
-  color: #fff;
+  // color: #fff;
 
   display: flex;
   flex-direction: column;
@@ -17,8 +17,9 @@
   // border-radius: 10px;
 
   border-radius: 44px;
-  background: #212121;
-  box-shadow: 26px 26px 44px #1b1b1b, -26px -26px 44px #272727;
+  // background: #212121;
+  // box-shadow: 26px 26px 44px #1b1b1b, -26px -26px 44px #272727;
+  box-shadow: 0 5px 30px rgba(000, 000, 000, 0.1);
 
   h1,
   h4 {
@@ -36,7 +37,7 @@
     input {
       font-size: large;
       border-radius: 5px;
-      background: #fff;
+      // background: #fff;
       outline: 0;
       border: none;
       padding: 10px;

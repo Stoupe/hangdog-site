@@ -1,8 +1,9 @@
+import { Button, TextField } from "@material-ui/core";
 import firebase from "firebase";
 import "firebase/auth";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/BookingForm.module.scss";
-import { Button } from "@material-ui/core";
+import BookingDatePicker from "./BookingDatePicker";
 
 const BookingForm: React.FC = () => {
   const auth = firebase.auth();
@@ -20,6 +21,7 @@ const BookingForm: React.FC = () => {
   const makeBooking = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("submitted form");
+    alert("submitted");
   };
 
   useEffect(() => {
@@ -51,45 +53,53 @@ const BookingForm: React.FC = () => {
           Log Out
         </Button>
         <p>Current User: {currentUser?.displayName || "not logged in"}</p>
-        <h1>MAKE BOOKING</h1>
+        <h1>Make Booking</h1>
         <form
           action="makeBooking"
           onSubmit={(e) => makeBooking(e)}
           className={styles.form}
         >
           <h4>Serious</h4>
-          <input
+          <TextField
+            variant="filled"
             type="number"
             name="numSerious"
             id="numSeriousInput"
             value={numSerious}
             onChange={(e) => {
-              setNumSerious(e.target.valueAsNumber);
+              setNumSerious(+e.target.value);
             }}
           />
+
           <h4>Belayers</h4>
-          <input
+          <TextField
+            variant="filled"
             type="number"
             name="numBelayers"
             id="numBelayersInput"
             value={numBelayers}
             onChange={(e) => {
-              setNumBelayers(e.target.valueAsNumber);
+              setNumBelayers(+e.target.value);
             }}
           />
           <h4>Climbers</h4>
-          <input
+          <TextField
+            variant="filled"
             type="number"
             name="numClimbers"
             id="numClimbersInput"
             value={numClimbers}
             onChange={(e) => {
-              setNumClimbers(e.target.valueAsNumber);
+              setNumClimbers(+e.target.value);
             }}
           />
+
           <h4>Time</h4>
-          <input type="datetime-local" name="date" id="date" />
-          <button type="submit">Book</button>
+          <BookingDatePicker />
+          {/* <button type="submit">Book</button> */}
+          <Button variant="contained" color="primary" type="submit">
+            Book
+          </Button>
         </form>
 
         <div className="bookingInfo">
