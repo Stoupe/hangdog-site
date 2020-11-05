@@ -2,6 +2,7 @@ import React from "react";
 import BookingForm from "../components/BookingForm";
 
 import DashboardHeader from "../components/DashboardHeader";
+import NewBookingForm from "../components/NewBookingForm";
 import styles from "../styles/Dashboard.module.scss";
 
 const Dashboard: React.FC = () => {
@@ -9,7 +10,7 @@ const Dashboard: React.FC = () => {
     <div className={styles.dashboard}>
       <DashboardHeader />
       <div className={styles.dashboardContainer}>
-        <BookingForm />
+        <NewBookingForm />
         <BookingForm />
       </div>
     </div>
