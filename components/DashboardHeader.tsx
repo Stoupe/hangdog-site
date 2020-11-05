@@ -1,18 +1,28 @@
 import { Button } from "@material-ui/core";
 import { format } from "date-fns";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BookingForm from "./BookingForm";
 import styles from "../styles/DashboardHeader.module.scss";
 
 const DashboardHeader: React.FC = () => {
+  const [currentTime, setCurrentTime] = useState(Date.now());
+  const [currentStaff, setCurrentStaff] = useState("Henry");
+
+  useEffect(() => {
+    const interval = setInterval(() => setCurrentTime(Date.now()), 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <header className={styles.header}>
       <div className={styles.left}>
         <h1>Dashboard</h1>
         <div className={styles.time}>
           {/* https://date-fns.org/v2.16.1/docs/format */}
-          <p>{format(Date.now(), "EEEE do MMM")}</p>
-          <p>{format(Date.now(), "h:mmaaaaa")}m</p>
+          <p>{format(currentTime, "EEEE do MMM")}</p>
+          <p>{format(currentTime, "h:mmaaaaa")}m</p>
         </div>
       </div>
       <div className={styles.right}>
