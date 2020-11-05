@@ -1,10 +1,13 @@
-import { Button } from "@material-ui/core";
+import { Button, PropTypes } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
+import React, { SyntheticEvent, useContext, useEffect, useState } from "react";
 import styles from "../styles/NewBookingForm.module.scss";
+import { BookingTimes, bookingTimes } from "../types/BookingTimes";
 import DaySelector from "./DaySelector";
 import { UserContext } from "./UserContext";
+
+// TODO: store current booking in localstorage to save on refresh
 
 const BookingForm: React.FC = () => {
   const firestore = firebase.firestore();
@@ -19,6 +22,7 @@ const BookingForm: React.FC = () => {
 
   const [bookingName, setBookingName] = useState<string>("");
   const [bookingNotes, setBookingNotes] = useState<string>("");
+  const [bookingTime, setBookingTime] = useState<BookingTimes>();
   const [numSerious, setNumSerious] = useState<number>();
   const [numBelayers, setNumBelayers] = useState<number>();
   const [numClimbers, setNumClimbers] = useState<number>();
@@ -76,13 +80,34 @@ const BookingForm: React.FC = () => {
     <div className={styles.container}>
       <h1>Booking</h1>
       <div className={styles.formContainer}>
-        <div className={styles.row}>
+        <div className={`${styles.row} ${styles.rowOne}`}>
           <DaySelector />
           <Button variant="contained" color="primary">
             Basic
           </Button>
           <Button variant="contained">Complex</Button>
           <Button variant="contained">Birthday</Button>
+        </div>
+        <div className={`${styles.row} ${styles.rowTwo}`}>
+          <div className={styles.bookingTimes}>
+            {bookingTimes.map((e: BookingTimes) => {
+              let col: PropTypes.Color = "default";
+              bookingTime === e ? (col = "primary") : (col = "default");
+              // TODO: Change colours here dependent on booking availability at that time
+              return (
+                <Button
+                  name={e}
+                  color={col}
+                  onClick={() => {
+                    const time = e;
+                    setBookingTime(time);
+                  }}
+                >
+                  {e}
+                </Button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

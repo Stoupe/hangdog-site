@@ -1,20 +1,25 @@
 .container {
-  // background: #272727;
   padding: 10px;
-  // width: 100vw;
-  // height: 100vh;
-  // color: #fff;
-
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
   display: flex;
   flex-direction: column;
 
   h1 {
     margin: 0 0 5px 30px;
-    // margin-bottom: 5px;
+  }
+}
+
+.daySelector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  background: #ffffff;
+  border-radius: 1em;
+  box-shadow: 0 5px 30px rgba(000, 000, 000, 0.2);
+
+  span {
+    margin: 0 15px 0 15px;
+    font-weight: 600;
   }
 }
 
@@ -67,7 +72,13 @@
   .row {
     display: flex;
     flex-direction: row;
-    background: coral;
+    // background: coral;
     padding: 5px;
+  }
+
+  .rowOne {
+  }
+
+  .rowTwo {
   }
 }
