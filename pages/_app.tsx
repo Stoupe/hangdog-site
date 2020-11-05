@@ -1,5 +1,5 @@
 import { AppProps } from "next/app";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserContext } from "../components/UserContext";
 import "../styles/globals.css";
 import loadFirebase from "./../components/firebase";
@@ -8,6 +8,13 @@ import firebase from "firebase/app";
 const App = ({ Component, pageProps }: AppProps) => {
   loadFirebase();
   const [user, setUser] = useState<firebase.User>(null);
+
+  useEffect(() => {
+    const lsUser = localStorage.getItem("user");
+    if (lsUser) {
+      setUser(JSON.parse(lsUser));
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

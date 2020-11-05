@@ -77,26 +77,6 @@ const BookingForm: React.FC = () => {
     <div className={styles.container}>
       <h1>Booking</h1>
       <div className={styles.formContainer}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={async () => {
-            const user = await logIn();
-            setUser(user);
-          }}
-        >
-          Log In
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={async () => {
-            const user = await logOut();
-            setUser(user);
-          }}
-        >
-          Log Out
-        </Button>
         {user ? (
           <>
             <h2>{user?.displayName}</h2>
