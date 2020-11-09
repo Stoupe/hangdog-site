@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import DateFnsAdapter from "@material-ui/pickers/adapter/date-fns"; // choose your lib
 import {
   DatePicker,
@@ -15,21 +15,21 @@ const BookingDatePicker: React.FC = () => {
   return (
     <div className={styles.datePicker}>
       <LocalizationProvider dateAdapter={DateFnsAdapter}>
-        {/* <DatePicker
+        <DatePicker
           renderInput={(props) => <TextField {...props} />}
           value={selectedDate}
           onChange={(date) => handleDateChange(date)}
         />
-        <TimePicker
+        {/* <TimePicker
           renderInput={(props) => <TextField {...props} />}
           value={selectedDate}
           onChange={(date) => handleDateChange(date)}
-        /> */}
+        />
         <DateTimePicker
           renderInput={(props) => <TextField {...props} />}
           value={selectedDate}
           onChange={(date) => handleDateChange(date)}
-        />
+        /> */}
       </LocalizationProvider>
     </div>
   );

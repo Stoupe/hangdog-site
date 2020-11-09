@@ -1,9 +1,10 @@
 import { Button, PropTypes } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import React, { SyntheticEvent, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/NewBookingForm.module.scss";
 import { BookingTimes, bookingTimes } from "../types/BookingTimes";
+import { DateContext } from "./DateContext";
 import DaySelector from "./DaySelector";
 import { UserContext } from "./UserContext";
 
@@ -19,6 +20,8 @@ const BookingForm: React.FC = () => {
     user: firebase.User;
     setUser: React.Dispatch<React.SetStateAction<firebase.User>>;
   } = useContext(UserContext);
+
+  const [day, setDay] = useState();
 
   const [bookingName, setBookingName] = useState<string>("");
   const [bookingNotes, setBookingNotes] = useState<string>("");
@@ -81,7 +84,10 @@ const BookingForm: React.FC = () => {
       <h1>Booking</h1>
       <div className={styles.formContainer}>
         <div className={`${styles.row} ${styles.rowOne}`}>
-          <DaySelector />
+          <DateContext.Provider value={{ day, setDay }}>
+            <DaySelector />
+          </DateContext.Provider>
+
           <Button variant="contained" color="primary">
             Basic
           </Button>
