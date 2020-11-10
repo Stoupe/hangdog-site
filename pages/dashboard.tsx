@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
       <DashboardHeader />
       <div className={styles.dashboardContainer}>
         <NewBookingForm />
-        <BookingForm />
+        {/* <BookingForm /> */}
       </div>
     </div>
   );

@@ -21,7 +21,17 @@ const App = ({ Component, pageProps }: AppProps) => {
   const theme = createMuiTheme({
     palette: {
       type: "light",
+      primary: {
+        main: "#95d2a3",
+        contrastText: "#ffffff",
+      },
+      secondary: {
+        main: "#e35454",
+        contrastText: "#ffffff",
+      },
+      
     },
+    
   });
 
   return (

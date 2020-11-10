@@ -6,6 +6,10 @@
   h1 {
     margin: 0 0 5px 30px;
   }
+
+  Button {
+    border-radius: 1em;
+  }
 }
 
 .daySelector {
@@ -14,13 +18,8 @@
   align-items: center;
   padding: 5px;
   background: #ffffff;
-  border-radius: 1em;
-  box-shadow: 0 5px 30px rgba(000, 000, 000, 0.2);
-
-  span {
-    margin: 0 15px 0 15px;
-    font-weight: 600;
-  }
+  border-radius: 2em;
+  box-shadow: 0 5px 30px rgba(000, 000, 000, 0.1);
 }
 
 .formContainer {
@@ -28,7 +27,7 @@
   padding: 30px;
   // border-radius: 10px;
 
-  border-radius: 40px;
+  border-radius: 2em;
   // background: #212121;
   // box-shadow: 26px 26px 44px #1b1b1b, -26px -26px 44px #272727;
   box-shadow: 0 5px 30px rgba(000, 000, 000, 0.1);
@@ -48,7 +47,7 @@
 
     input {
       font-size: large;
-      border-radius: 5px;
+      border-radius: 1em;
       // background: #fff;
       outline: 0;
       border: none;
@@ -60,7 +59,7 @@
     button {
       margin-top: 10px;
       padding: 10px;
-      border-radius: 5px;
+      border-radius: 1em;
       border: none;
       font-size: large;
       font-weight: bold;
@@ -73,12 +72,52 @@
     display: flex;
     flex-direction: row;
     // background: coral;
-    padding: 5px;
+    // padding: 5px;
+    margin: 20px 0 20px 0;
   }
 
   .rowOne {
+    display: flex;
+    justify-content: space-between;
   }
 
   .rowTwo {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
+    border-radius: 2em;
+    padding: 0.5em;
+  }
+
+  .rowThree {
+    display: flex;
+    justify-content: space-between;
+
+    .detailInput {
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
+      padding: 10px;
+      margin: 10px;
+    }
+
+    .detailRightSide {
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
+      padding: 10px;
+      margin: 10px;
+      background: #eee;
+    }
+  }
+
+  .rowFour {
+    display: flex;
+    justify-content: flex-end;
+
+    Button {
+      font-size: large;
+      padding: 0.5em 2em 0.5em 2em;
+    }
   }
 }

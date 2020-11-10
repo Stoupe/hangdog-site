@@ -4,6 +4,7 @@ import "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/NewBookingForm.module.scss";
 import { BookingTimes, bookingTimes } from "../types/BookingTimes";
+import ClimbingDetails from "./ClimbingDetails";
 import { DateContext } from "./DateContext";
 import DaySelector from "./DaySelector";
 import { UserContext } from "./UserContext";
@@ -21,7 +22,7 @@ const BookingForm: React.FC = () => {
     setUser: React.Dispatch<React.SetStateAction<firebase.User>>;
   } = useContext(UserContext);
 
-  const [day, setDay] = useState();
+  const [date, setDate] = useState(new Date());
 
   const [bookingName, setBookingName] = useState<string>("");
   const [bookingNotes, setBookingNotes] = useState<string>("");
@@ -84,7 +85,7 @@ const BookingForm: React.FC = () => {
       <h1>Booking</h1>
       <div className={styles.formContainer}>
         <div className={`${styles.row} ${styles.rowOne}`}>
-          <DateContext.Provider value={{ day, setDay }}>
+          <DateContext.Provider value={{ date, setDate }}>
             <DaySelector />
           </DateContext.Provider>
 
@@ -94,26 +95,36 @@ const BookingForm: React.FC = () => {
           <Button variant="contained">Complex</Button>
           <Button variant="contained">Birthday</Button>
         </div>
+
         <div className={`${styles.row} ${styles.rowTwo}`}>
           <div className={styles.bookingTimes}>
             {bookingTimes.map((e: BookingTimes) => {
-              let col: PropTypes.Color = "default";
-              bookingTime === e ? (col = "primary") : (col = "default");
+              let selected = false;
+              bookingTime === e ? (selected = true) : (selected = false);
+
               // TODO: Change colours here dependent on booking availability at that time
               return (
                 <Button
                   name={e}
-                  color={col}
-                  onClick={() => {
-                    const time = e;
-                    setBookingTime(time);
-                  }}
+                  color={selected ? "primary" : "default"}
+                  variant={selected ? "contained" : "text"}
+                  onClick={() => setBookingTime(e)}
                 >
                   {e}
                 </Button>
               );
             })}
           </div>
+        </div>
+
+        <div className={`${styles.row} ${styles.rowThree}`}>
+          <ClimbingDetails />
+          
+        </div>
+        <div className={`${styles.row} ${styles.rowFour}`}>
+          <Button autoCapitalize="false" variant="contained" color="primary">
+            Book
+          </Button>
         </div>
       </div>
     </div>
