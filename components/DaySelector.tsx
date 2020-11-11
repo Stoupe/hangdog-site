@@ -8,7 +8,6 @@ import { add } from "date-fns";
 
 const DaySelector: React.FC = () => {
   const { date, setDate } = useContext(DateContext);
-  // const [selectedDate, handleDateChange] = useState(new Date());
 
   return (
     <div className={styles.daySelector}>

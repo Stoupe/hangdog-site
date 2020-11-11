@@ -1,3 +1,6 @@
-import { createContext } from "react";
+import { Context, createContext } from "react";
 
-export const DateContext = createContext(null);
+export const DateContext:Context<{
+  date: Date,
+  setDate: React.Dispatch<React.SetStateAction<Date>>
+}> = createContext(null);
