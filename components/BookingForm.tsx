@@ -2,10 +2,9 @@ import { Button, TextField } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import { logIn, logOut } from "../functions/authFunctions";
 import styles from "../styles/BookingForm.module.scss";
 import BookingDatePicker from "./BookingDatePicker";
-import { UserContext } from "./UserContext";
+import { UserContext } from "./Contexts";
 
 const BookingForm: React.FC = () => {
   const firestore = firebase.firestore();

@@ -1,6 +1,6 @@
 import { AppProps } from "next/app";
 import React, { useEffect, useState } from "react";
-import { UserContext } from "../components/UserContext";
+import { UserContext } from "../components/Contexts";
 import "../styles/globals.css";
 import loadFirebase from "./../components/firebase";
 import firebase from "firebase/app";
@@ -29,9 +29,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         main: "#e35454",
         contrastText: "#ffffff",
       },
-      
     },
-    
   });
 
   return (

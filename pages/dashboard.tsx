@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import DashboardHeader from "../components/DashboardHeader";
 import NewBookingForm from "../components/NewBookingForm";
-import { UserContext } from "../components/UserContext";
+import { UserContext } from "../components/Contexts";
 import styles from "../styles/Dashboard.module.scss";
 import Router from "next/router";
 

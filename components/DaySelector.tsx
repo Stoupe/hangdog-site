@@ -1,10 +1,10 @@
 import { Button, TextField } from "@material-ui/core";
-import { LocalizationProvider, DatePicker } from "@material-ui/pickers";
-import React, { useContext, useState } from "react";
-import styles from "../styles/NewBookingForm.module.scss";
-import { DateContext } from "./DateContext";
+import { DatePicker, LocalizationProvider } from "@material-ui/pickers";
 import DateFnsAdapter from "@material-ui/pickers/adapter/date-fns"; // choose your lib
 import { add } from "date-fns";
+import React, { useContext } from "react";
+import styles from "../styles/NewBookingForm.module.scss";
+import { DateContext } from "./Contexts";
 
 const DaySelector: React.FC = () => {
   const { date, setDate } = useContext(DateContext);

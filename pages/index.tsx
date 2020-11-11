@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { Button } from "@material-ui/core";
 import { logIn, logOut } from "../functions/authFunctions";
-import { UserContext } from "../components/UserContext";
+import { UserContext } from "../components/Contexts";
 import firebase from "firebase/app";
 
 const HomePage = () => {
@@ -33,17 +33,17 @@ const HomePage = () => {
         </Button>
       ) : (
         <>
-        <p>Hello, {user.displayName}</p>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={async () => {
-            const user = await logOut();
-            setUser(user);
-          }}
-        >
-          Log Out
-        </Button>
+          <p>Hello, {user.displayName}</p>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={async () => {
+              const user = await logOut();
+              setUser(user);
+            }}
+          >
+            Log Out
+          </Button>
         </>
       )}
     </>

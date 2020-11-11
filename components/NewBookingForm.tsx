@@ -1,13 +1,12 @@
-import { Button, PropTypes } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/NewBookingForm.module.scss";
 import { BookingTimes, bookingTimes } from "../types/BookingTimes";
 import ClimbingDetails from "./ClimbingDetails";
-import { DateContext } from "./DateContext";
+import { ClimbingDetailsContext, DateContext, UserContext } from "./Contexts";
 import DaySelector from "./DaySelector";
-import { UserContext } from "./UserContext";
 
 // TODO: store current booking in localstorage to save on refresh
 
@@ -18,12 +17,14 @@ const BookingForm: React.FC = () => {
 
   const [date, setDate] = useState(new Date());
 
-  const [bookingName, setBookingName] = useState<string>("");
-  const [bookingNotes, setBookingNotes] = useState<string>("");
-  const [bookingTime, setBookingTime] = useState<BookingTimes>();
   const [numSerious, setNumSerious] = useState<number>();
   const [numBelayers, setNumBelayers] = useState<number>();
   const [numClimbers, setNumClimbers] = useState<number>();
+
+  const [bookingName, setBookingName] = useState<string>("");
+  const [bookingNotes, setBookingNotes] = useState<string>("");
+  const [bookingTime, setBookingTime] = useState<BookingTimes>();
+
   const [numRopes, setNumRopes] = useState<number>();
 
   const [notes, setNotes] = useState("");
@@ -92,7 +93,7 @@ const BookingForm: React.FC = () => {
 
         <div className={`${styles.row} ${styles.rowTwo}`}>
           <div className={styles.bookingTimes}>
-            {bookingTimes.map((e: BookingTimes) => {
+            {bookingTimes.map((e) => {
               let selected = false;
               bookingTime === e ? (selected = true) : (selected = false);
 
@@ -112,7 +113,18 @@ const BookingForm: React.FC = () => {
         </div>
 
         <div className={`${styles.row} ${styles.rowThree}`}>
-          <ClimbingDetails />
+          <ClimbingDetailsContext.Provider
+            value={{
+              numSerious,
+              numBelayers,
+              numClimbers,
+              setNumSerious,
+              setNumBelayers,
+              setNumClimbers,
+            }}
+          >
+            <ClimbingDetails />
+          </ClimbingDetailsContext.Provider>
         </div>
         <div className={`${styles.row} ${styles.rowFour}`}>
           <Button autoCapitalize="false" variant="contained" color="primary">
