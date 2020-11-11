@@ -14,13 +14,7 @@ import { UserContext } from "./UserContext";
 const BookingForm: React.FC = () => {
   const firestore = firebase.firestore();
 
-  const {
-    user,
-    setUser,
-  }: {
-    user: firebase.User;
-    setUser: React.Dispatch<React.SetStateAction<firebase.User>>;
-  } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [date, setDate] = useState(new Date());
 
@@ -119,7 +113,6 @@ const BookingForm: React.FC = () => {
 
         <div className={`${styles.row} ${styles.rowThree}`}>
           <ClimbingDetails />
-          
         </div>
         <div className={`${styles.row} ${styles.rowFour}`}>
           <Button autoCapitalize="false" variant="contained" color="primary">
