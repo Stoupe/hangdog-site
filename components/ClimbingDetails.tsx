@@ -10,15 +10,17 @@ const ClimbingDetails: React.FC = () => {
     numSerious,
     numBelayers,
     numClimbers,
+    numRopes,
     setNumSerious,
     setNumBelayers,
     setNumClimbers,
+    setNumRopes,
   } = useContext(ClimbingDetailsContext);
 
   return (
     <>
       <div className={styles.detailInputContainer}>
-        <h2>Serious</h2>
+        <h3>Serious</h3>
         <div className={styles.detailInput}>
           {values.map((e: number) => {
             let selected = false;
@@ -41,36 +43,55 @@ const ClimbingDetails: React.FC = () => {
       </div>
 
       <div className={styles.detailInputContainer}>
-        <h2>Belayers</h2>
+        <h3>Belayers</h3>
         <div className={styles.detailInput}>
-          <Button>0</Button>
-          <Button>1</Button>
-          <Button>2</Button>
-          <Button>3</Button>
-          <Button>4</Button>
-          <Button>5</Button>
+          {values.map((e: number) => {
+            let selected = false;
+            numBelayers === e ? (selected = true) : (selected = false);
+
+            return (
+              <Button
+                name={e.toString()}
+                color={selected ? "primary" : "default"}
+                variant={selected ? "contained" : "text"}
+                onClick={() => {
+                  setNumBelayers(e);
+                }}
+              >
+                {e}
+              </Button>
+            );
+          })}
         </div>
       </div>
 
       <div className={styles.detailInputContainer}>
-        <h2>Climbers</h2>
+        <h3>Climbers</h3>
         <div className={styles.detailInput}>
-          <Button>0</Button>
-          <Button>1</Button>
-          <Button>2</Button>
-          <Button>3</Button>
-          <Button>4</Button>
-          <Button>5</Button>
+          {values.map((e: number) => {
+            let selected = false;
+            numClimbers === e ? (selected = true) : (selected = false);
+
+            return (
+              <Button
+                name={e.toString()}
+                color={selected ? "primary" : "default"}
+                variant={selected ? "contained" : "text"}
+                onClick={() => {
+                  setNumClimbers(e);
+                }}
+              >
+                {e}
+              </Button>
+            );
+          })}
         </div>
       </div>
+
       <div className={styles.detailInput}>
         <div className={styles.ropesAvailable}>
-          <h2>Ropes Available</h2>
-          <h1>3</h1>
-        </div>
-        <div className={styles.ropesAvailable}>
-          <h2>Ropes Available</h2>
-          <h1>3</h1>
+          <h3>Ropes Available</h3>
+          <h1>{numRopes}</h1>
         </div>
       </div>
     </>

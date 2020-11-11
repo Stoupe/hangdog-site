@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/NewBookingForm.module.scss";
-import { BookingTimes, bookingTimes } from "../types/BookingTimes";
+import { bookingTimes } from "../types/BookingTimes";
 import ClimbingDetails from "./ClimbingDetails";
 import { ClimbingDetailsContext, DateContext, UserContext } from "./Contexts";
 import DaySelector from "./DaySelector";
@@ -15,15 +15,15 @@ const BookingForm: React.FC = () => {
 
   const { user, setUser } = useContext(UserContext);
 
-  const [date, setDate] = useState(new Date());
+  const [bookingDate, setBookingDate] = useState(new Date());
 
-  const [numSerious, setNumSerious] = useState<number>();
-  const [numBelayers, setNumBelayers] = useState<number>();
-  const [numClimbers, setNumClimbers] = useState<number>();
+  const [numSerious, setNumSerious] = useState<number>(0);
+  const [numBelayers, setNumBelayers] = useState<number>(0);
+  const [numClimbers, setNumClimbers] = useState<number>(0);
 
   const [bookingName, setBookingName] = useState<string>("");
   const [bookingNotes, setBookingNotes] = useState<string>("");
-  const [bookingTime, setBookingTime] = useState<BookingTimes>();
+  const [bookingTime, setBookingTime] = useState<string>("10am");
 
   const [numRopes, setNumRopes] = useState<number>();
 
@@ -41,14 +41,15 @@ const BookingForm: React.FC = () => {
 
     const booking = {
       createdAt: Date.now(),
-      createdBy: user?.displayName,
+      createdBy: user.displayName,
       bookingName: bookingName,
       numSerious: numSerious,
       numBelayers: numBelayers,
       numClimbers: numClimbers,
       numRopes: numRopes,
       totalNumInGym: numSerious + numBelayers + numClimbers,
-      bookingDateTime: Date.now(), //TODO fix
+      bookingDate: bookingDate,
+      bookingTime: bookingTime, //TODO fix - parse time to standard format
       bookingNotes: bookingNotes,
     };
 
@@ -71,7 +72,7 @@ const BookingForm: React.FC = () => {
   useEffect(() => {
     const b = numBelayers || 0;
     const s = numSerious || 0;
-    const r = b + s / 2;
+    const r = Math.round(b + s / 2);
     setNumRopes(r);
   }, [numBelayers, numSerious]);
 
@@ -80,7 +81,7 @@ const BookingForm: React.FC = () => {
       <h1>Booking</h1>
       <div className={styles.formContainer}>
         <div className={`${styles.row} ${styles.rowOne}`}>
-          <DateContext.Provider value={{ date, setDate }}>
+          <DateContext.Provider value={{ bookingDate, setBookingDate }}>
             <DaySelector />
           </DateContext.Provider>
 
@@ -118,9 +119,11 @@ const BookingForm: React.FC = () => {
               numSerious,
               numBelayers,
               numClimbers,
+              numRopes,
               setNumSerious,
               setNumBelayers,
               setNumClimbers,
+              setNumRopes,
             }}
           >
             <ClimbingDetails />

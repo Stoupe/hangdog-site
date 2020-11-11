@@ -7,8 +7,8 @@ export const UserContext: Context<{
 }> = createContext(null);
 
 export const DateContext: Context<{
-  date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  bookingDate: Date;
+  setBookingDate: React.Dispatch<React.SetStateAction<Date>>;
 }> = createContext(null);
 
 // export const NumSeriousContext: Context<{
@@ -21,6 +21,7 @@ export const ClimbingDetailsContext: Context<{
   numSerious: number;
   numBelayers: number;
   numClimbers: number;
+  numRopes: number;
   // };
   // setClimbingDetails: React.Dispatch<
   //   React.SetStateAction<{
@@ -33,4 +34,5 @@ export const ClimbingDetailsContext: Context<{
   setNumSerious: React.Dispatch<React.SetStateAction<number>>;
   setNumBelayers: React.Dispatch<React.SetStateAction<number>>;
   setNumClimbers: React.Dispatch<React.SetStateAction<number>>;
+  setNumRopes: React.Dispatch<React.SetStateAction<number>>;
 }> = createContext(null);

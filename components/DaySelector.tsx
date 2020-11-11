@@ -1,19 +1,19 @@
 import { Button, TextField } from "@material-ui/core";
 import { DatePicker, LocalizationProvider } from "@material-ui/pickers";
 import DateFnsAdapter from "@material-ui/pickers/adapter/date-fns"; // choose your lib
-import { add } from "date-fns";
+import { add, setDate } from "date-fns";
 import React, { useContext } from "react";
 import styles from "../styles/NewBookingForm.module.scss";
 import { DateContext } from "./Contexts";
 
 const DaySelector: React.FC = () => {
-  const { date, setDate } = useContext(DateContext);
+  const { bookingDate, setBookingDate } = useContext(DateContext);
 
   return (
     <div className={styles.daySelector}>
       <Button
         onClick={() => {
-          setDate((date) => add(date, { days: -1 }));
+          setBookingDate((bookingDate) => add(bookingDate, { days: -1 }));
         }}
       >
         {"<"}
@@ -22,13 +22,13 @@ const DaySelector: React.FC = () => {
         <DatePicker
           inputFormat={"EEEE do MMM"}
           renderInput={(props) => <TextField {...props} />}
-          value={date}
-          onChange={(date) => setDate(date)}
+          value={bookingDate}
+          onChange={(bookingDate) => setBookingDate(bookingDate)}
         />
       </LocalizationProvider>
       <Button
         onClick={() => {
-          setDate((date) => add(date, { days: 1 }));
+          setBookingDate((bookingDate) => add(bookingDate, { days: 1 }));
         }}
       >
         {">"}
