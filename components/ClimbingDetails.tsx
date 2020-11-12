@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, Input, TextField } from "@material-ui/core";
 import React, { useContext } from "react";
 import styles from "../styles/NewBookingForm.module.scss";
 import { ClimbingDetailsContext } from "./Contexts";
@@ -11,10 +11,14 @@ const ClimbingDetails: React.FC = () => {
     numBelayers,
     numClimbers,
     numRopes,
+    bookingName,
+    bookingNotes,
     setNumSerious,
     setNumBelayers,
     setNumClimbers,
     setNumRopes,
+    setBookingName,
+    setBookingNotes,
   } = useContext(ClimbingDetailsContext);
 
   return (
@@ -90,8 +94,29 @@ const ClimbingDetails: React.FC = () => {
 
       <div className={styles.detailInput}>
         <div className={styles.ropesAvailable}>
-          <h3>Ropes Available</h3>
+          <h3>Ropes Required</h3>
           <h1>{numRopes}</h1>
+        </div>
+        <div className={styles.bookingName}>
+          <h3>Name</h3>
+          <TextField
+            value={bookingName}
+            variant="filled"
+            size="small"
+            required={true}
+            onChange={(e) => setBookingName(e.target.value)}
+          />
+        </div>
+        <div className={styles.bookingNotes}>
+          <h3>Notes</h3>
+          <TextField
+            value={bookingNotes}
+            variant="filled"
+            size="small"
+            required={false}
+            multiline={true}
+            onChange={(e) => setBookingNotes(e.target.value)}
+          />
         </div>
       </div>
     </>

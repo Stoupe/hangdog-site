@@ -4,6 +4,7 @@ import NewBookingForm from "../components/NewBookingForm";
 import { UserContext } from "../components/Contexts";
 import styles from "../styles/Dashboard.module.scss";
 import Router from "next/router";
+import Bookings from "../components/Bookings";
 
 const Dashboard: React.FC = () => {
   const { user, setUser } = useContext(UserContext);
@@ -19,7 +20,7 @@ const Dashboard: React.FC = () => {
       <DashboardHeader />
       <div className={styles.dashboardContainer}>
         <NewBookingForm />
-        {/* <BookingForm /> */}
+        <Bookings />
       </div>
     </div>
   );

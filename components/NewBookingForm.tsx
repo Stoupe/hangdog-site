@@ -27,8 +27,6 @@ const BookingForm: React.FC = () => {
 
   const [numRopes, setNumRopes] = useState<number>();
 
-  const [notes, setNotes] = useState("");
-
   const makeBooking = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -79,62 +77,77 @@ const BookingForm: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1>Booking</h1>
-      <div className={styles.formContainer}>
-        <div className={`${styles.row} ${styles.rowOne}`}>
-          <DateContext.Provider value={{ bookingDate, setBookingDate }}>
-            <DaySelector />
-          </DateContext.Provider>
+      <form
+        action="makeBooking"
+        onSubmit={(e) => makeBooking(e)}
+        className={styles.form}
+      >
+        <div className={styles.formContainer}>
+          <div className={`${styles.row} ${styles.rowOne}`}>
+            <DateContext.Provider value={{ bookingDate, setBookingDate }}>
+              <DaySelector />
+            </DateContext.Provider>
 
-          <Button variant="contained" color="primary">
-            Basic
-          </Button>
-          <Button variant="contained">Complex</Button>
-          <Button variant="contained">Birthday</Button>
-        </div>
+            <Button variant="contained" color="primary">
+              Basic
+            </Button>
+            <Button variant="contained">Complex</Button>
+            <Button variant="contained">Birthday</Button>
+          </div>
 
-        <div className={`${styles.row} ${styles.rowTwo}`}>
-          <div className={styles.bookingTimes}>
-            {bookingTimes.map((e) => {
-              let selected = false;
-              bookingTime === e ? (selected = true) : (selected = false);
+          <div className={`${styles.row} ${styles.rowTwo}`}>
+            <div className={styles.bookingTimes}>
+              {bookingTimes.map((e) => {
+                let selected = false;
+                bookingTime === e ? (selected = true) : (selected = false);
 
-              // TODO: Change colours here dependent on booking availability at that time
-              return (
-                <Button
-                  name={e}
-                  color={selected ? "primary" : "default"}
-                  variant={selected ? "contained" : "text"}
-                  onClick={() => setBookingTime(e)}
-                >
-                  {e}
-                </Button>
-              );
-            })}
+                // TODO: Change colours here dependent on booking availability at that time
+                return (
+                  <Button
+                    name={e}
+                    color={selected ? "primary" : "default"}
+                    variant={selected ? "contained" : "text"}
+                    onClick={() => setBookingTime(e)}
+                  >
+                    {e}
+                  </Button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className={`${styles.row} ${styles.rowThree}`}>
+            <ClimbingDetailsContext.Provider
+              value={{
+                numSerious,
+                numBelayers,
+                numClimbers,
+                numRopes,
+                bookingName,
+                bookingNotes,
+                setNumSerious,
+                setNumBelayers,
+                setNumClimbers,
+                setNumRopes,
+                setBookingName,
+                setBookingNotes,
+              }}
+            >
+              <ClimbingDetails />
+            </ClimbingDetailsContext.Provider>
+          </div>
+          <div className={`${styles.row} ${styles.rowFour}`}>
+            <Button
+              autoCapitalize="false"
+              variant="contained"
+              color="primary"
+              type="submit"
+            >
+              Book
+            </Button>
           </div>
         </div>
-
-        <div className={`${styles.row} ${styles.rowThree}`}>
-          <ClimbingDetailsContext.Provider
-            value={{
-              numSerious,
-              numBelayers,
-              numClimbers,
-              numRopes,
-              setNumSerious,
-              setNumBelayers,
-              setNumClimbers,
-              setNumRopes,
-            }}
-          >
-            <ClimbingDetails />
-          </ClimbingDetailsContext.Provider>
-        </div>
-        <div className={`${styles.row} ${styles.rowFour}`}>
-          <Button autoCapitalize="false" variant="contained" color="primary">
-            Book
-          </Button>
-        </div>
-      </div>
+      </form>
     </div>
   );
 };

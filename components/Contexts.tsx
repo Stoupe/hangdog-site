@@ -22,6 +22,8 @@ export const ClimbingDetailsContext: Context<{
   numBelayers: number;
   numClimbers: number;
   numRopes: number;
+  bookingName: string;
+  bookingNotes: string;
   // };
   // setClimbingDetails: React.Dispatch<
   //   React.SetStateAction<{
@@ -35,4 +37,6 @@ export const ClimbingDetailsContext: Context<{
   setNumBelayers: React.Dispatch<React.SetStateAction<number>>;
   setNumClimbers: React.Dispatch<React.SetStateAction<number>>;
   setNumRopes: React.Dispatch<React.SetStateAction<number>>;
+  setBookingName: React.Dispatch<React.SetStateAction<string>>;
+  setBookingNotes: React.Dispatch<React.SetStateAction<string>>;
 }> = createContext(null);

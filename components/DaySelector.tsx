@@ -20,6 +20,7 @@ const DaySelector: React.FC = () => {
       </Button>
       <LocalizationProvider dateAdapter={DateFnsAdapter}>
         <DatePicker
+          disablePast={true}
           inputFormat={"EEEE do MMM"}
           renderInput={(props) => <TextField {...props} />}
           value={bookingDate}
