@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
-import Link from "next/link";
 import { Button } from "@material-ui/core";
-import { logIn, logOut } from "../functions/authFunctions";
+import Link from "next/link";
+import React, { useContext } from "react";
 import { UserContext } from "../components/Contexts";
-import firebase from "firebase/app";
+import { logIn, logOut } from "../functions/authFunctions";
 import styles from "../styles/index.module.scss";
 
 const HomePage = () => {

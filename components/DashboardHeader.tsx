@@ -1,7 +1,6 @@
 import { Button } from "@material-ui/core";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
-import BookingForm from "./BookingForm";
 import styles from "../styles/DashboardHeader.module.scss";
 
 const DashboardHeader: React.FC = () => {
