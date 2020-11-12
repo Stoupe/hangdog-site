@@ -38,7 +38,7 @@ const BookingForm: React.FC = () => {
     }
 
     const booking = {
-      createdAt: Date.now(),
+      createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
       createdBy: user.displayName,
       bookingName: bookingName,
       numSerious: numSerious,
@@ -60,7 +60,7 @@ const BookingForm: React.FC = () => {
       .collection("smallBookings")
       .add(booking)
       .then(() => {
-        alert("added to db");
+        // alert("added to db");
       })
       .catch((e) => {
         console.error(`Error adding booking to db: ${e}`);

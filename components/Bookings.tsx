@@ -3,14 +3,10 @@ import styles from "../styles/Bookings.module.scss";
 import { UserContext } from "./Contexts";
 import firebase from "firebase/app";
 import "firebase/firestore";
-
-const json = {
-  "12hfjhf23u": {},
-  adsf23f: {},
-};
+import { BookingType } from "./Types";
 
 const Bookings: React.FC = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<BookingType | {}>({});
 
   const fetchData = async () => {
     const bookingsRef = firebase.firestore().collection("smallBookings");
@@ -43,7 +39,7 @@ const Bookings: React.FC = () => {
     <div className={styles.outerContainer}>
       <h1>Today</h1>
       <div className={styles.innerContainer}>
-        {Object.values(data).map((booking) => (
+        {Object.values(data).map((booking: BookingType) => (
           <div className={styles.hourInfo} key={booking.id}>
             <div className={styles.left}>
               <div className={styles.dot}></div>
