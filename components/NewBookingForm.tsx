@@ -39,7 +39,7 @@ const BookingForm: React.FC = () => {
 
     const booking = {
       createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
-      createdBy: user.displayName,
+      createdBy: user.displayName, //TODO: should be current staff name - easily changeable
       bookingName: bookingName,
       numSerious: numSerious,
       numBelayers: numBelayers,
@@ -47,7 +47,7 @@ const BookingForm: React.FC = () => {
       numRopes: numRopes,
       totalNumInGym: numSerious + numBelayers + numClimbers,
       bookingDate: bookingDate,
-      bookingTime: bookingTime, //TODO fix - parse time to standard format
+      bookingTime: bookingTime, //TODO: fix - parse time to standard format
       bookingNotes: bookingNotes,
     };
 
