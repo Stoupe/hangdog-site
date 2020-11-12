@@ -104,6 +104,7 @@ const BookingForm: React.FC = () => {
                 // TODO: Change colours here dependent on booking availability at that time
                 return (
                   <Button
+                    key={e}
                     name={e}
                     color={selected ? "primary" : "default"}
                     variant={selected ? "contained" : "text"}

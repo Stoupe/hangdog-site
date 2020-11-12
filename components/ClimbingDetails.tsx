@@ -26,20 +26,21 @@ const ClimbingDetails: React.FC = () => {
       <div className={styles.detailInputContainer}>
         <h3>Serious</h3>
         <div className={styles.detailInput}>
-          {values.map((e: number) => {
+          {values.map((value: number) => {
             let selected = false;
-            numSerious === e ? (selected = true) : (selected = false);
+            numSerious === value ? (selected = true) : (selected = false);
 
             return (
               <Button
-                name={e.toString()}
+                key={value + "-serious"}
+                name={value.toString()}
                 color={selected ? "primary" : "default"}
                 variant={selected ? "contained" : "text"}
                 onClick={() => {
-                  setNumSerious(e);
+                  setNumSerious(value);
                 }}
               >
-                {e}
+                {value}
               </Button>
             );
           })}
@@ -49,20 +50,21 @@ const ClimbingDetails: React.FC = () => {
       <div className={styles.detailInputContainer}>
         <h3>Belayers</h3>
         <div className={styles.detailInput}>
-          {values.map((e: number) => {
+          {values.map((value: number) => {
             let selected = false;
-            numBelayers === e ? (selected = true) : (selected = false);
+            numBelayers === value ? (selected = true) : (selected = false);
 
             return (
               <Button
-                name={e.toString()}
+                key={value + "-belayers"}
+                name={value.toString()}
                 color={selected ? "primary" : "default"}
                 variant={selected ? "contained" : "text"}
                 onClick={() => {
-                  setNumBelayers(e);
+                  setNumBelayers(value);
                 }}
               >
-                {e}
+                {value}
               </Button>
             );
           })}
@@ -72,20 +74,21 @@ const ClimbingDetails: React.FC = () => {
       <div className={styles.detailInputContainer}>
         <h3>Climbers</h3>
         <div className={styles.detailInput}>
-          {values.map((e: number) => {
+          {values.map((value: number) => {
             let selected = false;
-            numClimbers === e ? (selected = true) : (selected = false);
+            numClimbers === value ? (selected = true) : (selected = false);
 
             return (
               <Button
-                name={e.toString()}
+                key={value + "-climbers"}
+                name={value.toString()}
                 color={selected ? "primary" : "default"}
                 variant={selected ? "contained" : "text"}
                 onClick={() => {
-                  setNumClimbers(e);
+                  setNumClimbers(value);
                 }}
               >
-                {e}
+                {value}
               </Button>
             );
           })}

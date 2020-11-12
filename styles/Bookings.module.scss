@@ -1,10 +1,55 @@
+@import "./variables.scss";
+
 .outerContainer {
   display: flex;
   flex-direction: column;
+  margin: 0 1em;
+
+  h1 {
+    margin: 0 0 0 0.5em;
+  }
 }
 
 .innerContainer {
-  padding: 1em;
-  border-radius: 1em;
+  border-radius: 2em;
   box-shadow: 0 2px 20px rgba(000, 000, 000, 0.1);
+}
+
+.hourInfo {
+  box-shadow: 0 2px 20px rgba(000, 000, 000, 0.1);
+  border-radius: 2em;
+  display: flex;
+  justify-content: space-between;
+  width: 35em; // ToDo: shouldn't be fixed width
+  padding: 0.5em;
+  margin: 1em;
+
+  .left,
+  .right {
+    display: flex;
+    align-items: center;
+  }
+
+  .dot {
+    background: $green;
+    border-radius: 100%;
+    padding: 1em;
+  }
+
+  .hour {
+    font-size: 2em;
+    font-weight: 700;
+    margin-left: 0.2em;
+  }
+
+  .groups,
+  .ropes {
+    font-size: 1em;
+    font-weight: bold;
+    background: $green;
+    color: #ffffff;
+    border-radius: 0.5em;
+    padding: 0.4em 2em 0.4em 2em;
+    margin: 0 0.2em 0 0.2em;
+  }
 }

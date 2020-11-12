@@ -6,13 +6,7 @@ import { UserContext } from "../components/Contexts";
 import firebase from "firebase/app";
 
 const HomePage = () => {
-  const {
-    user,
-    setUser,
-  }: {
-    user: firebase.User;
-    setUser: React.Dispatch<React.SetStateAction<firebase.User>>;
-  } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   return (
     <>
