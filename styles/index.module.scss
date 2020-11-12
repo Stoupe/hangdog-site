@@ -1,0 +1,14 @@
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  border-radius: 1em;
+  box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
+}
