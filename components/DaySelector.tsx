@@ -3,7 +3,7 @@ import { DatePicker, LocalizationProvider } from "@material-ui/pickers";
 import DateFnsAdapter from "@material-ui/pickers/adapter/date-fns"; // choose your lib
 import { add, setDate } from "date-fns";
 import React, { useContext } from "react";
-import styles from "../styles/NewBookingForm.module.scss";
+import styles from "../styles/BookingForm.module.scss";
 import { DateContext } from "./Contexts";
 
 const DaySelector: React.FC = () => {

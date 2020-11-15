@@ -1,6 +1,6 @@
 import { Button, Input, TextField } from "@material-ui/core";
 import React, { useContext } from "react";
-import styles from "../styles/NewBookingForm.module.scss";
+import styles from "../styles/BookingForm.module.scss";
 import { ClimbingDetailsContext } from "./Contexts";
 
 const ClimbingDetails: React.FC = () => {

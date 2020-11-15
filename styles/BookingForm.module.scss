@@ -1,66 +1,111 @@
-.container {
-  // background: #272727;
+.outerContainer {
   padding: 10px;
-  // width: 100vw;
-  // height: 100vh;
-  // color: #fff;
-
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
   display: flex;
   flex-direction: column;
 
   h1 {
-    margin: 0 0 5px 30px;
-    // margin-bottom: 5px;
+    margin: 0 0 0 0.5em;
   }
 }
 
-.formContainer {
-  // background: #fff;
+.innerContainer {
+  width: 48em;
+  height: 42em;
   padding: 30px;
-  // border-radius: 10px;
-
-  border-radius: 40px;
-  // background: #212121;
-  // box-shadow: 26px 26px 44px #1b1b1b, -26px -26px 44px #272727;
+  border-radius: 2em;
   box-shadow: 0 5px 30px rgba(000, 000, 000, 0.1);
+  display: flex;
+  flex-direction: column;
 
-  h1,
-  h4 {
-    margin: 0;
+  input {
+    font-size: large;
+    border-radius: 1em;
+    outline: 0;
+    border: none;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
   }
 
-  h1 {
-    margin-bottom: 20px;
+  button {
+    border-radius: 1em;
+    border: none;
+    outline: none;
+    cursor: pointer;
   }
 
-  .form {
+  .row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    // background: coral;
+    // padding: 5px;
+    margin: 10px 0;
+  }
 
-    input {
-      font-size: large;
-      border-radius: 5px;
-      // background: #fff;
-      outline: 0;
-      border: none;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 10px;
+  //?===============================
+  //?=======INDIVIDUAL ROWS=========
+  //?===============================
+
+  .rowOne {
+    display: flex;
+    justify-content: space-between;
+
+    .daySelector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      background: #ffffff;
+      border-radius: 1em;
+      box-shadow: 0 5px 30px rgba(000, 000, 000, 0.1);
+    }
+  }
+
+  .rowTwo {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
+    border-radius: 1em;
+    padding: 0.5em;
+  }
+
+  .rowThree {
+    display: flex;
+    justify-content: space-around;
+
+    .detailInputContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .detailInput {
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
+        padding: 10px;
+        margin: 10px;
+        border-radius: 1em;
+      }
     }
 
-    button {
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
+    .ropesAvailable {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
+      padding: 0 20px 0 20px;
+      margin: 10px;
+      border-radius: 2em;
+    }
+  }
+
+  .rowFour {
+    display: flex;
+    justify-content: flex-end;
+
+    Button {
       font-size: large;
-      font-weight: bold;
-      outline: none;
-      cursor: pointer;
+      padding: 0.5em 2em 0.5em 2em;
     }
   }
 }

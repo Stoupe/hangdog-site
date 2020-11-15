@@ -1,12 +1,13 @@
 import { Button } from "@material-ui/core";
+import { getDay } from "date-fns";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import styles from "../styles/NewBookingForm.module.scss";
-import { bookingTimes } from "../types/BookingTimes";
+import styles from "../styles/BookingForm.module.scss";
 import ClimbingDetails from "./ClimbingDetails";
 import { ClimbingDetailsContext, DateContext, UserContext } from "./Contexts";
 import DaySelector from "./DaySelector";
+import { bookingHours } from "./variables";
 
 // TODO: store current booking in localstorage to save on refresh
 
@@ -24,6 +25,8 @@ const BookingForm: React.FC = () => {
   const [bookingName, setBookingName] = useState<string>("");
   const [bookingNotes, setBookingNotes] = useState<string>("");
   const [bookingTime, setBookingTime] = useState<string>("10am");
+
+  const [time, setTime] = useState<number>(10);
 
   const [numRopes, setNumRopes] = useState<number>();
 
@@ -74,20 +77,34 @@ const BookingForm: React.FC = () => {
     setNumRopes(r);
   }, [numBelayers, numSerious]);
 
+  const resetForm = () => {
+    setNumSerious(0);
+    setNumBelayers(0);
+    setNumClimbers(0);
+    setBookingDate(new Date());
+    setBookingName("");
+    setBookingNotes("");
+    setBookingTime("");
+  };
+
+  const showBookingHours = () => {
+    return <Button>hello</Button>;
+  };
+
   return (
-    <div className={styles.container}>
+    <div className={styles.outerContainer}>
       <h1>Booking</h1>
       <form
         action="makeBooking"
         onSubmit={(e) => makeBooking(e)}
         className={styles.form}
       >
-        <div className={styles.formContainer}>
+        <div className={styles.innerContainer}>
           <div className={`${styles.row} ${styles.rowOne}`}>
             <DateContext.Provider value={{ bookingDate, setBookingDate }}>
               <DaySelector />
             </DateContext.Provider>
-
+            {/*TODO: add functionality to buttons */}
             <Button variant="contained" color="primary">
               Basic
             </Button>
@@ -97,7 +114,9 @@ const BookingForm: React.FC = () => {
 
           <div className={`${styles.row} ${styles.rowTwo}`}>
             <div className={styles.bookingTimes}>
-              {bookingTimes.map((e) => {
+              {showBookingHours()}
+
+              {/* {bookingTimes.map((e) => {
                 let selected = false;
                 bookingTime === e ? (selected = true) : (selected = false);
 
@@ -113,7 +132,7 @@ const BookingForm: React.FC = () => {
                     {e}
                   </Button>
                 );
-              })}
+              })} */}
             </div>
           </div>
 
@@ -138,6 +157,9 @@ const BookingForm: React.FC = () => {
             </ClimbingDetailsContext.Provider>
           </div>
           <div className={`${styles.row} ${styles.rowFour}`}>
+            <Button color="secondary" variant="contained" onClick={resetForm}>
+              reset
+            </Button>
             <Button
               autoCapitalize="false"
               variant="contained"
