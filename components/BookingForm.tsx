@@ -18,7 +18,7 @@ const BookingForm: React.FC = () => {
 
   const { user, setUser } = useContext(UserContext);
 
-  const [bookingDate, setBookingDate] = useState(new Date());
+  const [bookingDate, setBookingDate] = useState(Date.now());
 
   const [numSerious, setNumSerious] = useState<number>(0);
   const [numBelayers, setNumBelayers] = useState<number>(0);
@@ -49,7 +49,7 @@ const BookingForm: React.FC = () => {
       numClimbers: numClimbers,
       numRopes: numRopes,
       totalNumInGym: numSerious + numBelayers + numClimbers,
-      bookingDate: bookingDate,
+      bookingDate: format(bookingDate, "dd/MM/yyyy"),
       bookingTime: bookingTime, //TODO: fix - parse time to standard format
       bookingNotes: bookingNotes,
     };
@@ -85,7 +85,7 @@ const BookingForm: React.FC = () => {
     setNumSerious(0);
     setNumBelayers(0);
     setNumClimbers(0);
-    setBookingDate(new Date());
+    setBookingDate(Date.now());
     setBookingName("");
     setBookingNotes("");
     setBookingTime("");
