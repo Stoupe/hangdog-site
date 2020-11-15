@@ -14,7 +14,7 @@ const Bookings: React.FC = () => {
   const fetchData = async () => {
     const bookingsRef = firebase.firestore().collection("smallBookings");
 
-    const today = format(Date.now(), "dd/MM/yyyy");
+    const today = format(new Date(), "dd/MM/yyyy");
     // alert(today);
 
     //TODO: get bookings only from certain day (default today) with firebase query

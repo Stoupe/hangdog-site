@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/DashboardHeader.module.scss";
 
 const DashboardHeader: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState(Date.now());
+  const [currentTime, setCurrentTime] = useState(new Date());
   const [currentStaff, setCurrentStaff] = useState("Henry");
 
   useEffect(() => {
-    const interval = setInterval(() => setCurrentTime(Date.now()), 1000);
+    const interval = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => {
       clearInterval(interval);
     };

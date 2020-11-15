@@ -18,7 +18,7 @@ const BookingForm: React.FC = () => {
 
   const { user, setUser } = useContext(UserContext);
 
-  const [bookingDate, setBookingDate] = useState(Date.now());
+  const [bookingDate, setBookingDate] = useState(new Date());
 
   const [numSerious, setNumSerious] = useState<number>(0);
   const [numBelayers, setNumBelayers] = useState<number>(0);
@@ -85,7 +85,7 @@ const BookingForm: React.FC = () => {
     setNumSerious(0);
     setNumBelayers(0);
     setNumClimbers(0);
-    setBookingDate(Date.now());
+    setBookingDate(new Date());
     setBookingName("");
     setBookingNotes("");
     setBookingTime("");
