@@ -1,13 +1,15 @@
 import { Button } from "@material-ui/core";
-import { getDay } from "date-fns";
+import { format, getDay, parse, toDate } from "date-fns";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/BookingForm.module.scss";
 import ClimbingDetails from "./ClimbingDetails";
 import { ClimbingDetailsContext, DateContext, UserContext } from "./Contexts";
-import DaySelector from "./DaySelector";
+import BookingDatePicker from "./BookingDatePicker";
 import { bookingHours } from "./variables";
+import { formatDay, formatHour } from "../functions/formatTime";
+import ReplayIcon from "@material-ui/icons/Replay";
 
 // TODO: store current booking in localstorage to save on refresh
 
@@ -24,9 +26,7 @@ const BookingForm: React.FC = () => {
 
   const [bookingName, setBookingName] = useState<string>("");
   const [bookingNotes, setBookingNotes] = useState<string>("");
-  const [bookingTime, setBookingTime] = useState<string>("10am");
-
-  const [time, setTime] = useState<number>(10);
+  const [bookingTime, setBookingTime] = useState<string>("");
 
   const [numRopes, setNumRopes] = useState<number>();
 
@@ -77,6 +77,10 @@ const BookingForm: React.FC = () => {
     setNumRopes(r);
   }, [numBelayers, numSerious]);
 
+  useEffect(() => {
+    setBookingTime(""); //TODO: this should only clear if the day selected doesn't have that time available
+  }, [bookingDate]);
+
   const resetForm = () => {
     setNumSerious(0);
     setNumBelayers(0);
@@ -87,13 +91,9 @@ const BookingForm: React.FC = () => {
     setBookingTime("");
   };
 
-  const showBookingHours = () => {
-    return <Button>hello</Button>;
-  };
-
   return (
     <div className={styles.outerContainer}>
-      <h1>Booking</h1>
+      <h1 className={styles.containerTitle}>Booking</h1>
       <form
         action="makeBooking"
         onSubmit={(e) => makeBooking(e)}
@@ -102,19 +102,46 @@ const BookingForm: React.FC = () => {
         <div className={styles.innerContainer}>
           <div className={`${styles.row} ${styles.rowOne}`}>
             <DateContext.Provider value={{ bookingDate, setBookingDate }}>
-              <DaySelector />
+              <BookingDatePicker />
             </DateContext.Provider>
             {/*TODO: add functionality to buttons */}
-            <Button variant="contained" color="primary">
+            <Button
+              className={styles.bookingTypeButton}
+              variant="contained"
+              color="primary"
+            >
               Basic
             </Button>
-            <Button variant="contained">Complex</Button>
-            <Button variant="contained">Birthday</Button>
+            <Button className={styles.bookingTypeButton} variant="contained">
+              Complex
+            </Button>
+            <Button className={styles.bookingTypeButton} variant="contained">
+              Birthday
+            </Button>
           </div>
 
           <div className={`${styles.row} ${styles.rowTwo}`}>
             <div className={styles.bookingTimes}>
-              {showBookingHours()}
+              {bookingHours[formatDay(getDay(bookingDate))].map((e: number) => {
+                let selected = false;
+                let time = formatHour(e);
+
+                bookingTime === time ? (selected = true) : (selected = false);
+
+                return (
+                  <Button
+                    className={styles.time}
+                    autoCapitalize={""}
+                    key={time}
+                    name={time}
+                    color={selected ? "primary" : "default"}
+                    variant={selected ? "contained" : "text"}
+                    onClick={() => setBookingTime(time)}
+                  >
+                    {time}
+                  </Button>
+                );
+              })}
 
               {/* {bookingTimes.map((e) => {
                 let selected = false;
@@ -158,7 +185,7 @@ const BookingForm: React.FC = () => {
           </div>
           <div className={`${styles.row} ${styles.rowFour}`}>
             <Button color="secondary" variant="contained" onClick={resetForm}>
-              reset
+              <ReplayIcon />
             </Button>
             <Button
               autoCapitalize="false"

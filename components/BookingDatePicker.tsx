@@ -1,36 +1,39 @@
-import React from "react";
+import { Button, TextField } from "@material-ui/core";
+import { DatePicker, LocalizationProvider } from "@material-ui/pickers";
 import DateFnsAdapter from "@material-ui/pickers/adapter/date-fns"; // choose your lib
-import {
-  DatePicker,
-  TimePicker,
-  DateTimePicker,
-  LocalizationProvider,
-} from "@material-ui/pickers";
-import { TextField } from "@material-ui/core";
-import styles from "../styles/BookingDatePicker.module.scss";
+import { add, setDate } from "date-fns";
+import React, { useContext } from "react";
+import styles from "../styles/BookingForm.module.scss";
+import { DateContext } from "./Contexts";
 
 const BookingDatePicker: React.FC = () => {
-  const [selectedDate, handleDateChange] = React.useState(new Date());
+  const { bookingDate, setBookingDate } = useContext(DateContext);
 
   return (
     <div className={styles.datePicker}>
+      <Button
+        onClick={() => {
+          setBookingDate((bookingDate) => add(bookingDate, { days: -1 }));
+        }}
+      >
+        {"<"}
+      </Button>
       <LocalizationProvider dateAdapter={DateFnsAdapter}>
         <DatePicker
+          disablePast={true}
+          inputFormat={"EEEE do MMM"}
           renderInput={(props) => <TextField {...props} />}
-          value={selectedDate}
-          onChange={(date) => handleDateChange(date)}
+          value={bookingDate}
+          onChange={(bookingDate) => setBookingDate(bookingDate)}
         />
-        {/* <TimePicker
-          renderInput={(props) => <TextField {...props} />}
-          value={selectedDate}
-          onChange={(date) => handleDateChange(date)}
-        />
-        <DateTimePicker
-          renderInput={(props) => <TextField {...props} />}
-          value={selectedDate}
-          onChange={(date) => handleDateChange(date)}
-        /> */}
       </LocalizationProvider>
+      <Button
+        onClick={() => {
+          setBookingDate((bookingDate) => add(bookingDate, { days: 1 }));
+        }}
+      >
+        {">"}
+      </Button>
     </div>
   );
 };

@@ -96,31 +96,32 @@ const ClimbingDetails: React.FC = () => {
       </div>
 
       <div className={styles.detailInput}>
-        <div className={styles.ropesAvailable}>
+        <div className={styles.ropesRequired}>
           <h3>Ropes Required</h3>
           <h1>{numRopes}</h1>
         </div>
-        <div className={styles.bookingName}>
-          <h3>Name</h3>
-          <TextField
-            value={bookingName}
-            variant="filled"
-            size="small"
-            required={true}
-            onChange={(e) => setBookingName(e.target.value)}
-          />
-        </div>
-        <div className={styles.bookingNotes}>
-          <h3>Notes</h3>
-          <TextField
-            value={bookingNotes}
-            variant="filled"
-            size="small"
-            required={false}
-            multiline={true}
-            onChange={(e) => setBookingNotes(e.target.value)}
-          />
-        </div>
+        {/* <div className={styles.bookingName}> */}
+        {/* <h3>Name</h3> */}
+        <TextField
+          className={styles.bookingName}
+          placeholder="Name"
+          value={bookingName}
+          required={true}
+          multiline={true}
+          onChange={(e) => setBookingName(e.target.value)}
+        />
+        {/* </div> */}
+        {/* <div className={styles.bookingNotes}> */}
+        {/* <h3>Notes</h3> */}
+        <TextField
+          className={styles.bookingNotes}
+          placeholder="Notes"
+          value={bookingNotes}
+          required={false}
+          multiline={true}
+          onChange={(e) => setBookingNotes(e.target.value)}
+        />
+        {/* </div> */}
       </div>
     </>
   );

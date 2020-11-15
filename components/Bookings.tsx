@@ -37,7 +37,7 @@ const Bookings: React.FC = () => {
 
   return (
     <div className={styles.outerContainer}>
-      <h1>Today</h1>
+      <h1 className={styles.containerTitle}>Today</h1>
       <div className={styles.innerContainer}>
         {Object.values(data).map((booking: BookingType) => (
           <div className={styles.hourInfo} key={booking.id}>

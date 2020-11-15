@@ -3,43 +3,29 @@
   display: flex;
   flex-direction: column;
 
-  h1 {
+  .containerTitle {
     margin: 0 0 0 0.5em;
   }
 }
 
 .innerContainer {
   width: 48em;
-  height: 42em;
-  padding: 30px;
+  height: 40em;
+  padding: 20px;
   border-radius: 2em;
   box-shadow: 0 5px 30px rgba(000, 000, 000, 0.1);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
-  input {
-    font-size: large;
+  Button {
     border-radius: 1em;
-    outline: 0;
-    border: none;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-  }
-
-  button {
-    border-radius: 1em;
-    border: none;
-    outline: none;
-    cursor: pointer;
   }
 
   .row {
     display: flex;
     flex-direction: row;
-    // background: coral;
-    // padding: 5px;
-    margin: 10px 0;
+    margin-bottom: 20px;
   }
 
   //?===============================
@@ -49,8 +35,14 @@
   .rowOne {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
-    .daySelector {
+    .bookingTypeButton {
+      padding: 0.5em 1.5em;
+      // background: #fff;
+    }
+
+    .datePicker {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -62,11 +54,20 @@
   }
 
   .rowTwo {
-    display: flex;
-    justify-content: space-between;
+    display: block;
     box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
     border-radius: 1em;
     padding: 0.5em;
+
+    .bookingTimes {
+      display: flex;
+      justify-content: space-around;
+
+      .time {
+        font-size: 1em;
+        // font-weight: bold;
+      }
+    }
   }
 
   .rowThree {
@@ -78,9 +79,11 @@
       flex-direction: column;
       align-items: center;
 
+      h3 {
+        margin-bottom: 0;
+      }
+
       .detailInput {
-        display: flex;
-        flex-direction: column;
         box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
         padding: 10px;
         margin: 10px;
@@ -88,20 +91,53 @@
       }
     }
 
-    .ropesAvailable {
+    .detailInput {
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
-      padding: 0 20px 0 20px;
-      margin: 10px;
-      border-radius: 2em;
+
+      .ropesRequired {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
+        border-radius: 2em;
+
+        h1 {
+          font-size: 5em;
+          margin: 0;
+        }
+      }
+
+      .bookingName,
+      .bookingNotes {
+        padding-top: 1em;
+
+        textarea {
+          padding: 1em;
+          margin-bottom: -6px;
+          background: #ffffff;
+          box-shadow: 0 0 20px rgba(000, 000, 000, 0.1);
+          border-radius: 1em 1em 0 0;
+          text-align: center;
+        }
+      }
+
+      .bookingNotes {
+        height: 8em;
+
+        textarea {
+          max-height: 5em;
+        }
+      }
     }
   }
 
   .rowFour {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin: 0;
 
     Button {
       font-size: large;

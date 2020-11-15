@@ -5,14 +5,14 @@
   flex-direction: column;
   margin: 0 1em;
 
-  h1 {
+  .containerTitle {
     margin: 0 0 0 0.5em;
   }
 }
 
 .innerContainer {
   width: 25em;
-  height: 42em;
+  height: 40em;
   border-radius: 2em;
   box-shadow: 0 2px 20px rgba(000, 000, 000, 0.1);
 }
