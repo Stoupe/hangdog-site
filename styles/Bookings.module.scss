@@ -11,8 +11,13 @@
 }
 
 .innerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
   width: 25em;
   height: 40em;
+  padding: 1em;
   border-radius: 2em;
   box-shadow: 0 2px 20px rgba(000, 000, 000, 0.1);
 }
@@ -22,9 +27,7 @@
   border-radius: 2em;
   display: flex;
   justify-content: space-between;
-  // width: 35em; // ToDo: shouldn't be fixed width
   padding: 0.5em;
-  margin: 1em;
 
   .left,
   .right {
@@ -35,7 +38,8 @@
   .dot {
     background: $green;
     border-radius: 100%;
-    padding: 0.8em;
+    padding: 0.7em;
+    margin-right: 0.2em;
   }
 
   .hour {

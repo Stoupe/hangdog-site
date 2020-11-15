@@ -4,6 +4,9 @@ import { UserContext } from "./Contexts";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { BookingType } from "./Types";
+import { add, addDays, getDay } from "date-fns";
+import { formatDay, formatHour } from "../functions/formatTime";
+import { bookingHours } from "./variables";
 
 const Bookings: React.FC = () => {
   const [data, setData] = useState<BookingType | {}>({});
@@ -39,7 +42,22 @@ const Bookings: React.FC = () => {
     <div className={styles.outerContainer}>
       <h1 className={styles.containerTitle}>Today</h1>
       <div className={styles.innerContainer}>
-        {Object.values(data).map((booking: BookingType) => (
+        {bookingHours[formatDay(getDay(addDays(new Date(), 0)))].map(
+          (e: number) => (
+            <div className={styles.hourInfo} key={e}>
+              <div className={styles.left}>
+                <div className={styles.dot}></div>
+                <div className={styles.hour}>{formatHour(e)}</div>
+              </div>
+              <div className={styles.right}>
+                <div className={styles.groups}>x groups</div>
+                <div className={styles.ropes}>x ropes</div>
+              </div>
+            </div>
+          )
+        )}
+
+        {/* {Object.values(data).map((booking: BookingType) => (
           <div className={styles.hourInfo} key={booking.id}>
             <div className={styles.left}>
               <div className={styles.dot}></div>
@@ -50,7 +68,7 @@ const Bookings: React.FC = () => {
               <div className={styles.ropes}>{booking.numRopes} ropes</div>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );

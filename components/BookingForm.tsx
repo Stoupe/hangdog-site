@@ -142,24 +142,6 @@ const BookingForm: React.FC = () => {
                   </Button>
                 );
               })}
-
-              {/* {bookingTimes.map((e) => {
-                let selected = false;
-                bookingTime === e ? (selected = true) : (selected = false);
-
-                // TODO: Change colours here dependent on booking availability at that time
-                return (
-                  <Button
-                    key={e}
-                    name={e}
-                    color={selected ? "primary" : "default"}
-                    variant={selected ? "contained" : "text"}
-                    onClick={() => setBookingTime(e)}
-                  >
-                    {e}
-                  </Button>
-                );
-              })} */}
             </div>
           </div>
 
