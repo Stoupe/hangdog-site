@@ -20,7 +20,7 @@ const Dashboard: React.FC = () => {
     <div className={styles.dashboard}>
       <DashboardHeader />
       <div className={styles.dashboardContainer}>
-        <Notes />
+        {/* <Notes /> */}
         <BookingForm />
         <Bookings />
       </div>

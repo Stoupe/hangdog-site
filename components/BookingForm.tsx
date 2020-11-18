@@ -56,6 +56,8 @@ const BookingForm: React.FC = () => {
 
     addBookingToDB(booking);
     //! addBookingToCal(booking);
+
+    resetForm();
   };
 
   const addBookingToDB = (booking) => {
