@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 
 export interface BookingType {
-  id: string;
+  // id: string;
   createdAt: firebase.firestore.Timestamp;
   bookingDate: string; //  dd/MM/yyyy
   bookingName: string;
@@ -15,6 +15,6 @@ export interface BookingType {
   totalNumInGym: number;
 }
 
-export interface MultipleBookingsType {
-  bookings: BookingType[];
-}
+// export interface MultipleBookingsType {
+//   bookings: BookingType[];
+// }
