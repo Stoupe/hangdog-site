@@ -34,7 +34,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       button: {
         textTransform: "none",
       },
-      fontFamily: "Product Sans Medium",
+      // fontFamily: "Product Sans Medium",
     },
   });
 
