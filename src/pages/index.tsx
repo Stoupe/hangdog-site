@@ -29,7 +29,6 @@ const HomePage = () => {
               <Button variant="contained" color="primary">
                 Dashboard
               </Button>
-              {/* <a>Dashboard</a> */}
             </Link>
             <Button
               variant="contained"

@@ -1,0 +1,66 @@
+{
+  "fName": {
+    "value": "John",
+    "public": true
+  },
+  "lName": {
+    "value": "Doe",
+    "public": true
+  },
+  "email": {
+    "value": "example@gmail.com",
+    "public": false
+  },
+  "phone": {
+    "value": "0220123456",
+    "public": true
+  },
+  //Age shouldn't be required
+  "age": {
+    "value": 18,
+    "student": true
+  },
+  //Height definitely not required
+  "height": {
+    "value": 183
+  },
+  //Student ID photo required for student membership?
+  "studentID": {
+    "photo": "23jf809230dsk30.png",
+    "expiry": "24/12/2022"
+  },
+  //Photo should be required for anybody with a membership?
+  "profilePhoto": {
+    "value": "3hf7238jd8329iowsj83",
+    "public": false
+  },
+  //Types:
+  // Guest - Regular - Member - Staff
+  "type": {
+    "value": "guest"
+  },
+  "membershipDetails": {
+    "ongoing": true,
+    "membershipType": "bigdog",
+    "membershipStartDate": "24/11/12 3:34pm",
+    "membershipCostPM": 79
+  },
+  "tenTripDetails": {
+    "tripsRemaining": 0,
+    "lastToppedUp": "05/05/2020 5:42pm"
+  },
+  //! Don't store card info in database, use stripe or similar 3rd party
+  "cardDetails": {
+    "stripeID": "won't be storing credit card info"
+  },
+  "licenses": {
+    "belay": {
+      "value": true,
+      "dateGranted": "24/10/2020"
+    },
+    "lead": {
+      "value": false,
+      "dateGranted": ""
+    }
+  }
+}

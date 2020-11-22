@@ -25,8 +25,22 @@ const Bookings: React.FC = () => {
   //   totalNumInGym: 1,
   // };
 
+  let timeData = {};
+
   // const [data, setData] = useState<[BookingType[]] | []>([]);
   const [data, setData] = useState([]);
+
+  const updateBookingDisplay = () => {
+
+    data.forEach(booking => {
+      const time = booking.bookingTime;
+
+      timeData[time] = {
+        
+      }
+    })
+
+  };
 
   const fetchData = async () => {
     console.log("FETCHING DATA");
@@ -37,42 +51,30 @@ const Bookings: React.FC = () => {
     // //TODO: Get bookings on days either side of selected day to speed up loading times
     const bookings = await bookingsRef.where("bookingDate", "==", today).get();
 
+    const bookingArray = [];
+
     bookings.forEach((doc) => {
-      // console.log(doc);
-
       const id: string = doc.id;
-      // console.log(id);
       const bookingData = doc.data();
-      // console.log(bookingData);
 
-      const duplicateBookings = Object.values(data).filter(
-        (booking) => booking.id === id
-      );
-
-      if (!duplicateBookings.length) {
-        console.log("adding" + id + " to data...");
-        setData((prevState) => [...prevState, { id: id, ...bookingData }]);
-        console.log("added " + id + " to data, DATA:");
-        console.log(data);
-
-        // console.log("DATA:");
-        // console.log(data);
-      } else {
-        console.log("ID " + id + " already in data, not adding...");
-        // console.log(asdf);
-      }
+      bookingArray.push({ id: id, ...bookingData });
     });
+
+    setData(bookingArray);
+
+    updateBookingDisplay();
   };
 
   useEffect(() => {
     fetchData();
-    // const interval = setInterval(() => fetchData(), 10000); //TODO: fetches data every 10 seconds, causing too many db reads?
+    // const interval = setInterval(() => fetchData(), 10000); //TODO: fetches data every 10 seconds, causing too many db reads? Should fetch automatically when a booking is created.
 
     // return () => {
     //   clearInterval(interval);
     // };
-    // fetchData();
   }, []);
+
+  console.log(data);
 
   const renderHour = (hour: number) => {
     if (data) {
@@ -100,6 +102,7 @@ const Bookings: React.FC = () => {
     <div className={styles.outerContainer}>
       <h1 className={styles.containerTitle}>Today</h1>
       <div className={styles.innerContainer}>
+        <p>{JSON.stringify(data)}</p>
         <Button onClick={fetchData}>FETCH DATA</Button>
         {bookingHours[formatDay(getDay(addDays(new Date(), 0)))].map(
           (e: number) => {
