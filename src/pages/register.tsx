@@ -15,7 +15,6 @@ const Register: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      alert("already logged in");
       Router.replace("/");
     }
   }, [user]);
@@ -28,8 +27,14 @@ const Register: React.FC = () => {
       return;
     }
 
-    register(email, password);
-    console.log("registering new user");
+    register(email, password)
+      .then(() => {
+        alert("registration successful");
+        Router.reload();
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   return (

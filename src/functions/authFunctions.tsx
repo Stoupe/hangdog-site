@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 
 const updateLocalStorage = () => {
   const auth = firebase.auth();
@@ -15,7 +16,9 @@ const updateLocalStorage = () => {
 export const register = async (email: string, password: string) => {
   const auth = firebase.auth();
   await auth.createUserWithEmailAndPassword(email, password); //TODO catch errors
+
   //TODO: create info db entries
+  createUserInfo();
 
   updateLocalStorage();
   return auth.currentUser;
@@ -42,4 +45,13 @@ export const logOut = async () => {
   await auth.signOut();
   updateLocalStorage();
   return auth.currentUser;
+};
+
+const createUserInfo = () => {
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  const uid = auth.currentUser.uid;
+
+  db.collection("users").add({ uid: uid, name: "henrys" });
 };
