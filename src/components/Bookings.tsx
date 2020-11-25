@@ -27,20 +27,24 @@ const Bookings: React.FC = () => {
   };
 
   const a = {
-    "5pm": {
-      bookingId: "aS2nfjUWzRUxHi8Mr0Rj",
-      bookingTime: "5pm",
-      numBelayers: 4,
-      numRopes: 5,
-      createdAt: { seconds: 1606084615, nanoseconds: 736000000 },
-      bookingNotes: "",
-      createdBy: "Henry Stoupe",
-      bookingName: "Sal",
-      numClimbers: 2,
-      numSerious: 2,
-      bookingDate: "23/11/2020",
-      totalNumInGym: 8,
-    },
+    "2pm": [
+      [
+        {
+          bookingId: "Bis4MTtK23tXJZ5F2JpA",
+          createdAt: { seconds: 1606267075, nanoseconds: 748000000 },
+          numClimbers: 3,
+          createdBy: "Henry Stoupe",
+          numBelayers: 2,
+          numSerious: 0,
+          bookingDate: "25/11/2020",
+          numRopes: 2,
+          bookingTime: "2pm",
+          bookingName: "John",
+          totalNumInGym: 5,
+          bookingNotes: "",
+        },
+      ],
+    ],
   };
 
   type DayBookings = {
@@ -78,18 +82,33 @@ const Bookings: React.FC = () => {
   const [bookings, setBookings] = useState({});
 
   const updateBookingDisplay = () => {
+    let tempBookings = {};
+
     data.forEach((booking) => {
       const time: string = booking.bookingTime;
+      const id: string = booking.bookingId;
 
-      const allBookingsForTime = bookings[time] || [];
+      let allBookingsForTime = {};
 
-      setBookings((prevState) => ({
-        ...prevState,
-        [time]: [allBookingsForTime],
-      }));
+      console.log("bookings[time]");
+      console.log(tempBookings[time]);
+      if (tempBookings[time] === undefined) {
+        allBookingsForTime = { [id]: booking };
+      } else {
+        // if (bookings[time].includes(id))
+        allBookingsForTime = { ...tempBookings[time], [id]: booking };
+      }
+
+      tempBookings = { ...tempBookings, [time]: allBookingsForTime };
+
+      console.log("bookings after");
+      console.log(tempBookings);
     });
+
+    setBookings(tempBookings);
   };
 
+  //TODO: make this function accessible throughout the app
   const fetchData = async () => {
     console.log("FETCHING DATA");
     const bookingsRef = firebase.firestore().collection("smallBookings");
@@ -141,7 +160,9 @@ const Bookings: React.FC = () => {
           <div className={styles.hour}>{formatHour(hour)}</div>
         </div>
         <div className={styles.right}>
-          <div className={styles.groups}>0 groups</div>
+          <div className={styles.groups}>
+            {Object.keys(bookings[formatHour(hour)] || {}).length} groups
+          </div>
           <div className={styles.ropes}>0 ropes</div>
         </div>
       </div>
@@ -152,8 +173,8 @@ const Bookings: React.FC = () => {
     <div className={styles.outerContainer}>
       <h1 className={styles.containerTitle}>Today</h1>
       <div className={styles.innerContainer}>
-        <p>{JSON.stringify(data)}</p>
-        <p>{JSON.stringify(bookings)}</p>
+        {/* <p>{JSON.stringify(data)}</p> */}
+        {/* <p>{JSON.stringify(bookings)}</p> */}
         <Button onClick={fetchData}>FETCH DATA</Button>
         {bookingHours[formatDay(getDay(addDays(new Date(), 0)))].map(
           (e: number) => {
