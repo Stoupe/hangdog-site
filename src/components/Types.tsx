@@ -15,6 +15,4 @@ export interface BookingType {
   totalNumInGym: number;
 }
 
-// export interface MultipleBookingsType {
-//   bookings: BookingType[];
-// }
+export type Staff = "Henry" | "George" | "Lindsay";
