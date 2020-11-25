@@ -3,10 +3,18 @@
 .outerContainer {
   display: flex;
   flex-direction: column;
-  margin: 0 1em;
+  margin: 0 0.5em;
 
-  .containerTitle {
-    margin: 0 0 0 0.5em;
+  .containerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 1em;
+    // background: red;
+
+    .containerTitle {
+      margin: 0;
+    }
   }
 }
 

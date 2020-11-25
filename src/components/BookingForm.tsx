@@ -1,15 +1,15 @@
 import { Button } from "@material-ui/core";
-import { format, getDay, parse, toDate } from "date-fns";
+import ReplayIcon from "@material-ui/icons/Replay";
+import { format, getDay } from "date-fns";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
+import { formatDay, formatHour } from "../functions/formatTime";
 import styles from "../styles/BookingForm.module.scss";
+import BookingDatePicker from "./BookingDatePicker";
 import ClimbingDetails from "./ClimbingDetails";
 import { ClimbingDetailsContext, DateContext, UserContext } from "./Contexts";
-import BookingDatePicker from "./BookingDatePicker";
 import { bookingHours } from "./variables";
-import { formatDay, formatHour } from "../functions/formatTime";
-import ReplayIcon from "@material-ui/icons/Replay";
 
 // TODO: store current booking in localstorage to save on refresh
 
@@ -95,7 +95,9 @@ const BookingForm: React.FC = () => {
 
   return (
     <div className={styles.outerContainer}>
-      <h1 className={styles.containerTitle}>Booking</h1>
+      <div className={styles.containerHeader}>
+        <h1 className={styles.containerTitle}>Booking</h1>
+      </div>
       <form
         action="makeBooking"
         onSubmit={(e) => makeBooking(e)}

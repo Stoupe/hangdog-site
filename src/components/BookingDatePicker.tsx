@@ -1,7 +1,7 @@
 import { Button, TextField } from "@material-ui/core";
 import { DatePicker, LocalizationProvider } from "@material-ui/pickers";
 import DateFnsAdapter from "@material-ui/pickers/adapter/date-fns"; // choose your lib
-import { add, setDate } from "date-fns";
+import { add } from "date-fns";
 import React, { useContext } from "react";
 import styles from "../styles/BookingForm.module.scss";
 import { DateContext } from "./Contexts";
