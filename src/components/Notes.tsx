@@ -1,8 +1,30 @@
 import { Button } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Notes.module.scss";
+import Note from "./Note";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { FirebaseNote } from "./Types";
 
 const Notes: React.FC = () => {
+  const [notes, setNotes] = useState([]);
+
+  const fetchData = async () => {
+    console.log("FETCHING NOTES");
+    const bookingsRef = firebase.firestore().collection("staffNotes");
+    const notes = await bookingsRef.where("archived", "==", false).get();
+
+    let asdf = [];
+    notes.forEach((doc) => {
+      asdf.push(doc.data());
+    });
+    setNotes(asdf);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className={styles.outerContainer}>
       <div className={styles.containerHeader}>
@@ -10,17 +32,13 @@ const Notes: React.FC = () => {
         <Button variant="contained">+</Button>
       </div>
       <div className={styles.innerContainer}>
-        <div className={styles.noteContainer}>
-          <div className={styles.noteMessage}>
-            Code for the shop padlock is 1234
-          </div>
-          <div className={styles.noteFooter}>
-            <div className={styles.noteAuthor}>Henry - 11/11/20</div>
-            <div className={styles.dismissNote}>
-              <Button variant="contained">Done</Button>
-            </div>
-          </div>
-        </div>
+        {notes.map((note: FirebaseNote) => (
+          <Note
+            content={note.content}
+            by={note.by}
+            date={note.timestamp.toDate().toDateString()}
+          />
+        ))}
       </div>
     </div>
   );

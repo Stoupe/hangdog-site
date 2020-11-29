@@ -16,3 +16,10 @@ export interface BookingType {
 }
 
 export type Staff = "Henry" | "George" | "Lindsay";
+
+export type FirebaseNote = {
+  archived: boolean;
+  timestamp: firebase.firestore.Timestamp;
+  by: string;
+  content: string;
+};
