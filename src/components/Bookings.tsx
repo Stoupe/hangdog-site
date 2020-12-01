@@ -49,6 +49,7 @@ const Bookings: React.FC = () => {
     setBookings(tempBookings);
   };
 
+  //! REFACTOR TO USE GENERIC FIREBASE FETCHING FUNCTION
   //TODO: make this function accessible throughout the app
   const fetchData = async () => {
     console.log("FETCHING DATA");
