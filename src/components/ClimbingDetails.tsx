@@ -1,25 +1,31 @@
 import { Button, Input, TextField } from "@material-ui/core";
 import React, { useContext } from "react";
 import styles from "../styles/BookingForm.module.scss";
-import { ClimbingDetailsContext } from "./Contexts";
+import { ClimbingDetailsContext, NewBookingContext } from "./Contexts";
 
 const ClimbingDetails: React.FC = () => {
   const values = [0, 1, 2, 3, 4, 5];
 
   const {
+    bookingType,
+    bookingDate,
+    bookingTime,
     numSerious,
     numBelayers,
     numClimbers,
     numRopes,
     bookingName,
     bookingNotes,
+    setBookingType,
+    setBookingDate,
+    setBookingTime,
     setNumSerious,
     setNumBelayers,
     setNumClimbers,
     setNumRopes,
     setBookingName,
     setBookingNotes,
-  } = useContext(ClimbingDetailsContext);
+  } = useContext(NewBookingContext);
 
   return (
     <>
@@ -100,8 +106,7 @@ const ClimbingDetails: React.FC = () => {
           <h3>Ropes Required</h3>
           <h1>{numRopes}</h1>
         </div>
-        {/* <div className={styles.bookingName}> */}
-        {/* <h3>Name</h3> */}
+
         <TextField
           className={styles.bookingName}
           placeholder="Name"
@@ -110,9 +115,7 @@ const ClimbingDetails: React.FC = () => {
           multiline={true}
           onChange={(e) => setBookingName(e.target.value)}
         />
-        {/* </div> */}
-        {/* <div className={styles.bookingNotes}> */}
-        {/* <h3>Notes</h3> */}
+
         <TextField
           className={styles.bookingNotes}
           placeholder="Notes"
@@ -121,7 +124,7 @@ const ClimbingDetails: React.FC = () => {
           multiline={true}
           onChange={(e) => setBookingNotes(e.target.value)}
         />
-        {/* </div> */}
+        
       </div>
     </>
   );

@@ -5,6 +5,7 @@ import Note from "./Note";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { FirebaseNote } from "./Types";
+import AddIcon from "@material-ui/icons/Add";
 
 const Notes: React.FC = () => {
   const [notes, setNotes] = useState([]);
@@ -29,7 +30,9 @@ const Notes: React.FC = () => {
     <div className={styles.outerContainer}>
       <div className={styles.containerHeader}>
         <h1 className={styles.containerTitle}>Notes</h1>
-        <Button variant="contained">+</Button>
+        <Button>
+          <AddIcon />
+        </Button>
       </div>
       <div className={styles.innerContainer}>
         {notes.map((note: FirebaseNote) => (

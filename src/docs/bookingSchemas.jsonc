@@ -1,0 +1,16 @@
+{
+  "bookingType": "complex",
+  "bookingDate": "11/11/2020",
+  "bookingNotes": "no notes",
+  "bookingTime": "3pm",
+  "createdAt": "782649283746",
+  "createdBy": "Henry",
+  "numSerious": 2,
+  "numBelayers": 2,
+  "numClimbers": 2,
+  "numRopes": 3,
+  "totalNumInGym": 6,
+  "extraStaffNeeded": 2,
+  "extraStaffSourced": true,
+  "extraStaff": ["George", "Shaz"]
+}

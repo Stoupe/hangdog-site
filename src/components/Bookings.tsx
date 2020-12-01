@@ -13,6 +13,9 @@ import React, { useEffect, useState } from "react";
 import { formatDay, formatHour } from "../functions/formatTime";
 import styles from "../styles/Bookings.module.scss";
 import { bookingHours } from "./variables";
+import ReplayIcon from "@material-ui/icons/Replay";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 const Bookings: React.FC = () => {
   const [day, setDay] = useState(new Date());
@@ -111,28 +114,25 @@ const Bookings: React.FC = () => {
         </h1>
         <div className={styles.arrows}>
           <Button
-            variant={"contained"}
             onClick={() => {
               setDay((prevState) => addDays(prevState, -1));
             }}
           >
-            {"<"}
+            <ChevronLeftIcon />
           </Button>
           <Button
-            variant={"contained"}
             onClick={() => {
               setDay(new Date());
             }}
           >
-            {"~"}
+            <ReplayIcon />
           </Button>
           <Button
-            variant={"contained"}
             onClick={() => {
               setDay((prevState) => addDays(prevState, 1));
             }}
           >
-            {">"}
+            <ChevronRightIcon />
           </Button>
         </div>
       </div>

@@ -8,8 +8,13 @@ import { formatDay, formatHour } from "../functions/formatTime";
 import styles from "../styles/BookingForm.module.scss";
 import BookingDatePicker from "./BookingDatePicker";
 import ClimbingDetails from "./ClimbingDetails";
-import { ClimbingDetailsContext, DateContext, UserContext } from "./Contexts";
+import {
+  ClimbingDetailsContext,
+  NewBookingContext,
+  UserContext,
+} from "./Contexts";
 import { bookingHours } from "./variables";
+
 
 // TODO: store current booking in localstorage to save on refresh
 
@@ -18,17 +23,26 @@ const BookingForm: React.FC = () => {
 
   const { user, setUser } = useContext(UserContext);
 
-  const [bookingDate, setBookingDate] = useState(new Date());
-
-  const [numSerious, setNumSerious] = useState<number>(0);
-  const [numBelayers, setNumBelayers] = useState<number>(0);
-  const [numClimbers, setNumClimbers] = useState<number>(0);
-
-  const [bookingName, setBookingName] = useState<string>("");
-  const [bookingNotes, setBookingNotes] = useState<string>("");
-  const [bookingTime, setBookingTime] = useState<string>("");
-
-  const [numRopes, setNumRopes] = useState<number>();
+  const {
+    bookingType,
+    bookingDate,
+    bookingTime,
+    numSerious,
+    numBelayers,
+    numClimbers,
+    numRopes,
+    bookingName,
+    bookingNotes,
+    setBookingType,
+    setBookingDate,
+    setBookingTime,
+    setNumSerious,
+    setNumBelayers,
+    setNumClimbers,
+    setNumRopes,
+    setBookingName,
+    setBookingNotes,
+  } = useContext(NewBookingContext);
 
   const makeBooking = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,7 +69,7 @@ const BookingForm: React.FC = () => {
     };
 
     addBookingToDB(booking);
-    //! addBookingToCal(booking);
+    //! addBookingToCal(booking); //add booking to google calendar
 
     resetForm();
   };
@@ -72,6 +86,9 @@ const BookingForm: React.FC = () => {
       });
   };
 
+  /**
+   * Calculate number of ropes needed when numSerious or numBelayers is changed
+   */
   useEffect(() => {
     const b = numBelayers || 0;
     const s = numSerious || 0;
@@ -79,6 +96,9 @@ const BookingForm: React.FC = () => {
     setNumRopes(r);
   }, [numBelayers, numSerious]);
 
+  /**
+   * Clear the selected booking time when the date is changed
+   */
   useEffect(() => {
     setBookingTime(""); //TODO: this should only clear if the day selected doesn't have that time available
   }, [bookingDate]);
@@ -105,9 +125,9 @@ const BookingForm: React.FC = () => {
       >
         <div className={styles.innerContainer}>
           <div className={`${styles.row} ${styles.rowOne}`}>
-            <DateContext.Provider value={{ bookingDate, setBookingDate }}>
-              <BookingDatePicker />
-            </DateContext.Provider>
+            {/* <DateContext.Provider value={{ bookingDate, setBookingDate }}> */}
+            <BookingDatePicker />
+            {/* </DateContext.Provider> */}
             {/*TODO: add functionality to buttons */}
             <Button
               className={styles.bookingTypeButton}
@@ -150,7 +170,7 @@ const BookingForm: React.FC = () => {
           </div>
 
           <div className={`${styles.row} ${styles.rowThree}`}>
-            <ClimbingDetailsContext.Provider
+            {/* <ClimbingDetailsContext.Provider
               value={{
                 numSerious,
                 numBelayers,
@@ -165,9 +185,9 @@ const BookingForm: React.FC = () => {
                 setBookingName,
                 setBookingNotes,
               }}
-            >
-              <ClimbingDetails />
-            </ClimbingDetailsContext.Provider>
+            > */}
+            <ClimbingDetails />
+            {/* </ClimbingDetailsContext.Provider> */}
           </div>
           <div className={`${styles.row} ${styles.rowFour}`}>
             <Button color="secondary" variant="contained" onClick={resetForm}>

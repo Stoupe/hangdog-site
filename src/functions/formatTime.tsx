@@ -12,6 +12,29 @@ export const formatDay = (day: number) => {
   return days[day];
 };
 
+export const formatMillitaryTime = (time: number) => {
+  if (
+    time.toString().length !== 4 ||
+    time < 0 ||
+    time > 2359 ||
+    parseInt(time.toString().substring(2)) >= 60 //Last two digits of time are >=60
+  ) {
+    throw new Error("Incorrect number format");
+  }
+
+  const hour = parseInt(time.toString().substring(0, 2));
+  const minutes = parseInt(time.toString().substring(2, 4));
+  const ampm = hour < 12 ? "am" : "pm";
+
+  if (minutes === 0) {
+    return `${hour}${ampm}`
+  }
+  else {
+    return `${hour}:${minutes}${ampm}`
+  }
+  
+};
+
 export const formatHour = (hour: number) => {
   const hours = [
     "12am",

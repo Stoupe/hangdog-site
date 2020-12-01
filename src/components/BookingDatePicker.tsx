@@ -4,10 +4,10 @@ import DateFnsAdapter from "@material-ui/pickers/adapter/date-fns"; // choose yo
 import { add } from "date-fns";
 import React, { useContext } from "react";
 import styles from "../styles/BookingForm.module.scss";
-import { DateContext } from "./Contexts";
+import { NewBookingContext } from "./Contexts";
 
 const BookingDatePicker: React.FC = () => {
-  const { bookingDate, setBookingDate } = useContext(DateContext);
+  const { bookingDate, setBookingDate } = useContext(NewBookingContext);
 
   return (
     <div className={styles.datePicker}>
