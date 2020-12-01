@@ -6,25 +6,12 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { FirebaseNote } from "./Types";
 import AddIcon from "@material-ui/icons/Add";
+import { fetchFirebaseData } from "./../functions/useFetch";
 
 const Notes: React.FC = () => {
-  const [notes, setNotes] = useState([]);
+  const { data: notes, loading } = fetchFirebaseData("staffNotes");
 
-  const fetchData = async () => {
-    console.log("FETCHING NOTES");
-    const bookingsRef = firebase.firestore().collection("staffNotes");
-    const notes = await bookingsRef.where("archived", "==", false).get();
-
-    let asdf = [];
-    notes.forEach((doc) => {
-      asdf.push(doc.data());
-    });
-    setNotes(asdf);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className={styles.outerContainer}>
@@ -35,13 +22,18 @@ const Notes: React.FC = () => {
         </Button>
       </div>
       <div className={styles.innerContainer}>
-        {notes.map((note: FirebaseNote) => (
-          <Note
-            content={note.content}
-            by={note.by}
-            date={note.timestamp.toDate().toDateString()}
-          />
-        ))}
+        {loading && <>loading...</>}
+        {notes &&
+          notes.map((note: FirebaseNote) =>
+            !note.archived ? (
+              <Note
+                id={note.id}
+                content={note.content}
+                by={note.by}
+                date={note.timestamp.toDate().toDateString()}
+              />
+            ) : null
+          )}
       </div>
     </div>
   );

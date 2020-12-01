@@ -32,6 +32,7 @@ export type FirebaseBooking = {
 };
 
 export type FirebaseNote = {
+  id: string;
   archived: boolean;
   timestamp: firebase.firestore.Timestamp;
   by: string;
