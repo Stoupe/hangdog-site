@@ -8,13 +8,8 @@ import { formatDay, formatHour } from "../functions/formatTime";
 import styles from "../styles/BookingForm.module.scss";
 import BookingDatePicker from "./BookingDatePicker";
 import ClimbingDetails from "./ClimbingDetails";
-import {
-  ClimbingDetailsContext,
-  NewBookingContext,
-  UserContext,
-} from "./Contexts";
+import { NewBookingContext, UserContext } from "./Contexts";
 import { bookingHours } from "./variables";
-
 
 // TODO: store current booking in localstorage to save on refresh
 

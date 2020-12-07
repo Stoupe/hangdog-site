@@ -1,7 +1,7 @@
 import { Button, Input, TextField } from "@material-ui/core";
 import React, { useContext } from "react";
 import styles from "../styles/BookingForm.module.scss";
-import { ClimbingDetailsContext, NewBookingContext } from "./Contexts";
+import { NewBookingContext } from "./Contexts";
 
 const ClimbingDetails: React.FC = () => {
   const values = [0, 1, 2, 3, 4, 5];
@@ -124,7 +124,6 @@ const ClimbingDetails: React.FC = () => {
           multiline={true}
           onChange={(e) => setBookingNotes(e.target.value)}
         />
-        
       </div>
     </>
   );
