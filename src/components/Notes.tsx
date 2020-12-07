@@ -7,6 +7,7 @@ import "firebase/firestore";
 import { FirebaseNote } from "./Types";
 import AddIcon from "@material-ui/icons/Add";
 import { fetchFirebaseData } from "./../functions/useFetch";
+import NewNote from "./NewNote";
 
 const Notes: React.FC = () => {
   const { data: notes, loading } = fetchFirebaseData("staffNotes");
@@ -22,6 +23,7 @@ const Notes: React.FC = () => {
         </Button>
       </div>
       <div className={styles.innerContainer}>
+        <NewNote />
         {loading && <>loading...</>}
         {notes &&
           notes.map((note: FirebaseNote) =>
