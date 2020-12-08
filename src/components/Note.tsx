@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import styles from "../styles/Notes.module.scss";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import { format } from "date-fns";
 
 type NoteProps = {
   id: string;
   content: string;
   by: string;
-  date: string;
+  date: Date;
 };
 
 const Note: React.FC<NoteProps> = ({ id, content, by, date }) => {
@@ -34,7 +35,7 @@ const Note: React.FC<NoteProps> = ({ id, content, by, date }) => {
       <div className={styles.noteMessage}>{content}</div>
       <div className={styles.noteFooter}>
         <div className={styles.noteAuthor}>
-          {by} - {date}
+          {by} - {format(date, "dd/MM/yy")}
         </div>
         <div className={styles.dismissNote}>
           <Button variant="contained" onClick={archiveNote}>
