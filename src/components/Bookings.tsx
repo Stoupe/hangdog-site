@@ -1,4 +1,8 @@
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ReplayIcon from "@material-ui/icons/Replay";
 import {
   addDays,
   format,
@@ -7,32 +11,58 @@ import {
   isTomorrow,
   isYesterday,
 } from "date-fns";
-import firebase from "firebase/app";
-import "firebase/firestore";
-import React, { Fragment, useEffect, useState } from "react";
+import { useSnackbar } from "notistack";
+import React, { useEffect, useState } from "react";
 import { formatDay, formatHour } from "../functions/formatTime";
+import { fetchFirebaseData } from "../functions/useFetch";
 import styles from "../styles/Bookings.module.scss";
 import { bookingHours } from "./variables";
-import ReplayIcon from "@material-ui/icons/Replay";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { fetchFirebaseData } from "../functions/useFetch";
-import { useSnackbar } from "notistack";
-import CancelIcon from "@material-ui/icons/Cancel";
+import { fetchFirebaseDataNew } from "./../functions/useFetch";
 
 const Bookings: React.FC = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const [day, setDay] = useState(new Date());
-  // const [data, setData] = useState([]);
-  const { data: bookings, loading } = fetchFirebaseData("staffNotes", [
-    "bookingDate",
-    "==",
-    format(day, "dd/MM/yyyy"),
-  ]);
-
   const [daysBookings, setDaysBookings] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  const action = (key) => (
+  // let { data: bookings, loading } = fetchFirebaseData("smallBookings", [
+  //   "bookingDate",
+  //   "==",
+  //   format(day, "dd/MM/yyyy"),
+  // ]);
+
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    enqueueSnackbar(`Loading bookings for ${day}`, { variant: "info" });
+    fetchFirebaseDataNew("smallBookings", [
+      "bookingDate",
+      "==",
+      format(day, "dd/MM/yyyy"),
+    ])
+      .then((newData) => {
+        setLoading(false);
+        enqueueSnackbar(`Fetched Bookings`, {
+          variant: "success",
+        });
+        setBookings(newData);
+      })
+      .catch((err) => {
+        //TODO: error messages showing up as snacks is ugly for end user
+        enqueueSnackbar(`Error fetching bookings: ${err}`, {
+          variant: "error",
+        });
+      });
+  }, [day]);
+
+  useEffect(() => {
+    //TODO figure out a way to automatically fetch data when new booking is created without too many db reads
+    updateBookingDisplay();
+  }, [bookings]);
+
+  const action = (key: React.ReactText) => (
     <Button
       onClick={() => {
         closeSnackbar(key);
@@ -43,15 +73,14 @@ const Bookings: React.FC = () => {
   );
 
   const updateBookingDisplay = () => {
-    if (loading) return;
-    enqueueSnackbar("updating bookings display", {
-      variant: "info",
-      autoHideDuration: 2000,
-      action,
-    });
+    if (!bookings) return;
 
-    console.log("UPDATING BOOKINGS DISPLAY, BOOKINGS:");
-    console.log(bookings);
+    // if (loading) return;
+    // enqueueSnackbar("updating bookings display", {
+    //   variant: "info",
+    //   autoHideDuration: 2000,
+    //   action,
+    // });
 
     let tempBookings = {};
 
@@ -61,34 +90,30 @@ const Bookings: React.FC = () => {
 
       let allBookingsForTime = {};
 
-      console.log("bookings[time]");
-      console.log(tempBookings[time]);
+      // console.log("bookings[time]");
+      // console.log(tempBookings[time]);
+
       if (tempBookings[time] === undefined) {
         allBookingsForTime = { [id]: booking };
       } else {
-        // if (bookings[time].includes(id))
         allBookingsForTime = { ...tempBookings[time], [id]: booking };
       }
 
       tempBookings = { ...tempBookings, [time]: allBookingsForTime };
 
-      console.log("bookings after");
-      console.log(tempBookings);
+      // console.log("bookings after");
+      // console.log(tempBookings);
     });
 
+    // console.log(day);
+    // console.log(tempBookings);
     setDaysBookings(tempBookings);
   };
 
-  useEffect(() => {
-    // fetchData();
-    //TODO figure out a way to automatically fetch data when new booking is created without too many db reads
-    // const interval = setInterval(() => fetchData(), 10000);
-
-    // return () => {
-    //   clearInterval(interval);
-    // };
-    updateBookingDisplay();
-  }, [day]);
+  // useEffect(() => {
+  //   console.log(day);
+  //   setDaysBookings({});
+  // }, [day]);
 
   const renderHour = (hour: number) => {
     return (
@@ -148,10 +173,16 @@ const Bookings: React.FC = () => {
 
       <div className={styles.innerContainer}>
         {/* <Button onClick={fetchData}>FETCH DATA</Button> */}
-        {bookingHours[formatDay(getDay(day))].map((e: number) => {
-          return renderHour(e);
-        })}
-        <Button onClick={showAllBookings}>Show All Bookings</Button>
+        {!loading ? (
+          <>
+            {bookingHours[formatDay(getDay(day))].map((e: number) =>
+              renderHour(e)
+            )}
+            <Button onClick={showAllBookings}>Show All Bookings</Button>
+          </>
+        ) : (
+          <CircularProgress />
+        )}
       </div>
     </div>
   );

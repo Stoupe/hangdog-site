@@ -4,6 +4,7 @@ import styles from "../styles/NewNotes.module.scss";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { UserContext } from "./Contexts";
+import { useSnackbar } from "notistack";
 
 type NewNoteProps = {};
 
@@ -11,10 +12,11 @@ const NewNote: React.FC<NewNoteProps> = () => {
   const firestore = firebase.firestore();
   const [newNoteContent, setNewNoteContent] = useState("");
   const { user, setUser } = useContext(UserContext);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const addNewNote = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!newNoteContent) return;
+    enqueueSnackbar("adding note", { variant: "info" });
 
     const note = {
       archived: false,
@@ -28,11 +30,14 @@ const NewNote: React.FC<NewNoteProps> = () => {
       .collection("staffNotes")
       .add(note)
       .then(() => {
-        alert("added note to db");
+        enqueueSnackbar("note added", { variant: "success" });
         setNewNoteContent("");
       })
       .catch((e) => {
-        console.error(`Error adding booking to db: ${e}`);
+        //TODO: error messages showing up as snacks is ugly for end user
+        enqueueSnackbar(`Error adding booking to database: ${e}`, {
+          variant: "error",
+        });
       });
   };
 
@@ -48,6 +53,7 @@ const NewNote: React.FC<NewNoteProps> = () => {
           className={styles.newNoteInput}
           value={newNoteContent}
           onChange={(e) => setNewNoteContent(e.target.value)}
+          required={true}
         />
         <div className={styles.buttons}>
           <Button

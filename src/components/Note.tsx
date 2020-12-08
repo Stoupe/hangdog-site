@@ -4,6 +4,7 @@ import styles from "../styles/Notes.module.scss";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { format } from "date-fns";
+import { useSnackbar } from "notistack";
 
 type NoteProps = {
   id: string;
@@ -13,7 +14,10 @@ type NoteProps = {
 };
 
 const Note: React.FC<NoteProps> = ({ id, content, by, date }) => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const archiveNote = () => {
+    enqueueSnackbar("archiving note...");
     firebase
       .firestore()
       .collection("staffNotes")
@@ -23,10 +27,12 @@ const Note: React.FC<NoteProps> = ({ id, content, by, date }) => {
         timeArchived: firebase.firestore.Timestamp.fromDate(new Date()),
       })
       .then(() => {
-        console.log("note archived successfully");
+        // console.log("note archived successfully");
+        enqueueSnackbar("note archived successfully", { variant: "success" });
       })
       .catch((err) => {
-        console.error("note archive error: " + err);
+        // console.error("note archive error: " + err);
+        enqueueSnackbar(`note archived error: ${err}`, { variant: "error" });
       });
   };
 
