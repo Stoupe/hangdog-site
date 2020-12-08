@@ -4,6 +4,7 @@ import { UserContext } from "../components/Contexts";
 import "../styles/globals.css";
 import loadFirebase from "./../components/firebase";
 import firebase from "firebase/app";
+import { SnackbarProvider } from "notistack";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
@@ -41,7 +42,9 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <SnackbarProvider>
+          <Component {...pageProps} />
+        </SnackbarProvider>
       </ThemeProvider>
     </UserContext.Provider>
   );
