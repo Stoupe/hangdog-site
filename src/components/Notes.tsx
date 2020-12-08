@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/Notes.module.scss";
 import Note from "./Note";
@@ -27,7 +27,7 @@ const Notes: React.FC = () => {
       <div className={styles.innerContainer}>
         {addingNote ? <NewNote /> : null}
 
-        {loading && <>loading...</>}
+        {loading && <CircularProgress />}
         {notes &&
           notes.map((note: FirebaseNote) =>
             !note.archived ? (
