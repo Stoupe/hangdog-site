@@ -9,23 +9,53 @@ import {
 } from "date-fns";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { formatDay, formatHour } from "../functions/formatTime";
 import styles from "../styles/Bookings.module.scss";
 import { bookingHours } from "./variables";
 import ReplayIcon from "@material-ui/icons/Replay";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { fetchFirebaseData } from "../functions/useFetch";
+import { useSnackbar } from "notistack";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const Bookings: React.FC = () => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [day, setDay] = useState(new Date());
   // const [data, setData] = useState([]);
-  const [bookings, setBookings] = useState({});
+  const { data: bookings, loading } = fetchFirebaseData("staffNotes", [
+    "bookingDate",
+    "==",
+    format(day, "dd/MM/yyyy"),
+  ]);
 
-  const updateBookingDisplay = (data: any[]) => {
+  const [daysBookings, setDaysBookings] = useState({});
+
+  const action = (key) => (
+    <Button
+      onClick={() => {
+        closeSnackbar(key);
+      }}
+    >
+      <CancelIcon htmlColor="#ffffff" />
+    </Button>
+  );
+
+  const updateBookingDisplay = () => {
+    if (loading) return;
+    enqueueSnackbar("updating bookings display", {
+      variant: "info",
+      autoHideDuration: 2000,
+      action,
+    });
+
+    console.log("UPDATING BOOKINGS DISPLAY, BOOKINGS:");
+    console.log(bookings);
+
     let tempBookings = {};
 
-    data.forEach((booking) => {
+    bookings.forEach((booking) => {
       const time: string = booking.bookingTime;
       const id: string = booking.bookingId;
 
@@ -46,40 +76,18 @@ const Bookings: React.FC = () => {
       console.log(tempBookings);
     });
 
-    setBookings(tempBookings);
-  };
-
-  //! REFACTOR TO USE GENERIC FIREBASE FETCHING FUNCTION
-  //TODO: make this function accessible throughout the app
-  const fetchData = async () => {
-    console.log("FETCHING DATA");
-    const bookingsRef = firebase.firestore().collection("smallBookings");
-
-    // //TODO: Get bookings on days either side of selected day to speed up loading times
-    const bookings = await bookingsRef
-      .where("bookingDate", "==", format(day, "dd/MM/yyyy"))
-      .get();
-
-    const bookingArray = [];
-
-    bookings.forEach((doc) => {
-      const id: string = doc.id;
-      const bookingData = doc.data();
-
-      bookingArray.push({ bookingId: id, ...bookingData });
-    });
-
-    updateBookingDisplay(bookingArray);
+    setDaysBookings(tempBookings);
   };
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
     //TODO figure out a way to automatically fetch data when new booking is created without too many db reads
     // const interval = setInterval(() => fetchData(), 10000);
 
     // return () => {
     //   clearInterval(interval);
     // };
+    updateBookingDisplay();
   }, [day]);
 
   const renderHour = (hour: number) => {
@@ -91,7 +99,7 @@ const Bookings: React.FC = () => {
         </div>
         <div className={styles.right}>
           <div className={styles.groups}>
-            {Object.keys(bookings[formatHour(hour)] || {}).length} groups
+            {Object.keys(daysBookings[formatHour(hour)] || {}).length} groups
           </div>
           <div className={styles.ropes}>0 ropes</div>
         </div>

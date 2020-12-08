@@ -21,6 +21,7 @@ const BookingDatePicker: React.FC = () => {
       <LocalizationProvider dateAdapter={DateFnsAdapter}>
         <DatePicker
           disablePast={true}
+          mask={null}
           inputFormat={"EEEE do MMM"}
           renderInput={(props) => <TextField {...props} />}
           value={bookingDate}

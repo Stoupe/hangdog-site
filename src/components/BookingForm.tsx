@@ -120,9 +120,7 @@ const BookingForm: React.FC = () => {
       >
         <div className={styles.innerContainer}>
           <div className={`${styles.row} ${styles.rowOne}`}>
-            {/* <DateContext.Provider value={{ bookingDate, setBookingDate }}> */}
             <BookingDatePicker />
-            {/* </DateContext.Provider> */}
             {/*TODO: add functionality to buttons */}
             <Button
               className={styles.bookingTypeButton}

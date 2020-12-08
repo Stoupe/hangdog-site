@@ -1,20 +1,16 @@
 import { Button, CircularProgress } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import styles from "../styles/Notes.module.scss";
-import Note from "./Note";
-import firebase from "firebase/app";
-import "firebase/firestore";
-import { FirebaseNote } from "./Types";
 import AddIcon from "@material-ui/icons/Add";
+import "firebase/firestore";
+import React, { useState } from "react";
+import styles from "../styles/Notes.module.scss";
 import { fetchFirebaseData } from "./../functions/useFetch";
 import NewNote from "./NewNote";
+import Note from "./Note";
+import { FirebaseNote } from "./Types";
 
 const Notes: React.FC = () => {
-  const { data: notes, loading } = fetchFirebaseData("staffNotes");
-
+  const { data: notes, loading } = fetchFirebaseData("staffNotes", null);
   const [addingNote, setAddingNote] = useState(false);
-
-  useEffect(() => {}, []);
 
   return (
     <div className={styles.outerContainer}>
@@ -32,6 +28,7 @@ const Notes: React.FC = () => {
           notes.map((note: FirebaseNote) =>
             !note.archived ? (
               <Note
+                key={note.id}
                 id={note.id}
                 content={note.content}
                 by={note.by}

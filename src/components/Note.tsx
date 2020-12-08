@@ -20,7 +20,7 @@ const Note: React.FC<NoteProps> = ({ id, content, by, date }) => {
       .doc(id)
       .update({
         archived: true,
-        timeArchived: Date.now(),
+        timeArchived: firebase.firestore.Timestamp.fromDate(new Date()),
       })
       .then(() => {
         console.log("note archived successfully");

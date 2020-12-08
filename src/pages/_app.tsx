@@ -42,7 +42,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider>
+        <SnackbarProvider maxSnack={10}>
           <Component {...pageProps} />
         </SnackbarProvider>
       </ThemeProvider>
