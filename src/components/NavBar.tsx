@@ -1,4 +1,4 @@
-import { Link, Button } from "@material-ui/core";
+import { Button, Link } from "@material-ui/core";
 import React from "react";
 import styles from "../styles/NavBar.module.scss";
 

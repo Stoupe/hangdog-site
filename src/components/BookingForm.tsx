@@ -3,15 +3,15 @@ import ReplayIcon from "@material-ui/icons/Replay";
 import { format, getDay } from "date-fns";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
+import { useSnackbar } from "notistack";
+import React, { useContext, useEffect } from "react";
 import { formatDay, formatHour } from "../functions/formatTime";
 import styles from "../styles/BookingForm.module.scss";
 import BookingDatePicker from "./BookingDatePicker";
 import ClimbingDetails from "./ClimbingDetails";
 import { NewBookingContext, UserContext } from "./Contexts";
-import { bookingHours } from "./variables";
-import { useSnackbar } from "notistack";
 import { FirebaseBooking } from "./Types";
+import { bookingHours } from "./variables";
 
 // TODO: store current booking in localstorage to save on refresh
 

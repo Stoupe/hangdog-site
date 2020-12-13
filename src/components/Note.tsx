@@ -17,7 +17,6 @@ const Note: React.FC<NoteProps> = ({ id, content, by, date }) => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const archiveNote = () => {
-    enqueueSnackbar("archiving note...");
     firebase
       .firestore()
       .collection("staffNotes")

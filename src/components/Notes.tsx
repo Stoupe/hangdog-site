@@ -1,10 +1,9 @@
-import { Button, CircularProgress } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/Notes.module.scss";
-import { fetchFirebaseData } from "./../functions/useFetch";
 import { NotesContext } from "./Contexts";
 import NewNote from "./NewNote";
 import Note from "./Note";
@@ -13,10 +12,7 @@ import { FirebaseNote } from "./Types";
 const Notes: React.FC = () => {
   const [allNotes, setAllNotes] = useState({});
 
-  const {
-    addingNewNote,
-    setAddingNewNote,
-  } = useContext(NotesContext);
+  const { addingNewNote, setAddingNewNote } = useContext(NotesContext);
 
   useEffect(() => {
     const db = firebase.firestore();

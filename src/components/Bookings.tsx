@@ -9,18 +9,16 @@ import {
   getDay,
   isToday,
   isTomorrow,
-  isYesterday,
+  isYesterday
 } from "date-fns";
+import firebase from "firebase/app";
+import "firebase/firestore";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { formatDay, formatHour } from "../functions/formatTime";
-import { fetchFirebaseData } from "../functions/useFetch";
 import styles from "../styles/Bookings.module.scss";
-import { bookingHours } from "./variables";
-import { fetchFirebaseDataNew } from "./../functions/useFetch";
-import firebase from "firebase/app";
-import "firebase/firestore";
 import { FirebaseBooking } from "./Types";
+import { bookingHours } from "./variables";
 
 const Bookings: React.FC = () => {
   const db = firebase.firestore();

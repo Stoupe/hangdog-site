@@ -1,10 +1,10 @@
-import { Button, TextareaAutosize, TextField } from "@material-ui/core";
-import React, { useContext, useRef, useState } from "react";
-import styles from "../styles/NewNote.module.scss";
+import { Button, TextField } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { NotesContext, UserContext } from "./Contexts";
 import { useSnackbar } from "notistack";
+import React, { useContext, useState } from "react";
+import styles from "../styles/NewNote.module.scss";
+import { NotesContext, UserContext } from "./Contexts";
 
 const NewNote: React.FC = () => {
   const firestore = firebase.firestore();
