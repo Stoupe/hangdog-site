@@ -1,24 +1,25 @@
 import firebase from "firebase/app";
 
-export interface BookingType {
-  // id: string;
-  createdAt: firebase.firestore.Timestamp;
-  bookingDate: string; //  dd/MM/yyyy
-  bookingName: string;
-  bookingNotes?: string;
-  bookingTime: string; //TODO time?
-  createdBy: string;
-  numSerious: number;
-  numBelayers: number;
-  numClimbing: number;
-  numRopes: number;
-  totalNumInGym: number;
-}
+// export interface BookingType {
+//   // id: string;
+//   createdAt: firebase.firestore.Timestamp;
+//   bookingDate: string; //  dd/MM/yyyy
+//   bookingName: string;
+//   bookingNotes?: string;
+//   bookingTime: string; //TODO time?
+//   createdBy: string;
+//   numSerious: number;
+//   numBelayers: number;
+//   numClimbing: number;
+//   numRopes: number;
+//   totalNumInGym: number;
+// }
 
 export type Staff = "Henry" | "George" | "Lindsay";
 
 export type FirebaseBooking = {
-  bookingType: BookingType;
+  bookingType: "basic" | "complex" | "birthday";
+  bookingName: string;
   bookingDate: string;
   bookingNotes: string;
   bookingTime: string;
@@ -38,8 +39,6 @@ export type FirebaseNote = {
   by: string;
   content: string;
 };
-
-export type BookingTypes = "basic" | "complex" | "birthday";
 
 export type BookingTimes =
   | string

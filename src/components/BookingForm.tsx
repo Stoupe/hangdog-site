@@ -10,11 +10,14 @@ import BookingDatePicker from "./BookingDatePicker";
 import ClimbingDetails from "./ClimbingDetails";
 import { NewBookingContext, UserContext } from "./Contexts";
 import { bookingHours } from "./variables";
+import { useSnackbar } from "notistack";
+import { FirebaseBooking } from "./Types";
 
 // TODO: store current booking in localstorage to save on refresh
 
 const BookingForm: React.FC = () => {
   const firestore = firebase.firestore();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const { user, setUser } = useContext(UserContext);
 
@@ -44,12 +47,8 @@ const BookingForm: React.FC = () => {
 
     // TODO: handle bad inputs
 
-    if (!user) {
-      alert("please sign in");
-      return;
-    }
-
-    const booking = {
+    const booking: FirebaseBooking = {
+      bookingType: "basic",
       createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
       createdBy: user.displayName, //TODO: should be current staff name - easily changeable
       bookingName: bookingName,
@@ -58,7 +57,7 @@ const BookingForm: React.FC = () => {
       numClimbers: numClimbers,
       numRopes: numRopes,
       totalNumInGym: numSerious + numBelayers + numClimbers,
-      bookingDate: format(bookingDate, "dd/MM/yyyy"),
+      bookingDate: format(bookingDate, "dd-MM-yyyy"),
       bookingTime: bookingTime, //TODO: fix - parse time to standard format
       bookingNotes: bookingNotes,
     };
@@ -69,15 +68,24 @@ const BookingForm: React.FC = () => {
     resetForm();
   };
 
-  const addBookingToDB = (booking) => {
+  const addBookingToDB = async (booking: FirebaseBooking) => {
+    await firestore
+      .collection("bookings")
+      .doc(booking.bookingDate)
+      .set({}, { merge: true });
+
     firestore
+      .collection("bookings")
+      .doc(booking.bookingDate)
       .collection("smallBookings")
       .add(booking)
       .then(() => {
-        // alert("added to db");
+        enqueueSnackbar("Created New Booking", { variant: "success" });
       })
-      .catch((e) => {
-        console.error(`Error adding booking to db: ${e}`);
+      .catch((err) => {
+        enqueueSnackbar(`Error Creating Booking: ${err}`, {
+          variant: "error",
+        });
       });
   };
 
@@ -163,35 +171,13 @@ const BookingForm: React.FC = () => {
           </div>
 
           <div className={`${styles.row} ${styles.rowThree}`}>
-            {/* <ClimbingDetailsContext.Provider
-              value={{
-                numSerious,
-                numBelayers,
-                numClimbers,
-                numRopes,
-                bookingName,
-                bookingNotes,
-                setNumSerious,
-                setNumBelayers,
-                setNumClimbers,
-                setNumRopes,
-                setBookingName,
-                setBookingNotes,
-              }}
-            > */}
             <ClimbingDetails />
-            {/* </ClimbingDetailsContext.Provider> */}
           </div>
           <div className={`${styles.row} ${styles.rowFour}`}>
             <Button color="secondary" variant="contained" onClick={resetForm}>
               <ReplayIcon />
             </Button>
-            <Button
-              autoCapitalize="false"
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
+            <Button variant="contained" color="primary" type="submit">
               Book
             </Button>
           </div>

@@ -18,47 +18,57 @@ import { fetchFirebaseData } from "../functions/useFetch";
 import styles from "../styles/Bookings.module.scss";
 import { bookingHours } from "./variables";
 import { fetchFirebaseDataNew } from "./../functions/useFetch";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { FirebaseBooking } from "./Types";
 
 const Bookings: React.FC = () => {
+  const db = firebase.firestore();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const [day, setDay] = useState(new Date());
   const [daysBookings, setDaysBookings] = useState({});
   const [loading, setLoading] = useState(true);
 
-  // let { data: bookings, loading } = fetchFirebaseData("smallBookings", [
-  //   "bookingDate",
-  //   "==",
-  //   format(day, "dd/MM/yyyy"),
-  // ]);
-
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState({});
 
   useEffect(() => {
+    setBookings({});
+    setDaysBookings({});
     setLoading(true);
-    enqueueSnackbar(`Loading bookings for ${day}`, { variant: "info" });
-    fetchFirebaseDataNew("smallBookings", [
-      "bookingDate",
-      "==",
-      format(day, "dd/MM/yyyy"),
-    ])
-      .then((newData) => {
+    const date = format(day, "dd-MM-yyyy");
+    enqueueSnackbar(`Loading bookings for ${date}`, { variant: "info" });
+
+    const newQuery = db
+      .collection("bookings")
+      .doc(date)
+      .collection("smallBookings");
+
+    const observer = newQuery.onSnapshot(
+      (querySnapshot) => {
+        if (!querySnapshot.empty) {
+          let tempBookings = {};
+          querySnapshot.docs.forEach((doc) => {
+            tempBookings[doc.id] = doc.data();
+          });
+          setBookings(tempBookings);
+          updateBookingDisplay();
+        }
         setLoading(false);
-        enqueueSnackbar(`Fetched Bookings`, {
-          variant: "success",
-        });
-        setBookings(newData);
-      })
-      .catch((err) => {
-        //TODO: error messages showing up as snacks is ugly for end user
+      },
+      (err) => {
         enqueueSnackbar(`Error fetching bookings: ${err}`, {
           variant: "error",
         });
-      });
+      }
+    );
+
+    return () => {
+      observer();
+    };
   }, [day]);
 
   useEffect(() => {
-    //TODO figure out a way to automatically fetch data when new booking is created without too many db reads
     updateBookingDisplay();
   }, [bookings]);
 
@@ -73,25 +83,12 @@ const Bookings: React.FC = () => {
   );
 
   const updateBookingDisplay = () => {
-    if (!bookings) return;
-
-    // if (loading) return;
-    // enqueueSnackbar("updating bookings display", {
-    //   variant: "info",
-    //   autoHideDuration: 2000,
-    //   action,
-    // });
-
     let tempBookings = {};
-
-    bookings.forEach((booking) => {
-      const time: string = booking.bookingTime;
-      const id: string = booking.bookingId;
+    Object.entries(bookings).forEach((booking: [string, FirebaseBooking]) => {
+      const time: string = booking[1].bookingTime;
+      const id: string = booking[0];
 
       let allBookingsForTime = {};
-
-      // console.log("bookings[time]");
-      // console.log(tempBookings[time]);
 
       if (tempBookings[time] === undefined) {
         allBookingsForTime = { [id]: booking };
@@ -100,20 +97,9 @@ const Bookings: React.FC = () => {
       }
 
       tempBookings = { ...tempBookings, [time]: allBookingsForTime };
-
-      // console.log("bookings after");
-      // console.log(tempBookings);
+      setDaysBookings(tempBookings);
     });
-
-    // console.log(day);
-    // console.log(tempBookings);
-    setDaysBookings(tempBookings);
   };
-
-  // useEffect(() => {
-  //   console.log(day);
-  //   setDaysBookings({});
-  // }, [day]);
 
   const renderHour = (hour: number) => {
     return (
@@ -124,7 +110,12 @@ const Bookings: React.FC = () => {
         </div>
         <div className={styles.right}>
           <div className={styles.groups}>
-            {Object.keys(daysBookings[formatHour(hour)] || {}).length} groups
+            {!loading ? (
+              Object.keys(daysBookings[formatHour(hour)] || {}).length +
+              " groups"
+            ) : (
+              <CircularProgress size="1em" />
+            )}
           </div>
           <div className={styles.ropes}>0 ropes</div>
         </div>
@@ -173,16 +164,9 @@ const Bookings: React.FC = () => {
 
       <div className={styles.innerContainer}>
         {/* <Button onClick={fetchData}>FETCH DATA</Button> */}
-        {!loading ? (
-          <>
-            {bookingHours[formatDay(getDay(day))].map((e: number) =>
-              renderHour(e)
-            )}
-            <Button onClick={showAllBookings}>Show All Bookings</Button>
-          </>
-        ) : (
-          <CircularProgress />
-        )}
+
+        {bookingHours[formatDay(getDay(day))].map((e: number) => renderHour(e))}
+        <Button onClick={showAllBookings}>Show All Bookings</Button>
       </div>
     </div>
   );
