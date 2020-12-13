@@ -1,7 +1,8 @@
 import { Button, CircularProgress } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import firebase from "firebase/app";
 import "firebase/firestore";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/Notes.module.scss";
 import { fetchFirebaseData } from "./../functions/useFetch";
 import NewNote from "./NewNote";
@@ -9,7 +10,31 @@ import Note from "./Note";
 import { FirebaseNote } from "./Types";
 
 const Notes: React.FC = () => {
-  const { data: notes, loading } = fetchFirebaseData("staffNotes", null);
+  const [allNotes, setAllNotes] = useState({});
+
+  useEffect(() => {
+    const db = firebase.firestore();
+    const query = db.collection("staffNotes").where("archived", "==", false);
+
+    const observer = query.onSnapshot(
+      (querySnapshot) => {
+        console.log(`Received query snapshot of size ${querySnapshot.size}`);
+        let tempNotes = {};
+        querySnapshot.docs.forEach((doc) => {
+          tempNotes[doc.id] = doc.data();
+        });
+        setAllNotes(tempNotes);
+      },
+      (err) => {
+        console.log(`Encountered error: ${err}`);
+      }
+    );
+
+    return () => {
+      observer();
+    };
+  }, []);
+
   const [addingNote, setAddingNote] = useState(false);
 
   return (
@@ -23,19 +48,15 @@ const Notes: React.FC = () => {
       <div className={styles.innerContainer}>
         {addingNote ? <NewNote /> : null}
 
-        {loading && <CircularProgress />}
-        {notes &&
-          notes.map((note: FirebaseNote) =>
-            !note.archived ? (
-              <Note
-                key={note.id}
-                id={note.id}
-                content={note.content}
-                by={note.by}
-                date={note.timestamp.toDate()}
-              />
-            ) : null
-          )}
+        {Object.entries(allNotes).map((note: [string, FirebaseNote]) => (
+          <Note
+            key={note[0]}
+            id={note[0]}
+            content={note[1].content}
+            by={note[1].by}
+            date={note[1].timestamp.toDate()}
+          />
+        ))}
       </div>
     </div>
   );
