@@ -17,8 +17,10 @@ import firebase from "firebase/app";
 
 export type Staff = "Henry" | "George" | "Lindsay";
 
+export type BookingTypes = "basic" | "complex" | "birthday";
+
 export type FirebaseBooking = {
-  bookingType: "basic" | "complex" | "birthday";
+  bookingType: BookingTypes;
   bookingName: string;
   bookingDate: string;
   bookingNotes: string;
