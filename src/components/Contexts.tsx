@@ -29,6 +29,11 @@ export const UserContext: Context<{
 //   setBookingNotes: React.Dispatch<React.SetStateAction<string>>;
 // }> = createContext(null);
 
+export const NotesContext: Context<{
+  addingNewNote: boolean;
+  setAddingNewNote: React.Dispatch<React.SetStateAction<boolean>>;
+}> = createContext(null);
+
 export const NewBookingContext: Context<{
   bookingType: "basic" | "complex" | "birthday";
 

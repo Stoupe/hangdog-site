@@ -1,21 +1,21 @@
 import { Button, TextareaAutosize, TextField } from "@material-ui/core";
-import React, { useContext, useState } from "react";
-import styles from "../styles/NewNotes.module.scss";
+import React, { useContext, useRef, useState } from "react";
+import styles from "../styles/NewNote.module.scss";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { UserContext } from "./Contexts";
+import { NotesContext, UserContext } from "./Contexts";
 import { useSnackbar } from "notistack";
 
-type NewNoteProps = {};
-
-const NewNote: React.FC<NewNoteProps> = () => {
+const NewNote: React.FC = () => {
   const firestore = firebase.firestore();
+  const { addingNewNote: visible, setAddingNewNote: setVisible } = useContext(
+    NotesContext
+  );
   const [newNoteContent, setNewNoteContent] = useState("");
   const { user, setUser } = useContext(UserContext);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const addNewNote = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const addNewNote = () => {
     enqueueSnackbar("adding note", { variant: "info" });
 
     const note = {
@@ -32,6 +32,7 @@ const NewNote: React.FC<NewNoteProps> = () => {
       .then(() => {
         enqueueSnackbar("note added", { variant: "success" });
         setNewNoteContent("");
+        setVisible(false);
       })
       .catch((e) => {
         //TODO: error messages showing up as snacks is ugly for end user
@@ -43,38 +44,47 @@ const NewNote: React.FC<NewNoteProps> = () => {
 
   const cancelNewNote = () => {
     setNewNoteContent("");
+    setVisible(false);
   };
 
   return (
-    <div className={styles.noteContainer}>
-      <form className={styles.newNoteForm} onSubmit={addNewNote}>
-        <TextField
-          multiline={true}
-          className={styles.newNoteInput}
-          value={newNoteContent}
-          onChange={(e) => setNewNoteContent(e.target.value)}
-          required={true}
-        />
-        <div className={styles.buttons}>
-          <Button
-            size="large"
-            color="secondary"
-            variant="contained"
-            onClick={cancelNewNote}
-          >
-            Cancel
-          </Button>
-          <Button
-            size="large"
-            color="primary"
-            variant="contained"
-            type="submit"
-          >
-            Add Note
-          </Button>
-        </div>
-      </form>
-    </div>
+    visible && (
+      <div className={styles.noteContainer}>
+        <form className={styles.newNoteForm}>
+          <TextField
+            multiline={true}
+            onKeyPress={(e) => {
+              if (e.key == "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                addNewNote();
+              }
+            }}
+            className={styles.newNoteInput}
+            value={newNoteContent}
+            onChange={(e) => setNewNoteContent(e.target.value)}
+            required={true}
+          />
+          <div className={styles.buttons}>
+            <Button
+              size="large"
+              color="secondary"
+              variant="contained"
+              onClick={cancelNewNote}
+            >
+              Cancel
+            </Button>
+            <Button
+              size="large"
+              color="primary"
+              variant="contained"
+              onPress={addNewNote}
+            >
+              Add Note
+            </Button>
+          </div>
+        </form>
+      </div>
+    )
   );
 };
 

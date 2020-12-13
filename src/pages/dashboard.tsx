@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import DashboardHeader from "../components/DashboardHeader";
 import BookingForm from "../components/BookingForm";
-import { NewBookingContext, UserContext } from "../components/Contexts";
+import {
+  NewBookingContext,
+  NotesContext,
+  UserContext,
+} from "../components/Contexts";
 import styles from "../styles/Dashboard.module.scss";
 import Router from "next/router";
 import Bookings from "../components/Bookings";
@@ -26,6 +30,8 @@ const Dashboard: React.FC = () => {
 
   const [numRopes, setNumRopes] = useState<number>();
 
+  const [addingNewNote, setAddingNewNote] = useState<boolean>(false);
+
   useEffect(() => {
     if (!user) {
       Router.replace("/");
@@ -36,7 +42,10 @@ const Dashboard: React.FC = () => {
     <div className={styles.dashboard}>
       <DashboardHeader />
       <div className={styles.dashboardContainer}>
-        <Notes />
+        <NotesContext.Provider value={{ addingNewNote, setAddingNewNote }}>
+          <Notes />
+        </NotesContext.Provider>
+
         <NewBookingContext.Provider
           value={{
             bookingType,
