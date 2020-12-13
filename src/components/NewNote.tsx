@@ -77,7 +77,7 @@ const NewNote: React.FC = () => {
               size="large"
               color="primary"
               variant="contained"
-              onPress={addNewNote}
+              onClick={addNewNote}
             >
               Add Note
             </Button>
