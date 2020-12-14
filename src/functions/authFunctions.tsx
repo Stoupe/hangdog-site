@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import { FirebaseUserType } from "../components/Types";
 
 const updateLocalStorage = () => {
   const auth = firebase.auth();
@@ -12,16 +13,91 @@ const updateLocalStorage = () => {
   }
 };
 
-//TODO: user verification things?
-export const register = async (email: string, password: string) => {
+const createUserInfo = async (fName: string, lName: string, email: string) => {
   const auth = firebase.auth();
-  await auth.createUserWithEmailAndPassword(email, password); //TODO catch errors
+  const db = firebase.firestore();
+
+  const uid = auth.currentUser.uid;
+
+  const user: FirebaseUserType = {
+    fName: { value: fName, public: true },
+    lName: { value: lName, public: false },
+    email: email,
+    phone: null,
+    emergencyContact: {
+      name: null,
+      email: null,
+      phone: null,
+    },
+    age: null,
+    ageCategory: "Adult",
+    height: null,
+    studentID: {
+      photo: null,
+      expiry: null,
+    },
+    profilePhoto: {
+      value: null,
+      public: false,
+    },
+    userType: "Guest",
+    currentMembershipDetails: {
+      ongoing: false,
+      offPeak: false,
+      trial: false,
+      membershipType: null,
+      membershipStartDate: null,
+      membershipEndDate: null,
+      membershipCostPM: null,
+    },
+    tenTripDetails: {
+      tripsRemaining: 0,
+      lastToppedUp: null,
+    },
+    cardDetails: {
+      stripeID: null,
+    },
+    licenses: {
+      belay: {
+        value: false,
+        dateGranted: null,
+      },
+      lead: {
+        value: false,
+        dateGranted: null,
+      },
+    },
+  };
+
+  await db.collection("users").doc(uid).set(user);
+};
+
+//TODO: user verification things?
+export const register = async (
+  fName: string,
+  lName: string,
+  email: string,
+  password: string
+) => {
+  const auth = firebase.auth();
+
+  try {
+    await auth.createUserWithEmailAndPassword(email, password);
+
+    // await auth.updateCurrentUser({
+    //   ...auth.currentUser,
+    //   displayName: `${fName} ${lName}`,
+    // });
+
+    await createUserInfo(fName, lName, email);
+  } catch (err) {
+    return Promise.reject(err);
+  }
 
   //TODO: create info db entries
-  createUserInfo();
 
   updateLocalStorage();
-  return auth.currentUser;
+  return Promise.resolve(auth.currentUser);
 };
 
 export const logInWithGoogle = async () => {
@@ -45,13 +121,4 @@ export const logOut = async () => {
   await auth.signOut();
   updateLocalStorage();
   return auth.currentUser;
-};
-
-const createUserInfo = () => {
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-
-  const uid = auth.currentUser.uid;
-
-  db.collection("users").add({ uid: uid, name: "henrys" });
 };

@@ -1,5 +1,6 @@
 import { Button, TextField } from "@material-ui/core";
 import Router from "next/router";
+import { useSnackbar } from "notistack";
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../components/Contexts";
 import NavBar from "../components/NavBar";
@@ -8,7 +9,10 @@ import { register } from "./../functions/authFunctions";
 
 const Register: React.FC = () => {
   const { user, setUser } = useContext(UserContext);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
+  const [fName, setFName] = useState("");
+  const [lName, setLName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -23,17 +27,17 @@ const Register: React.FC = () => {
     e.preventDefault();
 
     if (password !== passwordConfirmation) {
-      alert("passwords don't match");
+      enqueueSnackbar("Passwords don't match", { variant: "warning" });
       return;
     }
 
-    register(email, password)
+    register(fName, lName, email, password)
       .then(() => {
-        alert("registration successful");
+        enqueueSnackbar("Registration Successful", { variant: "success" });
         Router.reload();
       })
       .catch((err) => {
-        alert(err);
+        enqueueSnackbar(err.toString(), { variant: "error" });
       });
   };
 
@@ -49,27 +53,48 @@ const Register: React.FC = () => {
           >
             <TextField
               className={styles.inputField}
+              required
+              name="fName"
+              label="First Name"
+              variant="outlined"
+              value={fName}
+              onChange={(e) => setFName(e.target.value)}
+            />
+            <TextField
+              className={styles.inputField}
+              required
+              name="lName"
+              label="Last Name"
+              variant="outlined"
+              value={lName}
+              onChange={(e) => setLName(e.target.value)}
+            />
+            <TextField
+              className={styles.inputField}
+              required
               type="email"
               name="email"
-              label="email"
+              label="Email"
               variant="outlined"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               className={styles.inputField}
+              required
               type="password"
               name="password"
-              label="password"
+              label="Password"
               variant="outlined"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <TextField
               className={styles.inputField}
+              required
               type="password"
               name="passwordConfirmation"
-              label="confirm password"
+              label="Confirm Password"
               variant="outlined"
               value={passwordConfirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}

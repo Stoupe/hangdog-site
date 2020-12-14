@@ -7,6 +7,10 @@ export const UserContext: Context<{
   setUser: React.Dispatch<React.SetStateAction<firebase.User>>;
 }> = createContext(null);
 
+// export const ComplexUserContext: Context<{
+//   user: {};
+// }> = createContext(null);
+
 export const NotesContext: Context<{
   addingNewNote: boolean;
   setAddingNewNote: React.Dispatch<React.SetStateAction<boolean>>;
