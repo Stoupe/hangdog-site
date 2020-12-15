@@ -6,6 +6,7 @@ import { UserContext } from "../components/Contexts";
 import NavBar from "../components/NavBar";
 import styles from "../styles/register.module.scss";
 import { register } from "./../functions/authFunctions";
+import firebase from "firebase/app";
 
 const Register: React.FC = () => {
   const { user, setUser } = useContext(UserContext);
@@ -36,8 +37,8 @@ const Register: React.FC = () => {
         enqueueSnackbar("Registration Successful", { variant: "success" });
         Router.reload();
       })
-      .catch((err) => {
-        enqueueSnackbar(err.toString(), { variant: "error" });
+      .catch((err: firebase.auth.Error) => {
+        enqueueSnackbar(err.message, { variant: "error" });
       });
   };
 

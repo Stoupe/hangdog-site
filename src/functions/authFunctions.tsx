@@ -83,18 +83,10 @@ export const register = async (
 
   try {
     await auth.createUserWithEmailAndPassword(email, password);
-
-    // await auth.updateCurrentUser({
-    //   ...auth.currentUser,
-    //   displayName: `${fName} ${lName}`,
-    // });
-
     await createUserInfo(fName, lName, email);
   } catch (err) {
     return Promise.reject(err);
   }
-
-  //TODO: create info db entries
 
   updateLocalStorage();
   return Promise.resolve(auth.currentUser);
@@ -102,7 +94,7 @@ export const register = async (
 
 export const logInWithGoogle = async () => {
   const auth = firebase.auth();
-  await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); //TODO catch errors
+  await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); //TODO: catch errors
   updateLocalStorage();
   //TODO: ensure user has user info db entry, if not create one
 
@@ -111,7 +103,7 @@ export const logInWithGoogle = async () => {
 
 export const logIn = async (email: string, password: string) => {
   const auth = firebase.auth();
-  await auth.signInWithEmailAndPassword(email, password); //TODO catch errors
+  await auth.signInWithEmailAndPassword(email, password); //TODO: catch errors
   updateLocalStorage();
   return auth.currentUser;
 };
