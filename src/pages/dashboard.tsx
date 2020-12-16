@@ -38,7 +38,7 @@ const Dashboard: React.FC = () => {
     }
   }, []);
 
-  return (
+  return user && (
     <div className={styles.dashboard}>
       <DashboardHeader />
       <div className={styles.dashboardContainer}>

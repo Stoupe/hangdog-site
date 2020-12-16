@@ -5,9 +5,12 @@ import { UserContext } from "../components/Contexts";
 import NavBar from "../components/NavBar";
 import { logIn } from "../functions/authFunctions";
 import styles from "../styles/login.module.scss";
+import { useSnackbar } from "notistack";
+import firebase from "firebase/app";
 
 const Login: React.FC = () => {
   const { user, setUser } = useContext(UserContext);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,11 +25,11 @@ const Login: React.FC = () => {
     e.preventDefault();
     logIn(email, password)
       .then(() => {
-        alert("successful login");
+        enqueueSnackbar("Login Successful", { variant: "success" });
         Router.reload();
       })
-      .catch((err) => {
-        alert(err);
+      .catch((err: firebase.auth.Error) => {
+        enqueueSnackbar(err.message, { variant: "error" });
       });
 
     console.log("logging in user");

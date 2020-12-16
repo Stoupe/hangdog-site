@@ -5,9 +5,11 @@ import { UserContext } from "../components/Contexts";
 import NavBar from "../components/NavBar";
 import { logInWithGoogle, logOut } from "../functions/authFunctions";
 import styles from "../styles/index.module.scss";
+import { useSnackbar } from "notistack";
 
 const HomePage = () => {
   const { user, setUser } = useContext(UserContext);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   return (
     <>
@@ -20,8 +22,16 @@ const HomePage = () => {
                 variant="contained"
                 color="primary"
                 onClick={async () => {
-                  const user = await logInWithGoogle();
-                  setUser(user);
+                  logInWithGoogle()
+                    .then((user) => {
+                      setUser(user);
+                      enqueueSnackbar("Successfully logged in with Google", {
+                        variant: "success",
+                      });
+                    })
+                    .catch((err) => {
+                      enqueueSnackbar(err.toString(), { variant: "error" });
+                    });
                 }}
               >
                 Log In with Google
@@ -57,8 +67,14 @@ const HomePage = () => {
                 variant="contained"
                 color="secondary"
                 onClick={async () => {
-                  const user = await logOut();
-                  setUser(user);
+                  logOut()
+                    .then((user) => {
+                      setUser(user);
+                      enqueueSnackbar("Logged Out", { variant: "success" });
+                    })
+                    .catch((err) => {
+                      enqueueSnackbar(err, { variant: "error" });
+                    });
                 }}
               >
                 Log Out

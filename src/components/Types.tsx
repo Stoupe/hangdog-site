@@ -10,7 +10,48 @@ type UserTypes =
   | "Guest";
 
 type MembershipTypes = "Big Dog" | "Little Dog" | "Fit Dog" | "Trial";
-type MembershipAges = "Child" | "Student" | "Adult";
+type MembershipAges = "Child" | "Student" | "Adult" | "Unknown";
+
+export type FirebaseDefaultUserType = {
+  phone: string;
+  emergencyContact: { name: string; email: string; phone?: string };
+  birthday: {
+    value: Date;
+    public: "None" | "AgeOnly" | "DateOnly" | "FullDate";
+  };
+  ageCategory: MembershipAges;
+  height: { value: number; public: boolean };
+  studentID: { photo: string; expiry: string };
+  profilePhoto: { value: string; public: boolean };
+  userType: UserTypes;
+  currentMembershipDetails: {
+    ongoing: boolean;
+    offPeak: boolean;
+    trial: boolean;
+    membershipType: MembershipTypes;
+    membershipStartDate: Date;
+    membershipEndDate: Date;
+    membershipCostPM: number;
+  };
+  // membershipHistory: [any];
+  tenTripDetails: {
+    tripsRemaining: number;
+    lastToppedUp: Date;
+  };
+  cardDetails: {
+    stripeID: string;
+  };
+  licenses: {
+    belay: {
+      value: boolean;
+      dateGranted: Date;
+    };
+    lead: {
+      value: boolean;
+      dateGranted: Date;
+    };
+  };
+};
 
 export type FirebaseUserType = {
   fName: { value: string; public: boolean };
@@ -18,7 +59,10 @@ export type FirebaseUserType = {
   email: string;
   phone: string;
   emergencyContact: { name: string; email: string; phone?: string };
-  age: { value: number; public: boolean };
+  birthday: {
+    value: Date;
+    public: "None" | "AgeOnly" | "DateOnly" | "FullDate";
+  };
   ageCategory: MembershipAges;
   height: { value: number; public: boolean };
   studentID: { photo: string; expiry: string };
