@@ -2,9 +2,10 @@ import { Button, TextField } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { useSnackbar } from "notistack";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "../styles/NewNote.module.scss";
 import { NotesContext, UserContext } from "./Contexts";
+import { AnimatePresence, motion } from "framer-motion";
 
 const NewNote: React.FC = () => {
   const firestore = firebase.firestore();
@@ -48,43 +49,52 @@ const NewNote: React.FC = () => {
   };
 
   return (
-    visible && (
-      <div className={styles.noteContainer}>
-        <form className={styles.newNoteForm}>
-          <TextField
-            multiline={true}
-            onKeyPress={(e) => {
-              if (e.key == "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                addNewNote();
-              }
-            }}
-            className={styles.newNoteInput}
-            value={newNoteContent}
-            onChange={(e) => setNewNoteContent(e.target.value)}
-            required={true}
-          />
-          <div className={styles.buttons}>
-            <Button
-              size="large"
-              color="secondary"
-              variant="contained"
-              onClick={cancelNewNote}
-            >
-              Cancel
-            </Button>
-            <Button
-              size="large"
-              color="primary"
-              variant="contained"
-              onClick={addNewNote}
-            >
-              Add Note
-            </Button>
-          </div>
-        </form>
-      </div>
-    )
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          className={styles.noteContainer}
+          initial={{ opacity: 0, y: "-100%" }}
+          animate={{ opacity: 1, y: "0" }}
+          exit={{ opacity: 0, y: "-100%" }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
+          <form className={styles.newNoteForm}>
+            <TextField
+              autoFocus={true}
+              multiline={true}
+              onKeyPress={(e) => {
+                if (e.key == "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  addNewNote();
+                }
+              }}
+              className={styles.newNoteInput}
+              value={newNoteContent}
+              onChange={(e) => setNewNoteContent(e.target.value)}
+              required={true}
+            />
+            <div className={styles.buttons}>
+              <Button
+                size="large"
+                color="secondary"
+                variant="contained"
+                onClick={cancelNewNote}
+              >
+                Cancel
+              </Button>
+              <Button
+                size="large"
+                color="primary"
+                variant="contained"
+                onClick={addNewNote}
+              >
+                Add Note
+              </Button>
+            </div>
+          </form>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -13,6 +13,7 @@
     "@material-ui/pickers": "^4.0.0-alpha.12",
     "date-fns": "^2.16.1",
     "firebase": "^8.0.0",
+    "framer-motion": "^2.9.5",
     "next": "10.0.0",
     "notistack": "^1.0.2",
     "react": "17.0.1",

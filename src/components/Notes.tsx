@@ -9,6 +9,7 @@ import NewNote from "./NewNote";
 import Note from "./Note";
 import { FirebaseNote } from "./Types";
 
+
 const Notes: React.FC = () => {
   const [allNotes, setAllNotes] = useState({});
 
@@ -46,7 +47,8 @@ const Notes: React.FC = () => {
         </Button>
       </div>
       <div className={styles.innerContainer}>
-        <NewNote />
+        
+          <NewNote />
 
         {Object.entries(allNotes).map((note: [string, FirebaseNote]) => (
           <Note
