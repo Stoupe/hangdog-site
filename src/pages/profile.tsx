@@ -32,7 +32,7 @@ const Profile: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.content}>
           <h1>Profile</h1>
-          <p>Name: {`${userInfo.fName.value} ${userInfo.lName.value}`}</p>
+          <p>Name: {`${userInfo?.fName.value} ${userInfo?.lName.value}`}</p>
           <p>Email: {user?.email}</p>
         </div>
       </div>
