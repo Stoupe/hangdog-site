@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { UserContext } from "../components/Contexts";
 import NavBar from "../components/NavBar";
 import { logInWithGoogle, logOut } from "../functions/authFunctions";
-import styles from "../styles/index.module.scss";
+import styles from "../styles/HomePage.module.scss";
 import { useSnackbar } from "notistack";
 
 const HomePage = () => {
@@ -12,10 +12,10 @@ const HomePage = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   return (
-    <>
+    <div className={styles.HomePage}>
       <NavBar />
-      <div className={styles.container}>
-        <div className={styles.content}>
+      <div className={"centered"}>
+        <div className={"container"}>
           {!user ? (
             <>
               <Button
@@ -83,7 +83,7 @@ const HomePage = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -22,7 +22,7 @@ export const fetchFirebaseDataNew = async (
     } else {
       data = data = await dataRef.get();
     }
-    let temp = [];
+    const temp = [];
     data.forEach((doc) => {
       temp.push({ id: doc.id, ...doc.data() });
     });
@@ -48,7 +48,7 @@ export const fetchFirebaseData = (collection: string, query: any[] | null) => {
     dataRef
       .get()
       .then((data) => {
-        let temp = [];
+        const temp = [];
 
         data.forEach((doc) => {
           temp.push({ id: doc.id, ...doc.data() });
@@ -69,7 +69,7 @@ export const fetchFirebaseData = (collection: string, query: any[] | null) => {
       .where(fieldPath, opStr, value)
       .get()
       .then((data) => {
-        let temp = [];
+        const temp = [];
         data.forEach((doc) => {
           temp.push({ id: doc.id, ...doc.data() });
         });

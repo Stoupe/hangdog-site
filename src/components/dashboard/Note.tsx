@@ -1,20 +1,20 @@
 import { Button } from "@material-ui/core";
-import React, { useState } from "react";
-import styles from "../styles/Notes.module.scss";
+import { format } from "date-fns";
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { format } from "date-fns";
 import { useSnackbar } from "notistack";
+import React from "react";
+import styles from "../../styles/dashboard/Notes.module.scss";
 
-type NoteProps = {
+type Props = {
   id: string;
   content: string;
   by: string;
   date: Date;
 };
 
-const Note: React.FC<NoteProps> = ({ id, content, by, date }) => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+const Note: React.FC<Props> = ({ id, content, by, date }: Props) => {
+  const { enqueueSnackbar } = useSnackbar();
 
   const archiveNote = () => {
     firebase

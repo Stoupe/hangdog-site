@@ -2,9 +2,9 @@ import { Button, TextField } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { useSnackbar } from "notistack";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import styles from "../styles/NewNote.module.scss";
-import { NotesContext, UserContext } from "./Contexts";
+import React, { useContext, useState } from "react";
+import styles from "../../styles/dashboard/NewNote.module.scss";
+import { NotesContext, UserContext } from "../Contexts";
 import { AnimatePresence, motion } from "framer-motion";
 
 const NewNote: React.FC = () => {
@@ -13,8 +13,8 @@ const NewNote: React.FC = () => {
     NotesContext
   );
   const [newNoteContent, setNewNoteContent] = useState("");
-  const { user, setUser } = useContext(UserContext);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { user } = useContext(UserContext);
+  const { enqueueSnackbar } = useSnackbar();
 
   const addNewNote = () => {
     enqueueSnackbar("adding note", { variant: "info" });

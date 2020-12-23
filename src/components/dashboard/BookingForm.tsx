@@ -5,24 +5,23 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { useSnackbar } from "notistack";
 import React, { useContext, useEffect } from "react";
-import { formatDay, formatHour } from "../functions/formatTime";
-import styles from "../styles/BookingForm.module.scss";
+import { formatDay, formatHour } from "../../functions/formatTime";
+import styles from "../../styles/dashboard/BookingForm.module.scss";
 import BookingDatePicker from "./BookingDatePicker";
 import ClimbingDetails from "./ClimbingDetails";
-import { NewBookingContext, UserContext } from "./Contexts";
-import { FirebaseBooking } from "./Types";
-import { bookingHours } from "./variables";
+import { NewBookingContext, UserContext } from "../Contexts";
+import { FirebaseBooking } from "../Types";
+import { bookingHours } from "../variables";
 
 // TODO: store current booking in localstorage to save on refresh
 
 const BookingForm: React.FC = () => {
   const firestore = firebase.firestore();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const {
-    bookingType,
     bookingDate,
     bookingTime,
     numSerious,
@@ -31,7 +30,6 @@ const BookingForm: React.FC = () => {
     numRopes,
     bookingName,
     bookingNotes,
-    setBookingType,
     setBookingDate,
     setBookingTime,
     setNumSerious,
@@ -149,7 +147,7 @@ const BookingForm: React.FC = () => {
             <div className={styles.bookingTimes}>
               {bookingHours[formatDay(getDay(bookingDate))].map((e: number) => {
                 let selected = false;
-                let time = formatHour(e);
+                const time = formatHour(e);
 
                 bookingTime === time ? (selected = true) : (selected = false);
 

@@ -3,17 +3,16 @@ import AddIcon from "@material-ui/icons/Add";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import styles from "../styles/Notes.module.scss";
-import { NotesContext } from "./Contexts";
+import styles from "../../styles/dashboard/Notes.module.scss";
+import { NotesContext } from "../Contexts";
 import NewNote from "./NewNote";
 import Note from "./Note";
-import { FirebaseNote } from "./Types";
-
+import { FirebaseNote } from "../Types";
 
 const Notes: React.FC = () => {
   const [allNotes, setAllNotes] = useState({});
 
-  const { addingNewNote, setAddingNewNote } = useContext(NotesContext);
+  const { setAddingNewNote } = useContext(NotesContext);
 
   useEffect(() => {
     const db = firebase.firestore();
@@ -22,7 +21,7 @@ const Notes: React.FC = () => {
     const observer = query.onSnapshot(
       (querySnapshot) => {
         console.log(`Received query snapshot of size ${querySnapshot.size}`);
-        let tempNotes = {};
+        const tempNotes = {};
         querySnapshot.docs.forEach((doc) => {
           tempNotes[doc.id] = doc.data();
         });
@@ -47,8 +46,7 @@ const Notes: React.FC = () => {
         </Button>
       </div>
       <div className={styles.innerContainer}>
-        
-          <NewNote />
+        <NewNote />
 
         {Object.entries(allNotes).map((note: [string, FirebaseNote]) => (
           <Note

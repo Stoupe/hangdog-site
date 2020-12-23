@@ -1,5 +1,5 @@
 import { Button, CircularProgress } from "@material-ui/core";
-import CancelIcon from "@material-ui/icons/Cancel";
+// import CancelIcon from "@material-ui/icons/Cancel";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ReplayIcon from "@material-ui/icons/Replay";
@@ -9,20 +9,20 @@ import {
   getDay,
   isToday,
   isTomorrow,
-  isYesterday
+  isYesterday,
 } from "date-fns";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
-import { formatDay, formatHour } from "../functions/formatTime";
-import styles from "../styles/Bookings.module.scss";
-import { FirebaseBooking } from "./Types";
-import { bookingHours } from "./variables";
+import { formatDay, formatHour } from "../../functions/formatTime";
+import styles from "../../styles/dashboard/Bookings.module.scss";
+import { FirebaseBooking } from "../Types";
+import { bookingHours } from "../variables";
 
 const Bookings: React.FC = () => {
   const db = firebase.firestore();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [day, setDay] = useState(new Date());
   const [daysBookings, setDaysBookings] = useState({});
@@ -45,7 +45,7 @@ const Bookings: React.FC = () => {
     const observer = newQuery.onSnapshot(
       (querySnapshot) => {
         if (!querySnapshot.empty) {
-          let tempBookings = {};
+          const tempBookings = {};
           querySnapshot.docs.forEach((doc) => {
             tempBookings[doc.id] = doc.data();
           });
@@ -70,15 +70,15 @@ const Bookings: React.FC = () => {
     updateBookingDisplay();
   }, [bookings]);
 
-  const action = (key: React.ReactText) => (
-    <Button
-      onClick={() => {
-        closeSnackbar(key);
-      }}
-    >
-      <CancelIcon htmlColor="#ffffff" />
-    </Button>
-  );
+  // const action = (key: React.ReactText) => (
+  //   <Button
+  //     onClick={() => {
+  //       closeSnackbar(key);
+  //     }}
+  //   >
+  //     <CancelIcon htmlColor="#ffffff" />
+  //   </Button>
+  // );
 
   const updateBookingDisplay = () => {
     let tempBookings = {};
@@ -121,6 +121,7 @@ const Bookings: React.FC = () => {
     );
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const showAllBookings = () => {};
 
   return (

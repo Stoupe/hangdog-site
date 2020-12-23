@@ -1,28 +1,21 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useContext } from "react";
-import styles from "../styles/BookingForm.module.scss";
-import { NewBookingContext } from "./Contexts";
+import { NewBookingContext } from "../Contexts";
+import styles from "../../styles/dashboard/BookingForm.module.scss";
 
 const ClimbingDetails: React.FC = () => {
   const values = [0, 1, 2, 3, 4, 5];
 
   const {
-    bookingType,
-    bookingDate,
-    bookingTime,
     numSerious,
     numBelayers,
     numClimbers,
     numRopes,
     bookingName,
     bookingNotes,
-    setBookingType,
-    setBookingDate,
-    setBookingTime,
     setNumSerious,
     setNumBelayers,
     setNumClimbers,
-    setNumRopes,
     setBookingName,
     setBookingNotes,
   } = useContext(NewBookingContext);

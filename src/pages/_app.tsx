@@ -2,6 +2,7 @@ import { AppProps } from "next/app";
 import React, { useEffect, useState } from "react";
 import { UserContext } from "../components/Contexts";
 import "../styles/globals.css";
+import "../styles/globalStyles.scss";
 import loadFirebase from "./../components/firebase";
 import firebase from "firebase/app";
 import { SnackbarProvider } from "notistack";
