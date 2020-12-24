@@ -1,5 +1,4 @@
-import { Button, Link } from "@material-ui/core";
-import { Image } from "@material-ui/icons";
+import { Link } from "@material-ui/core";
 import React, { useContext } from "react";
 import styles from "../styles/NavBar.module.scss";
 import { UserContext } from "./Contexts";

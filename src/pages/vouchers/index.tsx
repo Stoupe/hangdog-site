@@ -7,6 +7,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import NewVoucherForm from "../../components/vouchers/NewVoucherForm";
 
 const Vouchers: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -28,6 +29,9 @@ const Vouchers: React.FC = () => {
   return (
     <div className={styles.Vouchers}>
       <div className="centered">
+        <div className="container">
+          <NewVoucherForm />
+        </div>
         <div className="container">
           <Button variant="contained">Create Vouchers</Button>
           <Button variant="contained">Create Custom Voucher</Button>
