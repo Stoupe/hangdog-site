@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const useForm = (initialFormValues: Record<string, unknown>) => {
+const useForm = (initialFormValues) => {
   const [values, setValues] = useState(initialFormValues);
 
   const handleInputChange = (
@@ -18,8 +18,8 @@ const useForm = (initialFormValues: Record<string, unknown>) => {
 };
 
 // TODO: find type of props
-const Form = ({ children, onSubmit, className }) => {
-  // const {onSubmit} = props;
+const Form = (props) => {
+  const { children, onSubmit, className } = props;
   return (
     <form className={className} onSubmit={onSubmit}>
       {children}

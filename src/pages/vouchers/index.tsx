@@ -8,6 +8,7 @@ import { green } from "@material-ui/core/colors";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import NewVoucherForm from "../../components/vouchers/NewVoucherForm";
+import NavBar from "../../components/NavBar";
 
 const Vouchers: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -27,60 +28,63 @@ const Vouchers: React.FC = () => {
   };
 
   return (
-    <div className={styles.Vouchers}>
-      <div className="centered">
-        <div className="container">
-          <NewVoucherForm />
-        </div>
-        <div className="container">
-          <Button variant="contained">Create Vouchers</Button>
-          <Button variant="contained">Create Custom Voucher</Button>
-          <Button variant="contained">Activate Voucher</Button>
-          <Button variant="contained">Redeem Voucher</Button>
-        </div>
-        <div className="container">
-          {/* <form onSubmit={}> */}
-          <FormGroup>
-            <TextField
-              required
-              defaultValue={1}
-              type="number"
-              label="Number of Entries"
-            />
-            <TextField required label="Name" />
-            <TextField label="Message" />
-            <FormGroup row>
-              <FormControlLabel
-                control={<Checkbox name="shoes" color="primary" />}
-                label="Shoes"
-                labelPlacement="bottom"
+    <>
+      <NavBar />
+      <div className={styles.Vouchers}>
+        <div className="centered">
+          <div className="container">
+            <NewVoucherForm />
+          </div>
+          <div className="container">
+            <Button variant="contained">Create Vouchers</Button>
+            <Button variant="contained">Create Custom Voucher</Button>
+            <Button variant="contained">Activate Voucher</Button>
+            <Button variant="contained">Redeem Voucher</Button>
+          </div>
+          <div className="container">
+            {/* <form onSubmit={}> */}
+            <FormGroup>
+              <TextField
+                required
+                defaultValue={1}
+                type="number"
+                label="Number of Entries"
               />
-              <FormControlLabel
-                control={<Checkbox name="harness" color="primary" />}
-                label="Harness"
-                labelPlacement="bottom"
-              />
-              <FormControlLabel
-                control={<Checkbox name="harness" color="primary" />}
-                label="Chalk"
-                labelPlacement="bottom"
-              />
-            </FormGroup>
+              <TextField required label="Name" />
+              <TextField label="Message" />
+              <FormGroup row>
+                <FormControlLabel
+                  control={<Checkbox name="shoes" color="primary" />}
+                  label="Shoes"
+                  labelPlacement="bottom"
+                />
+                <FormControlLabel
+                  control={<Checkbox name="harness" color="primary" />}
+                  label="Harness"
+                  labelPlacement="bottom"
+                />
+                <FormControlLabel
+                  control={<Checkbox name="harness" color="primary" />}
+                  label="Chalk"
+                  labelPlacement="bottom"
+                />
+              </FormGroup>
 
-            <FormHelperText>You can display an error</FormHelperText>
-            <Button
-              onClick={createVoucher}
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              Sumbit
-            </Button>
-          </FormGroup>
-          {/* </form> */}
+              <FormHelperText>You can display an error</FormHelperText>
+              <Button
+                onClick={createVoucher}
+                variant="contained"
+                color="primary"
+                type="submit"
+              >
+                Sumbit
+              </Button>
+            </FormGroup>
+            {/* </form> */}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
