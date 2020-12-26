@@ -5,10 +5,10 @@ import {
   NotesContext,
   UserContext,
 } from "../components/Contexts";
-import BookingForm from "../components/Dashboard/BookingForm";
-import Bookings from "../components/Dashboard/Bookings";
-import DashboardHeader from "../components/Dashboard/DashboardHeader";
-import Notes from "../components/Dashboard/Notes";
+import BookingForm from "../components/dashboard/BookingForm";
+import Bookings from "../components/dashboard/Bookings";
+import DashboardHeader from "../components/dashboard/DashboardHeader";
+import Notes from "../components/dashboard/Notes";
 import { BookingTypes } from "../components/Types";
 import styles from "../styles/dashboard/Dashboard.module.scss";
 
