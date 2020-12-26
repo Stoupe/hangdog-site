@@ -1,14 +1,10 @@
 import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  TextField,
+  Grid
 } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
-import { Form, useForm } from "../useForm";
+import React from "react";
 import styles from "../../styles/vouchers/Vouchers.module.scss";
-import * as Controls from "../controls/Controls";
+import * as Controls from "../FormControls/Controls";
+import { Form, useForm } from "../useForm";
 
 type NewVoucherFormInputs = {
   numEntries: number;

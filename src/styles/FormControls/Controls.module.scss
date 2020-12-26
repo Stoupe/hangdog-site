@@ -1,0 +1,8 @@
+.textField,
+.submitButton {
+  width: 100%;
+}
+
+.submitButton {
+  width: 100% !important; // TODO !important isn't clean
+}

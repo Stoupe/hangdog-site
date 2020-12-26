@@ -1,5 +1,5 @@
 import { TextField as MuiTextField } from "@material-ui/core";
-import styles from "../../styles/controls/Controls.module.scss";
+import styles from "../../styles/FormControls/Controls.module.scss";
 
 import React from "react";
 
@@ -7,7 +7,7 @@ type Props = {
   name: string;
   value: string;
   label: string;
-  onChange: any;
+  onChange: any; //TODO: find type
 };
 
 const TextField = ({ name, value, label, onChange }: Props): JSX.Element => {

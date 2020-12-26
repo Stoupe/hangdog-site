@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import styles from "../../styles/controls/Controls.module.scss";
+import styles from "../../styles/FormControls/Controls.module.scss";
 
 import React from "react";
 

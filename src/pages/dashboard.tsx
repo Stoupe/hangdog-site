@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import DashboardHeader from "../components/dashboard/DashboardHeader";
-import BookingForm from "../components/dashboard/BookingForm";
+import DashboardHeader from "../components/Dashboard/DashboardHeader";
+import BookingForm from "../components/Dashboard/BookingForm";
 import {
   NewBookingContext,
   NotesContext,
@@ -8,8 +8,8 @@ import {
 } from "../components/Contexts";
 import styles from "../styles/dashboard/Dashboard.module.scss";
 import Router from "next/router";
-import Bookings from "../components/dashboard/Bookings";
-import Notes from "../components/dashboard/Notes";
+import Bookings from "../components/Dashboard/Bookings";
+import Notes from "../components/Dashboard/Notes";
 import { BookingTypes } from "../components/Types";
 
 const Dashboard: React.FC = () => {
