@@ -1,16 +1,16 @@
+import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import DashboardHeader from "../components/Dashboard/DashboardHeader";
-import BookingForm from "../components/Dashboard/BookingForm";
 import {
   NewBookingContext,
   NotesContext,
   UserContext,
 } from "../components/Contexts";
-import styles from "../styles/dashboard/Dashboard.module.scss";
-import Router from "next/router";
+import BookingForm from "../components/Dashboard/BookingForm";
 import Bookings from "../components/Dashboard/Bookings";
+import DashboardHeader from "../components/Dashboard/DashboardHeader";
 import Notes from "../components/Dashboard/Notes";
 import { BookingTypes } from "../components/Types";
+import styles from "../styles/dashboard/Dashboard.module.scss";
 
 const Dashboard: React.FC = () => {
   const { user } = useContext(UserContext);
