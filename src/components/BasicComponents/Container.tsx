@@ -10,7 +10,7 @@ type ContainerProps = {
   column?: boolean;
 };
 
-const Container: React.FC<ContainerProps> = (props): JSX.Element => {
+const Container = (props: ContainerProps): JSX.Element => {
   const { children, invisible, fullPage, column } = props;
 
   return (
@@ -27,11 +27,11 @@ const Container: React.FC<ContainerProps> = (props): JSX.Element => {
   );
 };
 
-Container.propTypes = {
-  children: PropTypes.node.isRequired,
-  invisible: PropTypes.bool,
-  fullPage: PropTypes.bool,
-  column: PropTypes.bool,
-};
+// Container.propTypes = {
+//   children: PropTypes.node.isRequired,
+//   invisible: PropTypes.bool,
+//   fullPage: PropTypes.bool,
+//   column: PropTypes.bool,
+// };
 
 export default Container;

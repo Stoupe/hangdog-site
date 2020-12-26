@@ -9,7 +9,6 @@ const NavBar: React.FC = () => {
   return (
     <div className={styles.header}>
       <Link href="/">
-        {/* <Button variant="outlined">Home</Button> */}
         <img src="hangdog-logo.png" height="130px" />
       </Link>
       <div>{user && <p>Hello, {user.displayName}</p>}</div>

@@ -12,17 +12,16 @@
 
     h1 {
       line-height: 0.1em;
-      font-size: 4em;
-      margin-left: 20px;
-      margin-right: 20px;
+      font-size: 4rem;
+      margin: auto 1rem;
     }
 
     .time {
       background: #fff;
       box-shadow: 0 0 20px rgba(000, 000, 000, 0.2);
-      padding: 5px 15px 5px 15px;
-      margin-left: 20px;
-      border-radius: 20px;
+      padding: 0.1em 1rem;
+      margin-left: 1rem;
+      border-radius: 1rem;
 
       p:first-child {
         font-size: small;
@@ -34,7 +33,7 @@
 
       p {
         font-weight: 600;
-        line-height: 0.01em;
+        line-height: 0;
         text-align: center;
       }
     }
@@ -47,9 +46,13 @@
 
     .staffSelect {
       button {
-        margin-right: 20px;
-        border-radius: 1em;
+        margin-right: 1rem;
+        border-radius: 1rem;
       }
+    }
+
+    img {
+      margin-right: 1rem;
     }
   }
 }

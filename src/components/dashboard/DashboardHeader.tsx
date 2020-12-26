@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, Link } from "@material-ui/core";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/dashboard/DashboardHeader.module.scss";
@@ -34,7 +34,9 @@ const DashboardHeader: React.FC = () => {
           <Button variant="contained">Lindsay</Button>
         </div>
 
-        <img src="hangdog-logo.png" height="120px"></img>
+        <Link href="/">
+          <img src="hangdog-logo.png" height="120px"></img>
+        </Link>
       </div>
     </header>
   );

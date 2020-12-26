@@ -1,10 +1,9 @@
-import {
-  Grid
-} from "@material-ui/core";
+import { FormControl, FormControlLabel, Grid } from "@material-ui/core";
 import React from "react";
-import styles from "../../styles/vouchers/Vouchers.module.scss";
+import styles from "../../styles/vouchers/NewVoucherForm.module.scss";
 import * as Controls from "../FormControls/Controls";
 import { Form, useForm } from "../useForm";
+import { useSnackbar } from "notistack";
 
 type NewVoucherFormInputs = {
   numEntries: number;
@@ -18,6 +17,8 @@ type NewVoucherFormInputs = {
 };
 
 const NewVoucherForm: React.FC = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const initialFormValues: NewVoucherFormInputs = {
     numEntries: 1,
     numVouchers: 1,
@@ -29,16 +30,21 @@ const NewVoucherForm: React.FC = () => {
     chalkHire: false,
   };
 
-  const { values, setValues, handleInputChange } = useForm(initialFormValues);
+  const {
+    values,
+    setValues,
+    handleInputChange,
+    handleCheckboxChange,
+  } = useForm(initialFormValues);
 
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("submitted");
+    enqueueSnackbar("submitted");
   };
 
   return (
-    <Form onSubmit={submitForm} className={styles.form}>
-      <Grid container spacing={3} xs>
+    <Form onSubmit={submitForm} className={styles.root}>
+      <Grid container spacing={2}>
         <Grid item xs={6}>
           <Controls.TextField
             name="numEntries"
@@ -55,31 +61,35 @@ const NewVoucherForm: React.FC = () => {
             onChange={handleInputChange}
           />
         </Grid>
+
+        <Grid item xs={4}>
+          <Controls.Checkbox
+            name="harness"
+            label="Harness"
+            checked={values.harness}
+            onChange={handleCheckboxChange}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <Controls.Checkbox
+            name="shoes"
+            label="Shoes"
+            checked={values.shoes}
+            onChange={handleCheckboxChange}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <Controls.Checkbox
+            name="chalk"
+            label="Chalk"
+            checked={values.chalk}
+            onChange={handleCheckboxChange}
+          />
+        </Grid>
+
         <Grid item xs={12}>
           <Controls.SubmitButton />
         </Grid>
-
-        {/* <Grid item xs={4}>
-          <FormControlLabel
-            control={<Checkbox name="shoes" color="primary" />}
-            label="Shoes"
-            labelPlacement="bottom"
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <FormControlLabel
-            control={<Checkbox name="harness" color="primary" />}
-            label="Harness"
-            labelPlacement="bottom"
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <FormControlLabel
-            control={<Checkbox name="harness" color="primary" />}
-            label="Chalk"
-            labelPlacement="bottom"
-          />
-        </Grid> */}
       </Grid>
     </Form>
   );

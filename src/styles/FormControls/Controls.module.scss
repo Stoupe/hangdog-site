@@ -1,8 +1,14 @@
 .textField,
-.submitButton {
+.submitButton,
+.checkbox {
   width: 100%;
 }
 
-.submitButton {
-  width: 100% !important; // TODO !important isn't clean
+// .submitButton {
+//   width: 100% !important; // TODO !important isn't clean
+// }
+
+.checkbox {
+  margin: 0 !important; //TODO !important isn't clean
+  // background: yellowgreen;
 }
