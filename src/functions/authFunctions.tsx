@@ -1,22 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { FirebaseDefaultUserType, FirebaseUserType } from "../components/Types";
-
-const defaultUser: FirebaseDefaultUserType = {
-  userType: "Guest",
-  phone: null,
-  emergencyContact: null,
-  birthday: null,
-  ageCategory: "Unknown",
-  height: null,
-  studentID: null,
-  profilePhoto: null,
-  currentMembershipDetails: null,
-  tenTripDetails: null,
-  cardDetails: null,
-  licenses: null,
-};
+import { User } from "../components/Schemas/User";
 
 const updateLocalStorage = () => {
   const auth = firebase.auth();
@@ -28,9 +13,9 @@ const updateLocalStorage = () => {
   }
 };
 
-const userInfoExists = async (email: string) => {
+const userInfoExists = async (uid: string) => {
   const db = firebase.firestore();
-  const usersRef = db.collection("users").doc(email);
+  const usersRef = db.collection("users").doc(uid);
   let exists: boolean;
   usersRef
     .get()
@@ -45,25 +30,32 @@ const userInfoExists = async (email: string) => {
 
 /**
  * Create a new entry in the users db collection for the specified user.
- * ! If a doc already exists, this function will overwrite it
  * @param fName
  * @param lName
  * @param email
  */
-const createUserInfo = async (fName: string, lName: string, email: string) => {
+const createUserInfo = async (
+  uid: string,
+  fName: string,
+  lName: string,
+  email: string
+) => {
   const db = firebase.firestore();
 
-  const user: FirebaseUserType = {
-    ...defaultUser,
-    fName: { value: fName, public: true },
-    lName: { value: lName, public: false },
-    email: email,
+  const user: User = {
+    personalDetails: {
+      fName: { value: fName, public: true },
+      lName: { value: lName, public: false },
+      email: email,
+      student: { value: false },
+    },
+    userType: "Guest",
   };
 
   console.log(user);
 
   try {
-    await db.collection("users").doc(email).set(user);
+    await db.collection("users").doc(uid).set(user);
   } catch (err) {
     return Promise.reject(err);
   }
@@ -71,7 +63,13 @@ const createUserInfo = async (fName: string, lName: string, email: string) => {
   return Promise.resolve();
 };
 
-//TODO: user verification things?
+/**
+ * Register a New User
+ * @param fName
+ * @param lName
+ * @param email
+ * @param password
+ */
 export const register = async (
   fName: string,
   lName: string,
@@ -81,8 +79,9 @@ export const register = async (
   const auth = firebase.auth();
 
   try {
-    await auth.createUserWithEmailAndPassword(email, password);
-    await createUserInfo(fName, lName, email);
+    const uid = (await auth.createUserWithEmailAndPassword(email, password))
+      .user.uid;
+    await createUserInfo(uid, fName, lName, email);
   } catch (err) {
     return Promise.reject(err);
   }
@@ -101,22 +100,24 @@ export const logInWithGoogle = async () => {
     await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
 
     if (!auth.currentUser) {
-      throw new Error("auth.currentUser is still null");
+      throw Error("auth.currentUser is still null");
     }
 
-    const userExistsInDB = await userInfoExists(auth.currentUser.email);
+    const userExistsInDB = await userInfoExists(auth.currentUser.uid);
+
     if (!userExistsInDB) {
       const names = auth.currentUser.displayName.split(" ");
 
       if (names.length < 2) {
-        throw new Error("displayName is less than two words");
+        throw Error("displayName is less than two words");
       }
 
+      const uid = auth.currentUser.uid;
       const fName = names[0];
       const lName = names.slice(1).join(" ");
       const email = auth.currentUser.email;
 
-      await createUserInfo(fName, lName, email);
+      await createUserInfo(uid, fName, lName, email);
     }
   } catch (err) {
     return Promise.reject(err);
