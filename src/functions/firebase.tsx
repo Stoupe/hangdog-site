@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/analytics";
+import "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAeSggD2L9_7s6jOOHEWcfJZPmJ0HtxLZk",
@@ -22,5 +23,12 @@ const loadFirebase = () => {
     }
   }
 };
+
+export const useFirebase = (): firebase.firestore.Firestore => {
+  const db = firebase.firestore();
+  return db;
+};
+
+export const createTimestamp = firebase.firestore.Timestamp.fromDate;
 
 export default loadFirebase;

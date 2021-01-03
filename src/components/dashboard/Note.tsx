@@ -43,7 +43,7 @@ const Note: React.FC<Props> = ({ id, content, by, date }: Props) => {
           {by} - {format(date, "dd/MM/yy")}
         </div>
         <div className={styles.dismissNote}>
-          <Button variant="contained" onClick={archiveNote}>
+          <Button color="inherit" variant="contained" onClick={archiveNote}>
             Done
           </Button>
         </div>

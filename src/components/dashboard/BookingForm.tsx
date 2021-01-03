@@ -157,7 +157,7 @@ const BookingForm: React.FC = () => {
                     autoCapitalize={""}
                     key={time}
                     name={time}
-                    color={selected ? "primary" : "default"}
+                    color={selected ? "primary" : "inherit"}
                     variant={selected ? "contained" : "text"}
                     onClick={() => setBookingTime(time)}
                   >

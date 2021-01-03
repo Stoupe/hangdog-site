@@ -37,14 +37,10 @@ const HomePage: React.FC = () => {
                 Log In with Google
               </Button>
               <Link href="login">
-                <Button variant="contained" color="default">
-                  Log In
-                </Button>
+                <Button variant="contained">Log In</Button>
               </Link>
               <Link href="register">
-                <Button variant="contained" color="default">
-                  Register
-                </Button>
+                <Button variant="contained">Register</Button>
               </Link>
             </>
           ) : (
@@ -59,14 +55,12 @@ const HomePage: React.FC = () => {
                 </Button>
               </Link>
               <Link href="profile">
-                <Button variant="contained" color="default">
+                <Button variant="contained" color="inherit">
                   Profile
                 </Button>
               </Link>
               <Link href="vouchers">
-                <Button variant="contained" color="default">
-                  Vouchers
-                </Button>
+                <Button variant="contained" color="inherit">Vouchers</Button>
               </Link>
               <Button
                 variant="contained"

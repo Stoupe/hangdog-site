@@ -41,7 +41,7 @@ const Notes: React.FC = () => {
     <div className={styles.outerContainer}>
       <div className={styles.containerHeader}>
         <h1 className={styles.containerTitle}>Notes</h1>
-        <Button onClick={() => setAddingNewNote(true)}>
+        <Button color="inherit" onClick={() => setAddingNewNote(true)}>
           <AddIcon />
         </Button>
       </div>

@@ -1,15 +1,26 @@
 import React from "react";
-import { Checkbox as MuiCheckbox, FormControlLabel } from "@material-ui/core";
+import {
+  Checkbox as MuiCheckbox,
+  FormControlLabel,
+  FormControlLabelProps,
+} from "@material-ui/core";
 import styles from "../../styles/FormControls/Controls.module.scss";
 
 type Props = {
   name: string;
   checked: boolean;
-  label: string;
-  onChange: any; //TODO: find type
+  label?: string;
+  labelPlacement?: "bottom" | "end" | "start" | "top";
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Checkbox = ({ name, checked, label, onChange }: Props): JSX.Element => {
+const Checkbox = ({
+  name,
+  checked,
+  label = name,
+  labelPlacement = "bottom",
+  onChange,
+}: Props): JSX.Element => {
   return (
     <FormControlLabel
       className={styles.checkbox}
@@ -22,7 +33,7 @@ const Checkbox = ({ name, checked, label, onChange }: Props): JSX.Element => {
         />
       }
       label={label}
-      labelPlacement="bottom"
+      labelPlacement={labelPlacement}
     />
   );
 };

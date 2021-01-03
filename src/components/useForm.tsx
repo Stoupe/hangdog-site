@@ -9,7 +9,7 @@ const useForm = (initialFormValues) => {
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
+    const { name, checked, value } = e.target;
     setValues((prevState) => ({ ...prevState, [name]: checked }));
   };
 

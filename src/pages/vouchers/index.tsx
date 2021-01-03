@@ -5,6 +5,7 @@ import { Container } from "../../components/BasicComponents/BasicComponents";
 import NavBar from "../../components/NavBar";
 import NewVoucherForm from "../../components/vouchers/NewVoucherForm";
 import styles from "../../styles/vouchers/Vouchers.module.scss";
+import RedeemVoucherForm from "./../../components/vouchers/RedeemVoucherForm";
 
 const Vouchers = (): JSX.Element => {
   const { enqueueSnackbar } = useSnackbar();
@@ -28,11 +29,24 @@ const Vouchers = (): JSX.Element => {
         </Container>
 
         <Container column>
-          <Button variant="contained">Create Vouchers</Button>
-          <Button variant="contained">Create Custom Voucher</Button>
-          <Button variant="contained">Activate Voucher</Button>
-          <Button variant="contained">Redeem Voucher</Button>
+          <Button color="inherit" variant="contained">
+            Create Vouchers
+          </Button>
+          <Button color="inherit" variant="contained">
+            Create Custom Voucher
+          </Button>
+          <Button color="inherit" variant="contained">
+            Activate Voucher
+          </Button>
+          <Button color="inherit" variant="contained">
+            Redeem Voucher
+          </Button>
         </Container>
+
+        <Container>
+          <RedeemVoucherForm />
+        </Container>
+
         {/* <Container>
           <FormGroup>
             <TextField

@@ -8,6 +8,9 @@ import { SnackbarProvider } from "notistack";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
+import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
+import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
+
 const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   loadFirebase();
   const [user, setUser] = useState<firebase.User>(null);
@@ -42,9 +45,14 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider maxSnack={10}>
-          <Component {...pageProps} />
-        </SnackbarProvider>
+        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}> */}
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <SnackbarProvider maxSnack={10}>
+            <Component {...pageProps} />
+          </SnackbarProvider>
+        </LocalizationProvider>
+
+        {/* </MuiPickersUtilsProvider> */}
       </ThemeProvider>
     </UserContext.Provider>
   );

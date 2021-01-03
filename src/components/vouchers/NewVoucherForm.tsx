@@ -1,33 +1,34 @@
-import { FormControl, FormControlLabel, Grid } from "@material-ui/core";
-import React from "react";
+import { Grid } from "@material-ui/core";
+import { useSnackbar } from "notistack";
+import React, { useContext } from "react";
 import styles from "../../styles/vouchers/NewVoucherForm.module.scss";
 import * as Controls from "../FormControls/Controls";
 import { Form, useForm } from "../useForm";
-import { useSnackbar } from "notistack";
-
-type NewVoucherFormInputs = {
-  numEntries: number;
-  numVouchers: number;
-  name: string;
-  message: string;
-  expiry: Date;
-  shoeHire: boolean;
-  harnessHire: boolean;
-  chalkHire: boolean;
-};
+import { createTimestamp, useFirebase } from "./../../functions/firebase";
+import { Voucher } from "../Schemas/Voucher";
+import { UserContext } from "./../Contexts";
+import firebase from "firebase/app";
+import { add } from "date-fns";
+import { createRandomID } from "./../../functions/miscFunctions";
 
 const NewVoucherForm: React.FC = () => {
+  const { user } = useContext(UserContext);
+  const db = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
 
-  const initialFormValues: NewVoucherFormInputs = {
-    numEntries: 1,
-    numVouchers: 1,
-    name: "",
-    message: "",
-    expiry: new Date(),
-    shoeHire: true,
-    harnessHire: true,
-    chalkHire: false,
+  const voucher: Voucher = {
+    activated: false,
+    redeemed: false,
+    createdAt: createTimestamp(new Date()),
+    createdBy: db.collection("users").doc("Ctm4UQ2n71Qb5evRU7nAvPlgUry1"), // TODO: use custom staff auth to show creator or else will show 'Hangdog Gym' etc.
+    details: "",
+    expiry: createTimestamp(add(new Date(), { months: 6 })),
+    voucherId: createRandomID(),
+    voucherDetails: {
+      entries: [
+        { age: "adult", shoeHire: false, harnessHire: true, chalkHire: false },
+      ],
+    },
   };
 
   const {
@@ -35,25 +36,33 @@ const NewVoucherForm: React.FC = () => {
     setValues,
     handleInputChange,
     handleCheckboxChange,
-  } = useForm(initialFormValues);
+  } = useForm(voucher);
 
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
-    enqueueSnackbar("submitted");
+    db.collection("vouchers")
+      .add(voucher)
+      .then(() => {
+        enqueueSnackbar("submitted");
+      })
+      .catch((err) => {
+        enqueueSnackbar(err);
+      });
   };
 
   return (
     <Form onSubmit={submitForm} className={styles.root}>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <Controls.TextField
+            number
             name="numEntries"
             value={values.numEntries}
             label="Number of Entries"
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <Controls.TextField
             name="name"
             label="Name"
@@ -61,33 +70,55 @@ const NewVoucherForm: React.FC = () => {
             onChange={handleInputChange}
           />
         </Grid>
+        <Grid item xs={12}>
+          <Controls.TextField
+            name="age"
+            label="Age"
+            value={values.age}
+            onChange={handleInputChange}
+          />
+        </Grid>
 
         <Grid item xs={4}>
           <Controls.Checkbox
-            name="harness"
+            name="harnessHire"
             label="Harness"
-            checked={values.harness}
+            checked={values.harnessHire}
             onChange={handleCheckboxChange}
           />
         </Grid>
         <Grid item xs={4}>
           <Controls.Checkbox
-            name="shoes"
+            name="shoeHire"
             label="Shoes"
-            checked={values.shoes}
+            checked={values.shoeHire}
             onChange={handleCheckboxChange}
           />
         </Grid>
         <Grid item xs={4}>
           <Controls.Checkbox
-            name="chalk"
+            name="chalkHire"
             label="Chalk"
-            checked={values.chalk}
+            checked={values.chalkHire}
             onChange={handleCheckboxChange}
           />
         </Grid>
 
         <Grid item xs={12}>
+          <Controls.DatePicker />
+        </Grid>
+
+        <Grid item xs={2} />
+        <Grid item xs={5}>
+          <Controls.Checkbox
+            name="activated"
+            label="Activate Now"
+            checked={values.activated}
+            onChange={handleCheckboxChange}
+            labelPlacement="start"
+          />
+        </Grid>
+        <Grid item xs={5}>
           <Controls.SubmitButton />
         </Grid>
       </Grid>

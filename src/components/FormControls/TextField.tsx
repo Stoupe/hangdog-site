@@ -5,14 +5,22 @@ import React from "react";
 
 type Props = {
   name: string;
-  value: string;
+  value: string | number;
   label: string;
   onChange: any; //TODO: find type
+  number?: boolean;
 };
 
-const TextField = ({ name, value, label, onChange }: Props): JSX.Element => {
+const TextField = ({
+  name,
+  value,
+  label,
+  onChange,
+  number = false,
+}: Props): JSX.Element => {
   return (
     <MuiTextField
+      type={number ? "number" : "string"}
       className={styles.textField}
       variant="outlined"
       value={value}

@@ -138,6 +138,7 @@ const Bookings: React.FC = () => {
         </h1>
         <div className={styles.arrows}>
           <Button
+            color="inherit"
             onClick={() => {
               setDay((prevState) => addDays(prevState, -1));
             }}
@@ -145,6 +146,7 @@ const Bookings: React.FC = () => {
             <ChevronLeftIcon />
           </Button>
           <Button
+            color="inherit"
             onClick={() => {
               setDay(new Date());
             }}
@@ -152,6 +154,7 @@ const Bookings: React.FC = () => {
             <ReplayIcon />
           </Button>
           <Button
+            color="inherit"
             onClick={() => {
               setDay((prevState) => addDays(prevState, 1));
             }}
@@ -165,7 +168,9 @@ const Bookings: React.FC = () => {
         {/* <Button onClick={fetchData}>FETCH DATA</Button> */}
 
         {bookingHours[formatDay(getDay(day))].map((e: number) => renderHour(e))}
-        <Button onClick={showAllBookings}>Show All Bookings</Button>
+        <Button color="inherit" onClick={showAllBookings}>
+          Show All Bookings
+        </Button>
       </div>
     </div>
   );

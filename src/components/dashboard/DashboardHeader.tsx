@@ -26,12 +26,18 @@ const DashboardHeader: React.FC = () => {
       </div>
       <div className={styles.right}>
         <div className={styles.staffSelect}>
-          <Button variant="contained">+</Button>
+          <Button color="inherit" variant="contained">
+            +
+          </Button>
           <Button variant="contained" color="primary">
             Henry
           </Button>
-          <Button variant="contained">George</Button>
-          <Button variant="contained">Lindsay</Button>
+          <Button color="inherit" variant="contained">
+            George
+          </Button>
+          <Button color="inherit" variant="contained">
+            Lindsay
+          </Button>
         </div>
 
         <Link href="/">

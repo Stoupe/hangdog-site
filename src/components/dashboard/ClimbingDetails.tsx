@@ -33,7 +33,7 @@ const ClimbingDetails: React.FC = () => {
               <Button
                 key={value + "-serious"}
                 name={value.toString()}
-                color={selected ? "primary" : "default"}
+                color={selected ? "primary" : "inherit"}
                 variant={selected ? "contained" : "text"}
                 onClick={() => {
                   setNumSerious(value);
@@ -57,7 +57,7 @@ const ClimbingDetails: React.FC = () => {
               <Button
                 key={value + "-belayers"}
                 name={value.toString()}
-                color={selected ? "primary" : "default"}
+                color={selected ? "primary" : "inherit"}
                 variant={selected ? "contained" : "text"}
                 onClick={() => {
                   setNumBelayers(value);
@@ -81,7 +81,7 @@ const ClimbingDetails: React.FC = () => {
               <Button
                 key={value + "-climbers"}
                 name={value.toString()}
-                color={selected ? "primary" : "default"}
+                color={selected ? "primary" : "inherit"}
                 variant={selected ? "contained" : "text"}
                 onClick={() => {
                   setNumClimbers(value);

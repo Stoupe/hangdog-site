@@ -58,7 +58,10 @@ const NewNote: React.FC = () => {
           exit={{ opacity: 0, y: "-100%" }}
           transition={{ duration: 0.2, ease: "easeOut" }}
         >
-          <form className={styles.newNoteForm}>
+          <form
+            className={styles.newNoteForm}
+            onSubmit={(e) => e.preventDefault()}
+          >
             <TextField
               autoFocus={true}
               multiline={true}

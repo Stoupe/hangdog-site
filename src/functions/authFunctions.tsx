@@ -13,6 +13,10 @@ const updateLocalStorage = () => {
   }
 };
 
+/**
+ * Check whether a user with a given uid exists in the database
+ * @param uid
+ */
 const userInfoExists = async (uid: string) => {
   const db = firebase.firestore();
   const usersRef = db.collection("users").doc(uid);
