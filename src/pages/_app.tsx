@@ -10,10 +10,12 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
+import { useMediaQuery } from "@material-ui/core";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   loadFirebase();
   const [user, setUser] = useState<firebase.User>(null);
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   useEffect(() => {
     const lsUser = localStorage.getItem("user");
@@ -22,37 +24,39 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
     }
   }, []);
 
-  const theme = createMuiTheme({
-    palette: {
-      // type: "light",
-      primary: {
-        main: "#95d2a3",
-        contrastText: "#ffffff",
-      },
-      secondary: {
-        main: "#e35454",
-        contrastText: "#ffffff",
-      },
-    },
-    typography: {
-      button: {
-        textTransform: "none",
-      },
-      // fontFamily: "Product Sans Medium",
-    },
-  });
+  const theme = React.useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          // mode: prefersDarkMode ? "dark" : "light", //? automatically switch between modes
+          mode: "light",
+          primary: {
+            main: "#95d2a3",
+            contrastText: "#ffffff",
+          },
+          secondary: {
+            main: "#e35454",
+            contrastText: "#ffffff",
+          },
+        },
+        typography: {
+          button: {
+            textTransform: "none",
+          },
+          // fontFamily: "Product Sans Medium",
+        },
+      }),
+    [prefersDarkMode]
+  );
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <ThemeProvider theme={theme}>
-        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}> */}
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <SnackbarProvider maxSnack={10}>
             <Component {...pageProps} />
           </SnackbarProvider>
         </LocalizationProvider>
-
-        {/* </MuiPickersUtilsProvider> */}
       </ThemeProvider>
     </UserContext.Provider>
   );

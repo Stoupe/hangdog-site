@@ -5,18 +5,19 @@ import styles from "../../styles/vouchers/NewVoucherForm.module.scss";
 import * as Controls from "../FormControls/Controls";
 import { Form, useForm } from "../useForm";
 import { createTimestamp, useFirebase } from "./../../functions/firebase";
-import { Voucher } from "../Schemas/Voucher";
+import { VoucherForm } from "../Schemas/Voucher";
 import { UserContext } from "./../Contexts";
 import firebase from "firebase/app";
 import { add } from "date-fns";
 import { createRandomID } from "./../../functions/miscFunctions";
+import { createVoucher } from "../../functions/voucherFunctions";
 
 const NewVoucherForm: React.FC = () => {
   const { user } = useContext(UserContext);
   const db = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
 
-  const voucher: Voucher = {
+  const voucher: VoucherForm = {
     activated: false,
     redeemed: false,
     createdAt: createTimestamp(new Date()),
@@ -24,26 +25,26 @@ const NewVoucherForm: React.FC = () => {
     details: "",
     expiry: createTimestamp(add(new Date(), { months: 6 })),
     voucherId: createRandomID(),
-    voucherDetails: {
-      entries: [
-        { age: "adult", shoeHire: false, harnessHire: true, chalkHire: false },
-      ],
-    },
+    // voucherDetails: {
+    //   entries: [
+    //     { age: "adult", shoeHire: false, harnessHire: true, chalkHire: false },
+    //   ],
+    // },
+    age: "adult",
+    numEntries: 0,
+    shoeHire: false,
+    harnessHire: false,
+    chalkHire: false,
   };
 
-  const {
-    values,
-    setValues,
-    handleInputChange,
-    handleCheckboxChange,
-  } = useForm(voucher);
+  const { values, handleInputChange, handleCheckboxChange } = useForm(voucher);
 
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
-    db.collection("vouchers")
-      .add(voucher)
+
+    createVoucher(voucher)
       .then(() => {
-        enqueueSnackbar("submitted");
+        enqueueSnackbar("voucher " + voucher.voucherId + " created");
       })
       .catch((err) => {
         enqueueSnackbar(err);

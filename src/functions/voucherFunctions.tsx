@@ -1,9 +1,21 @@
-import { Voucher } from "../components/Schemas/Voucher";
+import { Voucher, VoucherForm } from "../components/Schemas/Voucher";
 import { useFirebase } from "./firebase";
 const db = useFirebase();
 
-export const createVoucher = async (voucher: Voucher) => {
+export const createVoucher = async (voucher: VoucherForm): Promise<void> => {
   try {
+    console.log(voucher);
+
+    const formattedVoucher: Voucher = voucher;
+
+    const hireDetails = {
+      harnessHire: voucher.harnessHire,
+      shoeHire: voucher.shoeHire,
+      chalk: voucher.chalkHire,
+    };
+
+    
+
     const ref = db.collection("vouchers").doc(voucher.voucherId);
     const doc = await ref.get();
     if (doc.exists) {
@@ -20,7 +32,7 @@ export const createVoucher = async (voucher: Voucher) => {
  * Checks whether a voucher exists in the database, has been activated and has not been redeemed already
  * @param voucherId
  */
-export const redeemVoucher = async (voucherId: string) => {
+export const redeemVoucher = async (voucherId: string): Promise<void> => {
   try {
     // const db = useFirebase();
     const doc = await db.collection("vouchers").doc(voucherId).get();
@@ -42,6 +54,7 @@ export const redeemVoucher = async (voucherId: string) => {
       );
     }
 
+    //! TODO: Actually change redeemed property on firestore to true
     return Promise.resolve();
   } catch (err) {
     return Promise.reject(err);

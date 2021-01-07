@@ -1,16 +1,12 @@
-import Router from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../components/Contexts";
-import NavBar from "../components/NavBar";
-import styles from "../styles/profile.module.scss";
 import firebase from "firebase/app";
 import "firebase/firestore";
 // import { FirebaseUserType } from "../components/Types";
 import { useSnackbar } from "notistack";
-import { User } from "./../components/Schemas/User";
-import { Card } from "@material-ui/core";
+import React, { useContext, useEffect, useState } from "react";
 import Container from "../components/BasicComponents/Container";
-import { stringify } from "querystring";
+import { UserContext } from "../components/Contexts";
+import NavBar from "../components/NavBar";
+import { User } from "./../components/Schemas/User";
 
 const Profile: React.FC = () => {
   const { user, setUser } = useContext(UserContext);

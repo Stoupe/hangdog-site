@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 
-const useForm = (initialFormValues) => {
+type FormReturnTypes = {
+  values: Record<string, unknown>;
+  setValues: React.Dispatch<React.SetStateAction<Record<string, unknown>>>;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const useForm = (
+  initialFormValues: Record<string, unknown>
+): FormReturnTypes => {
   const [values, setValues] = useState(initialFormValues);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -9,7 +18,7 @@ const useForm = (initialFormValues) => {
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked, value } = e.target;
+    const { name, checked } = e.target;
     setValues((prevState) => ({ ...prevState, [name]: checked }));
   };
 

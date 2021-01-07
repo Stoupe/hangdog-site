@@ -28,7 +28,7 @@ const Vouchers = (): JSX.Element => {
           <NewVoucherForm />
         </Container>
 
-        <Container column>
+        {/* <Container column>
           <Button color="inherit" variant="contained">
             Create Vouchers
           </Button>
@@ -41,7 +41,7 @@ const Vouchers = (): JSX.Element => {
           <Button color="inherit" variant="contained">
             Redeem Voucher
           </Button>
-        </Container>
+        </Container> */}
 
         <Container>
           <RedeemVoucherForm />
