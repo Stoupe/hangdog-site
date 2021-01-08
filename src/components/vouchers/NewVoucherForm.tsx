@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid, Table, TableCell, TableRow } from "@material-ui/core";
 import { add } from "date-fns";
 import { useSnackbar } from "notistack";
 import React, { useContext } from "react";
@@ -56,10 +56,14 @@ const NewVoucherForm: React.FC = () => {
     <Form onSubmit={submitForm} className={styles.root}>
       <Grid container spacing={4}>
         <Grid item xs={12}>
-          {/* <div>{JSON.stringify(values.expiry)}</div> */}
-          {Object.entries(values).map((x) => (
-            <div key={x.toString()}>{x.toString()}</div>
-          ))}
+          <Table size="small">
+            {Object.entries(values).map((x) => (
+              <TableRow key={x.toString()}>
+                <TableCell>{x[0].toString()}</TableCell>
+                <TableCell>{x[1].toString()}</TableCell>
+              </TableRow>
+            ))}
+          </Table>
         </Grid>
         <Grid item xs={12}>
           <Controls.TextField
