@@ -13,11 +13,11 @@ import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 import { useMediaQuery } from "@material-ui/core";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
+  useFirebase();
   const [user, setUser] = useState<firebase.User>(null);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   useEffect(() => {
-    useFirebase();
     const lsUser = localStorage.getItem("user");
     if (lsUser) {
       setUser(JSON.parse(lsUser));

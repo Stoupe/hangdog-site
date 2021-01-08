@@ -7,12 +7,13 @@ import Container from "../components/BasicComponents/Container";
 import { UserContext } from "../components/Contexts";
 import NavBar from "../components/NavBar";
 import { User } from "./../components/Schemas/User";
+import { useFirebase } from "./../functions/firebase";
 
 const Profile: React.FC = () => {
   const { user, setUser } = useContext(UserContext);
   const { enqueueSnackbar } = useSnackbar();
 
-  const db = firebase.firestore();
+  const db = useFirebase();
   const [userInfo, setUserInfo] = useState<User>();
   const [loading, setLoading] = useState<boolean>(true);
 
