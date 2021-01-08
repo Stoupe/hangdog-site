@@ -6,15 +6,13 @@ export const createVoucher = async (voucher: VoucherForm): Promise<void> => {
   try {
     console.log(voucher);
 
-    const formattedVoucher: Voucher = voucher;
+    // const formattedVoucher: Voucher = voucher;
 
-    const hireDetails = {
-      harnessHire: voucher.harnessHire,
-      shoeHire: voucher.shoeHire,
-      chalk: voucher.chalkHire,
-    };
-
-    
+    // const hireDetails = {
+    //   harnessHire: voucher.harnessHire,
+    //   shoeHire: voucher.shoeHire,
+    //   chalk: voucher.chalkHire,
+    // };
 
     const ref = db.collection("vouchers").doc(voucher.voucherId);
     const doc = await ref.get();
@@ -22,7 +20,6 @@ export const createVoucher = async (voucher: VoucherForm): Promise<void> => {
       return Promise.reject("Voucher with this ID already exists");
     }
     await ref.set(voucher);
-    return Promise.resolve();
   } catch (err) {
     return Promise.reject(err);
   }

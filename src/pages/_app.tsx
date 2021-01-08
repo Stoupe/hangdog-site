@@ -2,7 +2,7 @@ import { AppProps } from "next/app";
 import React, { useEffect, useState } from "react";
 import { UserContext } from "../components/Contexts";
 import "../styles/globals.css";
-import loadFirebase from "../functions/firebase";
+import { useFirebase } from "../functions/firebase";
 import firebase from "firebase/app";
 import { SnackbarProvider } from "notistack";
 
@@ -13,11 +13,11 @@ import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 import { useMediaQuery } from "@material-ui/core";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
-  loadFirebase();
   const [user, setUser] = useState<firebase.User>(null);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   useEffect(() => {
+    useFirebase();
     const lsUser = localStorage.getItem("user");
     if (lsUser) {
       setUser(JSON.parse(lsUser));

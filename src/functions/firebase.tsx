@@ -13,7 +13,18 @@ const firebaseConfig = {
   measurementId: "G-2M0C4TR4L5",
 };
 
-const loadFirebase = () => {
+// const loadFirebase = () => {
+//   if (firebase.apps.length === 0) {
+//     // Initialize Firebase
+//     firebase.initializeApp(firebaseConfig);
+
+//     if ("measurementId" in firebaseConfig && typeof window !== "undefined") {
+//       firebase.analytics();
+//     }
+//   }
+// };
+
+export const useFirebase = (): firebase.firestore.Firestore => {
   if (firebase.apps.length === 0) {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
@@ -22,13 +33,10 @@ const loadFirebase = () => {
       firebase.analytics();
     }
   }
-};
 
-export const useFirebase = (): firebase.firestore.Firestore => {
   const db = firebase.firestore();
   return db;
 };
 
 export const createTimestamp = firebase.firestore.Timestamp.fromDate;
-
-export default loadFirebase;
+// export const timestampToDate = firebase.firestore.Timestamp.toDate;

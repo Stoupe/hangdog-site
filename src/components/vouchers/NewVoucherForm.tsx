@@ -1,16 +1,15 @@
 import { Grid } from "@material-ui/core";
+import { add } from "date-fns";
 import { useSnackbar } from "notistack";
 import React, { useContext } from "react";
+import { createVoucher } from "../../functions/voucherFunctions";
 import styles from "../../styles/vouchers/NewVoucherForm.module.scss";
 import * as Controls from "../FormControls/Controls";
+import { VoucherForm } from "../Schemas/Voucher";
 import { Form, useForm } from "../useForm";
 import { createTimestamp, useFirebase } from "./../../functions/firebase";
-import { VoucherForm } from "../Schemas/Voucher";
-import { UserContext } from "./../Contexts";
-import firebase from "firebase/app";
-import { add } from "date-fns";
 import { createRandomID } from "./../../functions/miscFunctions";
-import { createVoucher } from "../../functions/voucherFunctions";
+import { UserContext } from "./../Contexts";
 
 const NewVoucherForm: React.FC = () => {
   const { user } = useContext(UserContext);
@@ -25,35 +24,36 @@ const NewVoucherForm: React.FC = () => {
     details: "",
     expiry: createTimestamp(add(new Date(), { months: 6 })),
     voucherId: createRandomID(),
-    // voucherDetails: {
-    //   entries: [
-    //     { age: "adult", shoeHire: false, harnessHire: true, chalkHire: false },
-    //   ],
-    // },
-    age: "adult",
+    age: "Adult",
     numEntries: 0,
     shoeHire: false,
     harnessHire: false,
     chalkHire: false,
   };
 
-  const { values, handleInputChange, handleCheckboxChange } = useForm(voucher);
+  const {
+    values,
+    handleInputChange,
+    handleCheckboxChange,
+  } = useForm<VoucherForm>(voucher);
 
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
 
     createVoucher(voucher)
       .then(() => {
-        enqueueSnackbar("voucher " + voucher.voucherId + " created");
+        enqueueSnackbar("voucher " + voucher.voucherId + " created", {
+          variant: "success",
+        });
       })
       .catch((err) => {
-        enqueueSnackbar(err);
+        enqueueSnackbar(err, { variant: "error" });
       });
   };
 
   return (
     <Form onSubmit={submitForm} className={styles.root}>
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         <Grid item xs={12}>
           <Controls.TextField
             number
@@ -63,19 +63,22 @@ const NewVoucherForm: React.FC = () => {
             onChange={handleInputChange}
           />
         </Grid>
+
         <Grid item xs={12}>
-          <Controls.TextField
-            name="name"
-            label="Name"
-            value={values.name}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Controls.TextField
+          <Controls.Select
             name="age"
             label="Age"
             value={values.age}
+            options={["Child/Student", "Adult"]}
+            onChange={handleInputChange}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Controls.DatePicker
+            name="expiry"
+            label="Expiry"
+            value={values.expiry.toDate()}
             onChange={handleInputChange}
           />
         </Grid>
@@ -106,7 +109,7 @@ const NewVoucherForm: React.FC = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Controls.DatePicker />
+          {/* <Controls.DatePicker /> */}
         </Grid>
 
         <Grid item xs={2} />
@@ -120,7 +123,7 @@ const NewVoucherForm: React.FC = () => {
           />
         </Grid>
         <Grid item xs={5}>
-          <Controls.SubmitButton />
+          <Controls.SubmitButton title="Create Voucher(s)" />
         </Grid>
       </Grid>
     </Form>

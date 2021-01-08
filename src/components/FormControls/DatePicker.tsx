@@ -1,31 +1,42 @@
 import React from "react";
 import { default as MuiDatePicker } from "@material-ui/lab/DatePicker";
-import { TextField } from "@material-ui/core";
+import { FormControl, InputLabel, TextField } from "@material-ui/core";
 
-const DatePicker: React.FC = (): JSX.Element => {
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+type Props = {
+  name: string;
+  value: Date;
+  label: string;
+  onChange: any; //TODO: find type,
+  format?: string;
+  disablePast?: boolean;
+};
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-
+const DatePicker = ({
+  name,
+  value,
+  label,
+  onChange,
+  format = "dd/MM/yyyy",
+  disablePast = true,
+}: Props): JSX.Element => {
   return (
-    <MuiDatePicker
-      disablePast={true}
-      inputFormat={"EEEE do MMM"}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          variant="standard"
-          helperText={"Voucher Date"}
-          margin="none"
-        />
-      )}
-      value={selectedDate}
-      onChange={handleDateChange}
-    />
-
-    // <></>
+    <FormControl fullWidth>
+      <MuiDatePicker
+        disablePast={disablePast}
+        inputFormat={format}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            name={name}
+            variant="standard"
+            helperText={label}
+            margin="none"
+          />
+        )}
+        value={value}
+        onChange={onChange}
+      />
+    </FormControl>
   );
 };
 

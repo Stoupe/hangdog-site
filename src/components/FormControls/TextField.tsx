@@ -1,4 +1,4 @@
-import { TextField as MuiTextField } from "@material-ui/core";
+import { FormControl, TextField as MuiTextField } from "@material-ui/core";
 import styles from "../../styles/FormControls/Controls.module.scss";
 
 import React from "react";
@@ -9,6 +9,7 @@ type Props = {
   label: string;
   onChange: any; //TODO: find type
   number?: boolean;
+  variant?: "standard" | "outlined" | "filled";
 };
 
 const TextField = ({
@@ -17,17 +18,20 @@ const TextField = ({
   label,
   onChange,
   number = false,
+  variant = "standard",
 }: Props): JSX.Element => {
   return (
-    <MuiTextField
-      type={number ? "number" : "string"}
-      className={styles.textField}
-      variant="outlined"
-      value={value}
-      name={name}
-      label={label}
-      onChange={onChange}
-    />
+    <FormControl fullWidth>
+      <MuiTextField
+        type={number ? "number" : "string"}
+        className={styles.textField}
+        variant={variant}
+        value={value}
+        name={name}
+        label={label}
+        onChange={onChange}
+      />
+    </FormControl>
   );
 };
 

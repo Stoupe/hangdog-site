@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, FormControl } from "@material-ui/core";
 import styles from "../../styles/FormControls/Controls.module.scss";
 
 import React from "react";
@@ -11,15 +11,17 @@ const SubmitButton = ({
   title?: string;
 }): JSX.Element => {
   return (
-    <Button
-      className={styles.submitButton}
-      type="submit"
-      variant="contained"
-      color="primary"
-    >
-      {title || "Submit"}
-      {children}
-    </Button>
+    <FormControl fullWidth>
+      <Button
+        className={styles.submitButton}
+        type="submit"
+        variant="contained"
+        color="primary"
+      >
+        {title || "Submit"}
+        {children}
+      </Button>
+    </FormControl>
   );
 };
 

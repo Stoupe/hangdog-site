@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 
-type FormReturnTypes = {
-  values: Record<string, unknown>;
-  setValues: React.Dispatch<React.SetStateAction<Record<string, unknown>>>;
+type FormReturnTypes<T> = {
+  values: T;
+  setValues: React.Dispatch<React.SetStateAction<T>>;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const useForm = (
-  initialFormValues: Record<string, unknown>
-): FormReturnTypes => {
-  const [values, setValues] = useState(initialFormValues);
+function useForm<T>(initialFormValues: T): FormReturnTypes<T> {
+  const [values, setValues] = useState<T>(initialFormValues);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,11 +26,11 @@ const useForm = (
     handleInputChange,
     handleCheckboxChange,
   };
-};
+}
 
 type Props = {
   children: React.ReactNode;
-  onSubmit: any;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   className: string;
 };
 

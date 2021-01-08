@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 
-export interface VoucherForm {
+export type VoucherForm = {
   voucherId: string;
   createdBy: firebase.firestore.DocumentReference;
   createdAt: firebase.firestore.Timestamp;
@@ -10,13 +10,13 @@ export interface VoucherForm {
   activated: boolean;
   redeemed: boolean;
   expiry: firebase.firestore.Timestamp;
-  age?: "adult" | "child/student";
+  age: string;
   shoeHire: boolean;
   harnessHire: boolean;
   chalkHire: boolean;
   numEntries?: number;
   monetaryValue?: number;
-}
+};
 
 export interface Voucher {
   voucherId: string;

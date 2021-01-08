@@ -24,7 +24,8 @@ const Vouchers = (): JSX.Element => {
     <div className={styles.root}>
       <NavBar />
       <Container fullPage invisible>
-        <Container>
+        <Container column>
+          <h1>New Voucher</h1>
           <NewVoucherForm />
         </Container>
 

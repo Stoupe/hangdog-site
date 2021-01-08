@@ -10,6 +10,7 @@ type ContainerProps = {
   column?: boolean;
 };
 
+//TODO: refactor to use Mui Container for styling
 const Container = (props: ContainerProps): JSX.Element => {
   const { children, invisible, fullPage, column } = props;
 
