@@ -6,7 +6,7 @@ type Props = {
   name: string;
   value: Date;
   label: string;
-  onChange: any; //TODO: find type,
+  onChange: (name: string, date: Date) => void;
   format?: string;
   disablePast?: boolean;
 };
@@ -28,13 +28,15 @@ const DatePicker = ({
           <TextField
             {...params}
             name={name}
+            label={label}
             variant="standard"
-            helperText={label}
+            helperText={null}
             margin="none"
           />
         )}
         value={value}
-        onChange={onChange}
+        onChange={(date) => onChange(name, date)}
+        // onChange={onChange}
       />
     </FormControl>
   );

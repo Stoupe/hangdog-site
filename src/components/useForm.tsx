@@ -5,6 +5,7 @@ type FormReturnTypes<T> = {
   setValues: React.Dispatch<React.SetStateAction<T>>;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDateChange: (name: string, date: Date) => void;
 };
 
 function useForm<T>(initialFormValues: T): FormReturnTypes<T> {
@@ -20,11 +21,17 @@ function useForm<T>(initialFormValues: T): FormReturnTypes<T> {
     setValues((prevState) => ({ ...prevState, [name]: checked }));
   };
 
+  const handleDateChange = (name: string, date: Date) => {
+    // const { name, checked } = e.target;
+    setValues((prevState) => ({ ...prevState, [name]: date }));
+  };
+
   return {
     values,
     setValues,
     handleInputChange,
     handleCheckboxChange,
+    handleDateChange,
   };
 }
 

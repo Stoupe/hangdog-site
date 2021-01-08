@@ -9,7 +9,7 @@ export type VoucherForm = {
   details: string;
   activated: boolean;
   redeemed: boolean;
-  expiry: firebase.firestore.Timestamp;
+  expiry: Date;
   age: string;
   shoeHire: boolean;
   harnessHire: boolean;

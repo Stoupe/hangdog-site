@@ -16,13 +16,13 @@ const NewVoucherForm: React.FC = () => {
   const db = useFirebase();
   const { enqueueSnackbar } = useSnackbar();
 
-  const voucher: VoucherForm = {
+  const defaultVoucher: VoucherForm = {
     activated: false,
     redeemed: false,
     createdAt: createTimestamp(new Date()),
     createdBy: db.collection("users").doc("Ctm4UQ2n71Qb5evRU7nAvPlgUry1"), // TODO: use custom staff auth to show creator or else will show 'Hangdog Gym' etc.
     details: "",
-    expiry: createTimestamp(add(new Date(), { months: 6 })),
+    expiry: add(new Date(), { months: 6 }),
     voucherId: createRandomID(),
     age: "Adult",
     numEntries: 0,
@@ -35,14 +35,15 @@ const NewVoucherForm: React.FC = () => {
     values,
     handleInputChange,
     handleCheckboxChange,
-  } = useForm<VoucherForm>(voucher);
+    handleDateChange,
+  } = useForm<VoucherForm>(defaultVoucher);
 
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
 
-    createVoucher(voucher)
+    createVoucher(values)
       .then(() => {
-        enqueueSnackbar("voucher " + voucher.voucherId + " created", {
+        enqueueSnackbar("voucher " + values.voucherId + " created", {
           variant: "success",
         });
       })
@@ -54,6 +55,12 @@ const NewVoucherForm: React.FC = () => {
   return (
     <Form onSubmit={submitForm} className={styles.root}>
       <Grid container spacing={4}>
+        <Grid item xs={12}>
+          {/* <div>{JSON.stringify(values.expiry)}</div> */}
+          {Object.entries(values).map((x) => (
+            <div key={x.toString()}>{x.toString()}</div>
+          ))}
+        </Grid>
         <Grid item xs={12}>
           <Controls.TextField
             number
@@ -78,8 +85,8 @@ const NewVoucherForm: React.FC = () => {
           <Controls.DatePicker
             name="expiry"
             label="Expiry"
-            value={values.expiry.toDate()}
-            onChange={handleInputChange}
+            value={values.expiry}
+            onChange={handleDateChange}
           />
         </Grid>
 
