@@ -66,6 +66,7 @@ const NewVoucherForm: React.FC = () => {
           </Table>
         </Grid>
         <Grid item xs={12}>
+          
           <Controls.TextField
             number
             name="numEntries"

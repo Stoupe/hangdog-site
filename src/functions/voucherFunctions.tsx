@@ -32,7 +32,8 @@ export const createVoucher = async (voucher: VoucherForm): Promise<void> => {
 export const redeemVoucher = async (voucherId: string): Promise<void> => {
   try {
     // const db = useFirebase();
-    const doc = await db.collection("vouchers").doc(voucherId).get();
+    const ref = db.collection("vouchers").doc(voucherId);
+    const doc = await ref.get();
 
     if (!doc.exists) {
       return Promise.reject("Voucher doesn't exist");
@@ -51,8 +52,7 @@ export const redeemVoucher = async (voucherId: string): Promise<void> => {
       );
     }
 
-    //! TODO: Actually change redeemed property on firestore to true
-    return Promise.resolve();
+    await ref.update({ redeemed: true });
   } catch (err) {
     return Promise.reject(err);
   }
