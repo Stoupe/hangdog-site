@@ -36,6 +36,7 @@ const NewVoucherForm: React.FC = () => {
     handleInputChange,
     handleCheckboxChange,
     handleDateChange,
+    handleSelectChange,
   } = useForm<VoucherForm>(defaultVoucher);
 
   const submitForm = (e: React.FormEvent) => {
@@ -55,18 +56,20 @@ const NewVoucherForm: React.FC = () => {
   return (
     <Form onSubmit={submitForm} className={styles.root}>
       <Grid container spacing={4}>
+        {false && (
+          <Grid item xs={12}>
+            <Table size="small">
+              {Object.entries(values).map((x) => (
+                <TableRow key={x.toString()}>
+                  <TableCell>{x[0].toString()}</TableCell>
+                  <TableCell>{x[1].toString()}</TableCell>
+                </TableRow>
+              ))}
+            </Table>
+          </Grid>
+        )}
+
         <Grid item xs={12}>
-          <Table size="small">
-            {Object.entries(values).map((x) => (
-              <TableRow key={x.toString()}>
-                <TableCell>{x[0].toString()}</TableCell>
-                <TableCell>{x[1].toString()}</TableCell>
-              </TableRow>
-            ))}
-          </Table>
-        </Grid>
-        <Grid item xs={12}>
-          
           <Controls.TextField
             number
             name="numEntries"
@@ -82,7 +85,7 @@ const NewVoucherForm: React.FC = () => {
             label="Age"
             value={values.age}
             options={["Child/Student", "Adult"]}
-            onChange={handleInputChange}
+            onChange={handleSelectChange}
           />
         </Grid>
 
@@ -95,7 +98,7 @@ const NewVoucherForm: React.FC = () => {
           />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Controls.Checkbox
             name="harnessHire"
             label="Harness"
@@ -103,19 +106,11 @@ const NewVoucherForm: React.FC = () => {
             onChange={handleCheckboxChange}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Controls.Checkbox
             name="shoeHire"
             label="Shoes"
             checked={values.shoeHire}
-            onChange={handleCheckboxChange}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <Controls.Checkbox
-            name="chalkHire"
-            label="Chalk"
-            checked={values.chalkHire}
             onChange={handleCheckboxChange}
           />
         </Grid>
@@ -135,7 +130,7 @@ const NewVoucherForm: React.FC = () => {
           />
         </Grid>
         <Grid item xs={5}>
-          <Controls.SubmitButton title="Create Voucher(s)" />
+          <Controls.SubmitButton title="Create Voucher" />
         </Grid>
       </Grid>
     </Form>

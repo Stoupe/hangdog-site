@@ -10,7 +10,13 @@ type Props = {
   name: string;
   value: string | number;
   label: string;
-  onChange: any; //TODO: find type
+  onChange: (
+    event: React.ChangeEvent<{
+      name?: string;
+      value: string;
+    }>,
+    child: React.ReactNode
+  ) => void;
   options: string[];
 };
 
@@ -24,7 +30,7 @@ const Select = ({
   return (
     <FormControl fullWidth>
       <InputLabel id="select-label">{label}</InputLabel>
-      <MuiSelect value={options[0]} onChange={onChange}>
+      <MuiSelect value={value} name={name} onChange={onChange}>
         {options.map((option) => (
           <MenuItem key={option} value={option}>
             {option}
