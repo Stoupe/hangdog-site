@@ -12,6 +12,8 @@ import ClimbingDetails from "./ClimbingDetails";
 import { NewBookingContext, UserContext } from "../Contexts";
 import { FirebaseBooking } from "../Types";
 import { bookingHours } from "../variables";
+import { Booking } from "../Schemas/Booking";
+import { useForm } from "../useForm";
 
 // TODO: store current booking in localstorage to save on refresh
 
@@ -39,6 +41,30 @@ const BookingForm: React.FC = () => {
     setBookingName,
     setBookingNotes,
   } = useContext(NewBookingContext);
+
+  // const defaultNewBooking: Booking = {
+  //   bookingType: "basic",
+  //   bookingDate: new Date(),
+  //   bookingName: "",
+  //   bookingNotes: "",
+  //   bookingTime: "",
+  //   createdAt: new Date(),
+  //   createdBy: "henry - hardcoded",
+  //   numSerious: 0,
+  //   numBelayers: 0,
+  //   numClimbers: 0,
+  //   numRopes: 0,
+  //   totalNumInGym: 0,
+  // };
+
+  // const {
+  //   values,
+  //   setValues,
+  //   handleInputChange,
+  //   handleCheckboxChange,
+  //   handleDateChange,
+  //   handleSelectChange,
+  // } = useForm(defaultNewBooking);
 
   const makeBooking = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

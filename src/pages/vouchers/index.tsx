@@ -44,49 +44,10 @@ const Vouchers = (): JSX.Element => {
           </Button>
         </Container> */}
 
-        <Container>
+        <Container column>
+          <h1>Redeem Voucher</h1>
           <RedeemVoucherForm />
         </Container>
-
-        {/* <Container>
-          <FormGroup>
-            <TextField
-              required
-              defaultValue={1}
-              type="number"
-              label="Number of Entries"
-            />
-            <TextField required label="Name" />
-            <TextField label="Message" />
-            <FormGroup row>
-              <FormControlLabel
-                control={<Checkbox name="shoes" color="primary" />}
-                label="Shoes"
-                labelPlacement="bottom"
-              />
-              <FormControlLabel
-                control={<Checkbox name="harness" color="primary" />}
-                label="Harness"
-                labelPlacement="bottom"
-              />
-              <FormControlLabel
-                control={<Checkbox name="harness" color="primary" />}
-                label="Chalk"
-                labelPlacement="bottom"
-              />
-            </FormGroup>
-
-            <FormHelperText>You can display an error</FormHelperText>
-            <Button
-              onClick={createVoucher}
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              Sumbit
-            </Button>
-          </FormGroup>
-        </Container> */}
       </Container>
     </div>
   );

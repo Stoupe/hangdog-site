@@ -56,6 +56,7 @@ const NewVoucherForm: React.FC = () => {
   return (
     <Form onSubmit={submitForm} className={styles.root}>
       <Grid container spacing={4}>
+        {/* Debug voucher info */}
         {false && (
           <Grid item xs={12}>
             <Table size="small">
