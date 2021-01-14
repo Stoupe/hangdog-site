@@ -40,14 +40,14 @@ const Notes: React.FC = () => {
 
   return (
     // <div className={styles.outerContainer}>
-    <Container invisible>
-      {/* <div className={styles.containerHeader}>
-        <h1 className={styles.containerTitle}>Notes</h1>
-        <Button color="inherit" onClick={() => setAddingNewNote(true)}>
-          <AddIcon />
-        </Button>
-      </div> */}
-      <Container column maxWidth="sm">
+    <Container invisible className={styles.root}>
+      {/* <div className={styles.containerHeader}> */}
+      <h1>Notes</h1>
+      <Button color="inherit" onClick={() => setAddingNewNote(true)}>
+        <AddIcon />
+      </Button>
+      {/* </div> */}
+      <Container column>
         {/* <div className={styles.innerContainer}> */}
         <NewNote />
 

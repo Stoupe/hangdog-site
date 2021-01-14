@@ -49,10 +49,12 @@ const Dashboard: React.FC = () => {
         column
         containerPropsObj={{ props: { fixed: true }, defaultComponent: "div" }}
       >
-        <DashboardHeader />
         <Container>
+          <DashboardHeader />
+        </Container>
+        <Container invisible>
           <NotesContext.Provider value={{ addingNewNote, setAddingNewNote }}>
-            <Container invisible title="Notes">
+            <Container invisible className={"asdf"}>
               <Notes />
             </Container>
           </NotesContext.Provider>
@@ -81,7 +83,7 @@ const Dashboard: React.FC = () => {
           >
             <Container invisible>
               <BookingForm />
-              <NewBookingForm />
+              {/* <NewBookingForm /> */}
             </Container>
             <Container invisible>
               <Bookings />

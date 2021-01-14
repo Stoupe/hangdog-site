@@ -1,57 +1,61 @@
 @import "../variables.scss";
 
-.outerContainer {
-  display: flex;
-  flex-direction: column;
-  margin: 0 0.5em;
-  background: blue;
-
-  .containerHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0.5em 1em;
-    // background: red;
-
-    Button {
-      border-radius: 1em;
-    }
-
-    .containerTitle {
-      margin: 0;
-    }
-  }
+.root {
+  max-width: 30rem;
 }
 
-.innerContainer {
-  width: 20em;
-  height: 40em;
-  border-radius: 2em;
-  box-shadow: 0 2px 20px rgba(000, 000, 000, 0.1);
-  display: flex;
-  flex-direction: column;
+// .outerContainer {
+//   display: flex;
+//   flex-direction: column;
+//   margin: 0 0.5em;
+//   background: blue;
 
-  .noteContainer {
-    background: $grey;
-    border-radius: 1em;
-    padding: 1em;
-    margin: 1em;
-    box-shadow: 0 3px 19px rgba(000, 000, 000, 0.14);
+//   .containerHeader {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     margin: 0.5em 1em;
+//     // background: red;
 
-    .noteMessage {
-      font-size: 1em;
-      font-weight: bold;
-      margin-bottom: 1em;
-    }
+//     Button {
+//       border-radius: 1em;
+//     }
 
-    .noteFooter {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+//     .containerTitle {
+//       margin: 0;
+//     }
+//   }
+// }
 
-      .noteAuthor {
-        font-style: italic;
-      }
-    }
-  }
-}
+// .innerContainer {
+//   width: 20em;
+//   height: 40em;
+//   border-radius: 2em;
+//   box-shadow: 0 2px 20px rgba(000, 000, 000, 0.1);
+//   display: flex;
+//   flex-direction: column;
+
+//   .noteContainer {
+//     background: $grey;
+//     border-radius: 1em;
+//     padding: 1em;
+//     margin: 1em;
+//     box-shadow: 0 3px 19px rgba(000, 000, 000, 0.14);
+
+//     .noteMessage {
+//       font-size: 1em;
+//       font-weight: bold;
+//       margin-bottom: 1em;
+//     }
+
+//     .noteFooter {
+//       display: flex;
+//       justify-content: space-between;
+//       align-items: flex-end;
+
+//       .noteAuthor {
+//         font-style: italic;
+//       }
+//     }
+//   }
+// }

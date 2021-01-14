@@ -11,6 +11,7 @@ type ContainerProps = {
   fullPage?: boolean;
   column?: boolean;
   title?: string;
+  className?: string;
 };
 
 const Container = (props: ContainerProps): JSX.Element => {
@@ -21,27 +22,34 @@ const Container = (props: ContainerProps): JSX.Element => {
     fullPage,
     invisible,
     title,
+    className,
   } = props;
 
-  const { props: containerProps } = containerPropsObj || {};
+  const defaultContainerProps: ContainerTypeMap = {
+    props: { maxWidth: false },
+    defaultComponent: "div",
+  };
+
+  // const { props: containerProps } = containerPropsObj || { maxWidth: false };
+
+  const containerProps = containerPropsObj
+    ? containerPropsObj.props
+    : defaultContainerProps.props;
 
   return (
-    <>
-      {title && <h1>{title}</h1>}
-      <MuiContainer
-        {...containerProps}
-        disableGutters
-        className={`
+    <MuiContainer
+      maxWidth={false}
+      // {...containerProps}
+      className={`
+        ${styles[className]} 
     ${styles.container}
     ${fullPage && styles.fullPage}
     ${invisible && styles.invisible} 
     ${column && styles.column}
   `}
-      >
-        {children}
-      </MuiContainer>
-    </>
-
+    >
+      {children}
+    </MuiContainer>
   );
 };
 
