@@ -42,30 +42,6 @@ const BookingForm: React.FC = () => {
     setBookingNotes,
   } = useContext(NewBookingContext);
 
-  // const defaultNewBooking: Booking = {
-  //   bookingType: "basic",
-  //   bookingDate: new Date(),
-  //   bookingName: "",
-  //   bookingNotes: "",
-  //   bookingTime: "",
-  //   createdAt: new Date(),
-  //   createdBy: "henry - hardcoded",
-  //   numSerious: 0,
-  //   numBelayers: 0,
-  //   numClimbers: 0,
-  //   numRopes: 0,
-  //   totalNumInGym: 0,
-  // };
-
-  // const {
-  //   values,
-  //   setValues,
-  //   handleInputChange,
-  //   handleCheckboxChange,
-  //   handleDateChange,
-  //   handleSelectChange,
-  // } = useForm(defaultNewBooking);
-
   const makeBooking = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

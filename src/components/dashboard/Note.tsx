@@ -1,10 +1,12 @@
-import { Button } from "@material-ui/core";
+import { Button, Card, CardContent, CardHeader } from "@material-ui/core";
+import { Title } from "@material-ui/icons";
 import { format } from "date-fns";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { useSnackbar } from "notistack";
 import React from "react";
 import styles from "../../styles/dashboard/Notes.module.scss";
+import Container from "../BasicComponents/Container";
 
 type Props = {
   id: string;
@@ -36,19 +38,26 @@ const Note: React.FC<Props> = ({ id, content, by, date }: Props) => {
   };
 
   return (
-    <div className={styles.noteContainer}>
-      <div className={styles.noteMessage}>{content}</div>
-      <div className={styles.noteFooter}>
-        <div className={styles.noteAuthor}>
-          {by} - {format(date, "dd/MM/yy")}
-        </div>
-        <div className={styles.dismissNote}>
-          <Button color="inherit" variant="contained" onClick={archiveNote}>
-            Done
-          </Button>
-        </div>
-      </div>
-    </div>
+    <Card elevation={10}>
+      {/* <CardHeader title="Note"/> */}
+      <CardContent color="primary">{content}</CardContent>
+    </Card>
+
+    // <Container>{content}</Container>
+
+    // <div className={styles.noteContainer}>
+    //   <div className={styles.noteMessage}>{content}</div>
+    //   <div className={styles.noteFooter}>
+    //     <div className={styles.noteAuthor}>
+    //       {by} - {format(date, "dd/MM/yy")}
+    //     </div>
+    //     <div className={styles.dismissNote}>
+    //       <Button color="inherit" variant="contained" onClick={archiveNote}>
+    //         Done
+    //       </Button>
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 

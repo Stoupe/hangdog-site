@@ -1,5 +1,6 @@
 import Router from "next/router";
 import React, { useContext, useEffect, useState } from "react";
+import Container from "../components/BasicComponents/Container";
 import {
   NewBookingContext,
   NotesContext,
@@ -8,6 +9,7 @@ import {
 import BookingForm from "../components/dashboard/BookingForm";
 import Bookings from "../components/dashboard/Bookings";
 import DashboardHeader from "../components/dashboard/DashboardHeader";
+import NewBookingForm from "../components/dashboard/NewBookingForm";
 import Notes from "../components/dashboard/Notes";
 import { BookingTypes } from "../components/Types";
 import styles from "../styles/dashboard/Dashboard.module.scss";
@@ -40,11 +42,19 @@ const Dashboard: React.FC = () => {
 
   return (
     user && (
-      <div className={styles.dashboard}>
+      // <Container fullPage invisible column props={{ fixed: true }}>
+      <Container
+        fullPage
+        invisible
+        column
+        containerPropsObj={{ props: { fixed: true }, defaultComponent: "div" }}
+      >
         <DashboardHeader />
-        <div className={styles.dashboardContainer}>
+        <Container>
           <NotesContext.Provider value={{ addingNewNote, setAddingNewNote }}>
-            <Notes />
+            <Container invisible title="Notes">
+              <Notes />
+            </Container>
           </NotesContext.Provider>
 
           <NewBookingContext.Provider
@@ -69,11 +79,16 @@ const Dashboard: React.FC = () => {
               setBookingNotes,
             }}
           >
-            <BookingForm />
-            <Bookings />
+            <Container invisible>
+              <BookingForm />
+              <NewBookingForm />
+            </Container>
+            <Container invisible>
+              <Bookings />
+            </Container>
           </NewBookingContext.Provider>
-        </div>
-      </div>
+        </Container>
+      </Container>
     )
   );
 };

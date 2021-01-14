@@ -1,38 +1,48 @@
-import PropTypes from "prop-types";
 import React from "react";
+import { Container as MuiContainer, ContainerTypeMap } from "@material-ui/core";
 
 import styles from "../../styles/BasicComponents/Container.module.scss";
 
 type ContainerProps = {
+  containerPropsObj?: ContainerTypeMap;
+
   children?: React.ReactNode;
   invisible?: boolean;
   fullPage?: boolean;
   column?: boolean;
+  title?: string;
 };
 
-//TODO: refactor to use Mui Container for styling
 const Container = (props: ContainerProps): JSX.Element => {
-  const { children, invisible, fullPage, column } = props;
+  const {
+    children,
+    containerPropsObj,
+    column,
+    fullPage,
+    invisible,
+    title,
+  } = props;
+
+  const { props: containerProps } = containerPropsObj || {};
 
   return (
-    <div
-      className={`
-        ${styles.container}
-        ${fullPage && styles.fullPage}
-        ${invisible && styles.invisible} 
-        ${column && styles.column}
-      `}
-    >
-      {children}
-    </div>
+    <>
+      {title && <h1>{title}</h1>}
+      <MuiContainer
+        {...containerProps}
+        disableGutters
+        className={`
+    ${styles.container}
+    ${fullPage && styles.fullPage}
+    ${invisible && styles.invisible} 
+    ${column && styles.column}
+  `}
+      >
+        {children}
+      </MuiContainer>
+    </>
+
   );
 };
-
-// Container.propTypes = {
-//   children: PropTypes.node.isRequired,
-//   invisible: PropTypes.bool,
-//   fullPage: PropTypes.bool,
-//   column: PropTypes.bool,
-// };
 
 export default Container;

@@ -8,6 +8,7 @@ import { NotesContext } from "../Contexts";
 import NewNote from "./NewNote";
 import Note from "./Note";
 import { FirebaseNote } from "../Types";
+import Container from "../BasicComponents/Container";
 
 const Notes: React.FC = () => {
   const [allNotes, setAllNotes] = useState({});
@@ -38,14 +39,16 @@ const Notes: React.FC = () => {
   }, []);
 
   return (
-    <div className={styles.outerContainer}>
-      <div className={styles.containerHeader}>
+    // <div className={styles.outerContainer}>
+    <Container invisible>
+      {/* <div className={styles.containerHeader}>
         <h1 className={styles.containerTitle}>Notes</h1>
         <Button color="inherit" onClick={() => setAddingNewNote(true)}>
           <AddIcon />
         </Button>
-      </div>
-      <div className={styles.innerContainer}>
+      </div> */}
+      <Container column maxWidth="sm">
+        {/* <div className={styles.innerContainer}> */}
         <NewNote />
 
         {Object.entries(allNotes).map((note: [string, FirebaseNote]) => (
@@ -57,8 +60,8 @@ const Notes: React.FC = () => {
             date={note[1].timestamp.toDate()}
           />
         ))}
-      </div>
-    </div>
+      </Container>
+    </Container>
   );
 };
 
