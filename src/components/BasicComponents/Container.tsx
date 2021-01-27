@@ -30,7 +30,7 @@ const Container = (props: ContainerProps): JSX.Element => {
     defaultComponent: "div",
   };
 
-  // const { props: containerProps } = containerPropsObj || { maxWidth: false };
+  // const { props: containerProps } = containerPropsObj ?? { maxWidth: false };
 
   const containerProps = containerPropsObj
     ? containerPropsObj.props
@@ -38,6 +38,7 @@ const Container = (props: ContainerProps): JSX.Element => {
 
   return (
     <MuiContainer
+      style={{ display: "flex" }}
       maxWidth={false}
       // {...containerProps}
       className={`

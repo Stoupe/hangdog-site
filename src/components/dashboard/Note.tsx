@@ -38,12 +38,17 @@ const Note: React.FC<Props> = ({ id, content, by, date }: Props) => {
   };
 
   return (
-    <Card elevation={10}>
-      {/* <CardHeader title="Note"/> */}
-      <CardContent color="primary">{content}</CardContent>
-    </Card>
+    // <Card elevation={10}>
+    //   {/* <CardHeader title="Note"/> */}
+    //   <CardContent color="primary">{content}</CardContent>
+    // </Card>
 
-    // <Container>{content}</Container>
+    <Container column>
+      <Container invisible>{content}</Container>
+      <Container>
+        {by} - {format(date, "dd/MM/yy")}
+      </Container>
+    </Container>
 
     // <div className={styles.noteContainer}>
     //   <div className={styles.noteMessage}>{content}</div>

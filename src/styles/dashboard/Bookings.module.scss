@@ -1,44 +1,44 @@
 @import "../variables.scss";
 
-.outerContainer {
-  display: flex;
-  flex-direction: column;
-  margin: 0 0.5em;
+// .outerContainer {
+//   display: flex;
+//   flex-direction: column;
+//   margin: 0 0.5em;
 
-  .containerHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0.5em 1em;
-    // background: red;
+//   .containerHeader {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     margin: 0.5em 1em;
+//     // background: red;
 
-    .arrows {
-      Button {
-        // margin: 0.5em;
-        margin-left: 0.5em;
-        border-radius: 1em;
-        // background: #fff;
-        // box-shadow: 0 0 2em rgba(000, 000, 000, 0.1);
-      }
-    }
-    .containerTitle {
-      margin: 0;
-    }
-  }
-}
+//     .arrows {
+//       Button {
+//         // margin: 0.5em;
+//         margin-left: 0.5em;
+//         border-radius: 1em;
+//         // background: #fff;
+//         // box-shadow: 0 0 2em rgba(000, 000, 000, 0.1);
+//       }
+//     }
+//     .containerTitle {
+//       margin: 0;
+//     }
+//   }
+// }
 
-.innerContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+// .innerContainer {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-around;
+//   align-items: center;
 
-  width: 26em;
-  height: 40em;
-  padding: 1em;
-  border-radius: 2em;
-  box-shadow: 0 2px 20px rgba(000, 000, 000, 0.1);
-}
+//   width: 26em;
+//   height: 40em;
+//   padding: 1em;
+//   border-radius: 2em;
+//   box-shadow: 0 2px 20px rgba(000, 000, 000, 0.1);
+// }
 
 .hourInfo {
   box-shadow: 0 2px 20px rgba(000, 000, 000, 0.1);

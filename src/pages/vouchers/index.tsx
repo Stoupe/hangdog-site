@@ -21,35 +21,24 @@ const Vouchers = (): JSX.Element => {
   };
 
   return (
-    <div className={styles.root}>
+    // <div className={styles.root}>
+    <>
       <NavBar />
-      <Container fullPage invisible>
-        <Container column>
-          <h1>New Voucher</h1>
-          <NewVoucherForm />
-        </Container>
+      <Container fullPage invisible column>
+        <Container invisible>
+          <Container column>
+            <h1>New Voucher</h1>
+            <NewVoucherForm />
+          </Container>
 
-        {/* <Container column>
-          <Button color="inherit" variant="contained">
-            Create Vouchers
-          </Button>
-          <Button color="inherit" variant="contained">
-            Create Custom Voucher
-          </Button>
-          <Button color="inherit" variant="contained">
-            Activate Voucher
-          </Button>
-          <Button color="inherit" variant="contained">
-            Redeem Voucher
-          </Button>
-        </Container> */}
-
-        <Container column>
-          <h1>Redeem Voucher</h1>
-          <RedeemVoucherForm />
+          <Container column>
+            <h1>Redeem Voucher</h1>
+            <RedeemVoucherForm />
+          </Container>
         </Container>
       </Container>
-    </div>
+    </>
+    // </div>
   );
 };
 

@@ -10,6 +10,7 @@ import BookingForm from "../components/dashboard/BookingForm";
 import Bookings from "../components/dashboard/Bookings";
 import DashboardHeader from "../components/dashboard/DashboardHeader";
 import NewBookingForm from "../components/dashboard/NewBookingForm";
+import NewBookings from "../components/dashboard/NewBookings";
 import Notes from "../components/dashboard/Notes";
 import { BookingTypes } from "../components/Types";
 import styles from "../styles/dashboard/Dashboard.module.scss";
@@ -82,11 +83,12 @@ const Dashboard: React.FC = () => {
             }}
           >
             <Container invisible>
-              <BookingForm />
-              {/* <NewBookingForm /> */}
+              {/* <BookingForm /> */}
+              <NewBookingForm />
             </Container>
             <Container invisible>
-              <Bookings />
+              {/* <Bookings /> */}
+              <NewBookings />
             </Container>
           </NewBookingContext.Provider>
         </Container>

@@ -39,16 +39,15 @@ const Notes: React.FC = () => {
   }, []);
 
   return (
-    // <div className={styles.outerContainer}>
-    <Container invisible className={styles.root}>
-      {/* <div className={styles.containerHeader}> */}
-      <h1>Notes</h1>
-      <Button color="inherit" onClick={() => setAddingNewNote(true)}>
-        <AddIcon />
-      </Button>
-      {/* </div> */}
+    <Container invisible column className={styles.root}>
+      <Container invisible>
+        <h1>Notes</h1>
+        <Button color="inherit" onClick={() => setAddingNewNote(true)}>
+          <AddIcon />
+        </Button>
+      </Container>
+
       <Container column>
-        {/* <div className={styles.innerContainer}> */}
         <NewNote />
 
         {Object.entries(allNotes).map((note: [string, FirebaseNote]) => (
