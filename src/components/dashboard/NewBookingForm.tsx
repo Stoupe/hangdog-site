@@ -3,6 +3,7 @@ import { Booking } from "../Schemas/Booking";
 import { Form, useForm } from "../useForm";
 import * as Controls from "../FormControls/Controls";
 import Container from "./../BasicComponents/Container";
+import { createTimestamp } from "../../functions/firebase";
 
 const NewBookingForm: React.FC = (): JSX.Element => {
   const defaultNewBooking: Booking = {
@@ -11,7 +12,7 @@ const NewBookingForm: React.FC = (): JSX.Element => {
     bookingName: "",
     bookingNotes: "",
     bookingTime: "",
-    createdAt: new Date().toString(),
+    createdAt: createTimestamp(new Date()),
     createdBy: "henry - hardcoded",
     numSerious: 0,
     numBelayers: 0,
