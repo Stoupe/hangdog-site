@@ -28,8 +28,8 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
     () =>
       createMuiTheme({
         palette: {
-          // mode: prefersDarkMode ? "dark" : "light", //? automatically switch between modes
-          mode: "light",
+          mode: prefersDarkMode ? "dark" : "light", //? automatically switch between modes
+          // mode: "dark",
           primary: {
             main: "#95d2a3",
             contrastText: "#ffffff",
@@ -40,10 +40,23 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
           },
         },
         typography: {
+          fontFamily: "Product Sans",
           button: {
             textTransform: "none",
           },
           // fontFamily: "Product Sans Medium",
+        },
+        components: {
+          // Name of the component
+          MuiButton: {
+            styleOverrides: {
+              // Name of the slot
+              root: {
+                // Some CSS
+                // fontSize: "1rem",
+              },
+            },
+          },
         },
       }),
     [prefersDarkMode]

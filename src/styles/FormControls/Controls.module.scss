@@ -12,3 +12,15 @@
 //   margin: 0 !important; //TODO !important isn't clean
 //   // background: yellowgreen;
 // }
+
+.root {
+  display: flex;
+  flex-direction: row;
+}
+
+.datePicker {
+  display: flex;
+  flex-direction: row;
+  background: blue;
+  // width: 100%;
+}

@@ -1,4 +1,11 @@
-import { Button, Card, CardContent, CardHeader } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import { Title } from "@material-ui/icons";
 import { format } from "date-fns";
 import firebase from "firebase/app";
@@ -44,9 +51,13 @@ const Note: React.FC<Props> = ({ id, content, by, date }: Props) => {
     // </Card>
 
     <Container column>
-      <Container invisible>{content}</Container>
+      <Container invisible>
+        <Typography variant="body1">{content}</Typography>
+      </Container>
       <Container>
-        {by} - {format(date, "dd/MM/yy")}
+        <Typography variant="body1">
+          {by} - {format(date, "dd/MM/yy")}
+        </Typography>
       </Container>
     </Container>
 

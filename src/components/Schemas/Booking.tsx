@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 export interface Booking {
   bookingType: "basic" | "complex" | "birthday";
   bookingName: string;
-  bookingDate: string;
+  bookingDate: Date;
   bookingNotes: string;
   bookingTime: string;
   createdAt: firebase.firestore.Timestamp;

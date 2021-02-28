@@ -1,14 +1,22 @@
-import { Button } from "@material-ui/core";
+import { Box, Button, makeStyles } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import styles from "../../styles/dashboard/Notes.module.scss";
+// import styles from "../../styles/dashboard/Notes.module.scss";
 import { NotesContext } from "../Contexts";
 import NewNote from "./NewNote";
 import Note from "./Note";
 import { FirebaseNote } from "../Types";
 import Container from "../BasicComponents/Container";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    borderRadius: "2rem",
+    border: ".5rem solid #222",
+    maxWidth: "20vw",
+  },
+}));
 
 const Notes: React.FC = () => {
   const [allNotes, setAllNotes] = useState({});
@@ -38,30 +46,38 @@ const Notes: React.FC = () => {
     };
   }, []);
 
+  const classes = useStyles();
+
   return (
-    <Container invisible column className={styles.root}>
-      <Container invisible>
-        <h1>Notes</h1>
-        <Button color="inherit" onClick={() => setAddingNewNote(true)}>
-          <AddIcon />
-        </Button>
-      </Container>
-
-      <Container column>
-        <NewNote />
-
-        {Object.entries(allNotes).map((note: [string, FirebaseNote]) => (
-          <Note
-            key={note[0]}
-            id={note[0]}
-            content={note[1].content}
-            by={note[1].by}
-            date={note[1].timestamp.toDate()}
-          />
-        ))}
-      </Container>
-    </Container>
+    <Box className={classes.root}>
+      <h1>Notes</h1>
+    </Box>
   );
+
+  // return (
+  //   <Container invisible column className={styles.root}>
+  //     <Container invisible>
+  //       <h1>Notes</h1>
+  //       <Button color="inherit" onClick={() => setAddingNewNote(true)}>
+  //         <AddIcon />
+  //       </Button>
+  //     </Container>
+
+  //     <Container column>
+  //       <NewNote />
+
+  //       {Object.entries(allNotes).map((note: [string, FirebaseNote]) => (
+  //         <Note
+  //           key={note[0]}
+  //           id={note[0]}
+  //           content={note[1].content}
+  //           by={note[1].by}
+  //           date={note[1].timestamp.toDate()}
+  //         />
+  //       ))}
+  //     </Container>
+  //   </Container>
+  // );
 };
 
 export default Notes;

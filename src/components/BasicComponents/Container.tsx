@@ -1,5 +1,10 @@
 import React from "react";
-import { Container as MuiContainer, ContainerTypeMap } from "@material-ui/core";
+import {
+  Box,
+  Container as MuiContainer,
+  ContainerTypeMap,
+  Paper,
+} from "@material-ui/core";
 
 import styles from "../../styles/BasicComponents/Container.module.scss";
 
@@ -38,11 +43,13 @@ const Container = (props: ContainerProps): JSX.Element => {
 
   return (
     <MuiContainer
+      // style={className}
+      // elevation={0}
       style={{ display: "flex" }}
       maxWidth={false}
       // {...containerProps}
       className={`
-        ${styles[className]} 
+      ${styles[className]}
     ${styles.container}
     ${fullPage && styles.fullPage}
     ${invisible && styles.invisible} 
