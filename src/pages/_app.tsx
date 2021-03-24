@@ -5,6 +5,7 @@ import "../styles/globals.css";
 import { useFirebase } from "../functions/firebase";
 import firebase from "firebase/app";
 import { SnackbarProvider } from "notistack";
+
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
