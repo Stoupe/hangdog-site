@@ -7,7 +7,7 @@ import { logInWithGoogle, logOut } from "../functions/authFunctions";
 import styles from "../styles/HomePage.module.scss";
 import { useSnackbar } from "notistack";
 
-const classes = useStyles(() => {});
+// const classes = useStyles(() => {});
 
 const HomePage: React.FC = () => {
   const { user, setUser } = useContext(UserContext);

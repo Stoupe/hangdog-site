@@ -3,16 +3,14 @@ import { Box } from "@material-ui/core";
 
 type Props = {
   width: string;
+  children?: React.ReactNode;
 };
 
-const DashboardContentContainer: React.FC<Props> = ({
-  children,
-  width,
-}): JSX.Element => {
+const DashboardContentContainer = ({ children, width }: Props): JSX.Element => {
   return (
     <Box
       sx={{
-        width: { width },
+        width: "100%",
         height: "100%",
         borderRadius: 20,
         background: "yellow",
