@@ -7,6 +7,8 @@ import { logInWithGoogle, logOut } from "../functions/authFunctions";
 import styles from "../styles/HomePage.module.scss";
 import { useSnackbar } from "notistack";
 
+const classes = useStyles(() => {});
+
 const HomePage: React.FC = () => {
   const { user, setUser } = useContext(UserContext);
   const { enqueueSnackbar } = useSnackbar();
@@ -60,7 +62,14 @@ const HomePage: React.FC = () => {
                 </Button>
               </Link>
               <Link href="vouchers">
-                <Button variant="contained" color="inherit">Vouchers</Button>
+                <Button variant="contained" color="inherit">
+                  Vouchers
+                </Button>
+              </Link>
+              <Link href="vouchers-beta">
+                <Button variant="contained" color="inherit">
+                  Vouchers
+                </Button>
               </Link>
               <Button
                 variant="contained"

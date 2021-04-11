@@ -38,6 +38,10 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
             main: "#e35454",
             contrastText: "#ffffff",
           },
+          info: {
+            main: "#77B4ED",
+            contrastText: "#ffffff",
+          },
         },
         typography: {
           fontFamily: "Product Sans",
@@ -48,15 +52,15 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
         },
         components: {
           // Name of the component
-          MuiButton: {
-            styleOverrides: {
-              // Name of the slot
-              root: {
-                // Some CSS
-                // fontSize: "1rem",
-              },
-            },
-          },
+          // MuiButton: {
+          // styleOverrides: {
+          // Name of the slot
+          // root: {
+          // Some CSS
+          // fontSize: "1rem",
+          // },
+          // },
+          // },
         },
       }),
     [prefersDarkMode]
