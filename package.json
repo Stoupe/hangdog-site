@@ -18,7 +18,7 @@
     "@material-ui/lab": "^5.0.0-alpha.28",
     "@material-ui/styles": "^5.0.0-alpha.28",
     "caniuse-lite": "^1.0.30001192",
-    "date-fns": "^2.16.1",
+    "date-fns": "^2.20.1",
     "firebase": "^8.0.0",
     "formik": "^2.2.6",
     "framer-motion": "^2.9.5",
