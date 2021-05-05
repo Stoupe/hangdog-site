@@ -17,7 +17,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^5.0.0-alpha.30",
     "@material-ui/styles": "^5.0.0-alpha.28",
-    "caniuse-lite": "^1.0.30001192",
+    "caniuse-lite": "^1.0.30001222",
     "date-fns": "^2.21.0",
     "firebase": "^8.4.1",
     "formik": "^2.2.6",
