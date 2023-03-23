@@ -2394,9 +2394,13 @@ ms@2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz"
 
-nanoid@^3.1.16, nanoid@^3.1.20:
+nanoid@^3.1.16:
   version "3.1.22"
   resolved "https://registry.npmjs.org/nanoid/-/nanoid-3.1.22.tgz"
+
+nanoid@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-4.0.1.tgz#398d7ccfdbf9faf2231b2ca7e8fff5dbca6a509b"
 
 native-url@0.3.4:
   version "0.3.4"
